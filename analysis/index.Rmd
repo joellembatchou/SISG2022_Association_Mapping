@@ -21,7 +21,7 @@ The module has 10 sessions, each of 80 minutes. The standard format for a sessio
 * 30 minutes of exercises for you to try, with small-group "breakout" Zoom sessions available, attended by other class participants, and Teaching Assistants
 * 15 minute discussion of exercises, where the instructors will present possible solutions and answer questions
 
-Please join the module's [Slack channel](www.expage.com), where you can ask questions and see real-time updates from the instructors and TAs.
+Please join the module's [Slack channel](TBD), where you can ask questions and see real-time updates from the instructors and TAs.
 Each session builds on previous sessions so you will get maximum benefit by attending every session live and in sequence.
 
 The tentative course schedule is below.
@@ -29,14 +29,14 @@ The tentative course schedule is below.
 
 ## Pre-requisites
 
-**Prior to the module**, please install working versions of:
+**Prior to the module**, please install working and latest versions of:
 
 * R (Version 4.1+): https://www.r-project.org/
-* RStudio (Version 1.4+): https://rstudio.com/products/rstudio/download/
-* PLINK (Version 1.9): available here
-* PLINK (Version 2.0): available here
-* REGENIE (Version 3.1.1+): available here
-* Zoom (latest version): https://zoom.us/
+* RStudio (Version 1.4+) : https://rstudio.com/products/rstudio/download/
+* PLINK 1.9 : https://www.cog-genomics.org/plink2/
+* PLINK 2.0 : https://www.cog-genomics.org/plink2.0/
+* REGENIE : https://github.com/rgcgithub/regenie/releases/
+* Zoom : https://zoom.us/
 
 All are free software. 
 REGENIE requires MAC/Linux system; if you have a Windows laptop, you can install docker to setup a Linux image (see here).
@@ -52,6 +52,6 @@ This is a tentative schedule. All times listed below for the schedule are Pacifi
 
 ## Datasets
 
-All individual data files below can be downloaded from two zipped folder from dropbox:
+All individual data files below can be downloaded from two zipped folder from dropbox.
 
 Alternatively, you can download each of the data files in the Github repository.
