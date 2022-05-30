@@ -20,10 +20,10 @@ The module has 10 sessions, each of 80 minutes. The standard format for a sessio
 * 45 minutes of lecture material that will be recorded via Zoom live and posted at the end of the day
 * 30 minutes of exercises for you to try, with small-group "breakout" Zoom sessions available, attended by other class participants, and Teaching Assistants
 * 15 minute discussion of exercises, where the instructors will present possible solutions and answer questions
+
 Please join the module's [Slack channel](www.expage.com), where you can ask questions and see real-time updates from the instructors and TAs.
 
 We will cover a total of 8 sessions split between July 25-27th. The tentative course schedule is below.
-Material will be delivered via zoom by live lectures and live practical sessions, with additional reading materials and/or slides also provided. 
 Each session builds on previous sessions so you will get maximum benefit by attending every session live and in sequence.
 
 
