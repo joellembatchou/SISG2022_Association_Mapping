@@ -8,6 +8,9 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r echo = FALSE, message=FALSE, warning=FALSE}
+require(dplyr)
+```
 
 Instructors: Loic Yengo & Joelle Mbatchou
 
@@ -15,7 +18,7 @@ You will find on this website link to lecture slides, exercises including some s
 
 
 ## Session Format
-The module has 10 sessions, each of 80 minutes. The standard format for a session is approximately:
+The module has 10 sessions, each of 90 minutes. The standard format for a session is approximately:
 
 * 45 minutes of lecture material that will be recorded via Zoom live and posted at the end of the day
 * 30 minutes of exercises for you to try, with small-group "breakout" Zoom sessions available, attended by other class participants, and Teaching Assistants
@@ -59,8 +62,42 @@ install.packages("ggplot2")
 
 This is a tentative schedule. All times listed below for the schedule are Pacific Standard Time (Seattle time, PST).
 
+```{r echo = FALSE, results = "asis"}
+data.frame(
+  Time = c("8:00am-9:20am", "9:40am-11:00am"),
+  Session = 1:2,
+  Topic = c("Introduction, Case Control Association Testing",
+    "Association Testing with Quantitative Traits"),
+  Lecture = c(
+    "[Intro](link), [Lecture](link), [Video](link4)",
+    "[Lecture](link3), [Video](link4)" 
+      ),
+  "Exercises" = c(
+    "[Exercises](.pdf), Video",
+    "[Exercises](.pdf), Video"
+  ),
+  "Solution key" = c(
+    "Key: [.html ], [.Rmd]",
+    "Key: [.html ], [.Rmd]"
+  )
+  ) %>%
+knitr::kable("html", escape = FALSE, 
+  caption = "Monday, July 25th", 
+  align = c('l', 'c', 'l', 'l', 'l')
+) %>%
+kableExtra::kable_styling(bootstrap_options = c("hover", "condensed","striped"))
+```
+
+
 ## Datasets
 
 All individual data files below can be downloaded from two zipped folder from dropbox.
 
 Alternatively, you can download each of the data files in the Github repository.
+
+## Additional resources
+
+* A tutorial for the SNPRelate package is available here: SNPRelate Tutorial
+* 2009 AJHG article by Benyamin et al for a GWAS of Transferrin
+* 2016 TPB Paper on EIGENANALYSIS (PCA) for population Structure Inference and Admixture Estimation
+* HapMap MXL Individual Ancestry Figure (Supervised Learning)
