@@ -8,4 +8,34 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+Welcome to the website for the Summer Institue in Statistical Genetics module: Association mapping and Sequencing.
+
+## Session Format
+The module has 10 sessions, each of 80 minutes. The standard format for a session is approximately:
+
+* 45 minutes of lecture material that will be recorded via Zoom live and posted at the end of the day
+* 30 minutes of exercises for you to try, with small-group "breakout" Zoom sessions available, attended by other class participants, and Teaching Assistants
+* 15 minute discussion of exercises, where the instructors will present possible solutions and answer questions
+Please join the module's [Slack channel](www.expage.com), where you can ask questions and see real-time updates from the instructors and TAs.
+
+We will cover a total of 8 sessions split between July 25-28th. The course schedule is available here.
+
+## Pre-requisites
+
+Prior to the module, please install up-to-date versions of:
+* R (Version 4.1): available from this list of sites
+* RStudio (Version 1.4): available here
+* Plink (Version 1.9): available here
+* Plink (Version 2.0): available here
+* Regenie (Version 3.1.1): available here
+
+All three are free software (Regenie requires MAC/Linux system). If you have a Windows laptop, you can install docker to setup a Linux image (see here).
+
+The following R packages from CRAN will be used and should be installed prior to the module:
+* qqman
+The R commands below can be used to install the CRAN R package:
+```{r}
+install.packages("qqman")
+```
+
+
