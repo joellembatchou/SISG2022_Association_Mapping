@@ -1,17 +1,22 @@
 name: "SISG2022_Association_Mapping"
 output_dir: ../docs
 navbar:
-  title: "SISG2022_Association_Mapping"
+  title: "SISG2022: Association Mapping"
   left:
   - text: Home
     href: index.html
-  - text: About
+  - text: Lectures
+    href: about.html
+  - text: Exercises
     href: about.html
   - text: License
     href: license.html
+  right:
+  - text: Github
+    href: https://github.com/stephenslab/wflow-divvy
 output:
   workflowr::wflow_html:
     toc: yes
     toc_float: yes
-    theme: cosmo
+    theme: readable
     highlight: textmate
