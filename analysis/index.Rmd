@@ -3,6 +3,7 @@ title: "Module 15 - Association mapping: GWAS & sequencing data"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
+    toc: false
 editor_options:
   chunk_output_type: console
 ---
@@ -23,7 +24,7 @@ The module has 10 sessions, each of 80 minutes. The standard format for a sessio
 Please join the module's [Slack channel](www.expage.com), where you can ask questions and see real-time updates from the instructors and TAs.
 Each session builds on previous sessions so you will get maximum benefit by attending every session live and in sequence.
 
-The tentative course schedule is [below](#Schedule).
+The tentative course schedule is below.
 
 
 ## Pre-requisites
