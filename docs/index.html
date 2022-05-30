@@ -32,6 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -481,13 +483,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongd980006">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstronga6a5e9c">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> d980006
+aria-hidden="true"></span> <strong>Repository version:</strong> a6a5e9c
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongd980006"
+<div id="strongRepositoryversionstronga6a5e9c"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -496,7 +498,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version d980006.
+The results in this page were generated with repository version a6a5e9c.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -510,6 +512,9 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Untracked files:
+    Untracked:  analysis/.index.Rmd.swp
+
 Unstaged changes:
     Modified:   analysis/_site.yml
 
@@ -556,6 +561,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+a6a5e9c
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-05-30
+</td>
+<td>
+update site
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+473335c
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-05-30
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1214,7 +1253,7 @@ Start workflowr project.
 including some solutions, and link to the class video recordings.</p>
 <div id="session-format" class="section level2">
 <h2>Session Format</h2>
-<p>The module has 10 sessions, each of 80 minutes. The standard format
+<p>The module has 10 sessions, each of 90 minutes. The standard format
 for a session is approximately:</p>
 <ul>
 <li>45 minutes of lecture material that will be recorded via Zoom live
@@ -1262,6 +1301,76 @@ install.packages(&quot;ggplot2&quot;)</code></pre>
 <h2>Schedule</h2>
 <p>This is a tentative schedule. All times listed below for the schedule
 are Pacific Standard Time (Seattle time, PST).</p>
+<table class="table table-hover table-condensed table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+Monday, July 25th
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Time
+</th>
+<th style="text-align:center;">
+Session
+</th>
+<th style="text-align:left;">
+Topic
+</th>
+<th style="text-align:left;">
+Lecture
+</th>
+<th style="text-align:left;">
+Exercises
+</th>
+<th style="text-align:left;">
+Solution.key
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+8:00am-9:20am
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:left;">
+Introduction, Case Control Association Testing
+</td>
+<td style="text-align:left;">
+<a href="link">Intro</a>, <a href="link">Lecture</a>, <a
+href="link4">Video</a>
+</td>
+<td style="text-align:left;">
+<a href=".pdf">Exercises</a>, Video
+</td>
+<td style="text-align:left;">
+Key: [.html ], [.Rmd]
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9:40am-11:00am
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:left;">
+Association Testing with Quantitative Traits
+</td>
+<td style="text-align:left;">
+<a href="link3">Lecture</a>, <a href="link4">Video</a>
+</td>
+<td style="text-align:left;">
+<a href=".pdf">Exercises</a>, Video
+</td>
+<td style="text-align:left;">
+Key: [.html ], [.Rmd]
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="datasets" class="section level2">
 <h2>Datasets</h2>
@@ -1269,6 +1378,17 @@ are Pacific Standard Time (Seattle time, PST).</p>
 folder from dropbox.</p>
 <p>Alternatively, you can download each of the data files in the Github
 repository.</p>
+</div>
+<div id="additional-resources" class="section level2">
+<h2>Additional resources</h2>
+<ul>
+<li>A tutorial for the SNPRelate package is available here: SNPRelate
+Tutorial</li>
+<li>2009 AJHG article by Benyamin et al for a GWAS of Transferrin</li>
+<li>2016 TPB Paper on EIGENANALYSIS (PCA) for population Structure
+Inference and Admixture Estimation</li>
+<li>HapMap MXL Individual Ancestry Figure (Supervised Learning)</li>
+</ul>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1293,19 +1413,23 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] workflowr_1.7.0
+[1] dplyr_1.0.2     workflowr_1.7.0
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8.3     rstudioapi_0.13  knitr_1.31       whisker_0.4     
- [5] magrittr_1.5     getPass_0.2-2    R6_2.4.1         rlang_1.0.1     
- [9] fastmap_1.1.0    stringr_1.4.0    httr_1.4.3       tools_3.6.1     
-[13] xfun_0.31        cli_3.1.1        jquerylib_0.1.4  git2r_0.30.1    
-[17] htmltools_0.5.2  yaml_2.2.1       digest_0.6.25    rprojroot_2.0.3 
-[21] tibble_2.1.3     crayon_1.3.4     processx_3.5.3   callr_3.7.0     
-[25] later_1.3.0      sass_0.4.0       promises_1.2.0.1 fs_1.5.2        
-[29] ps_1.7.0         glue_1.6.1       evaluate_0.14    rmarkdown_2.14  
-[33] stringi_1.4.6    bslib_0.3.1      pillar_1.4.3     compiler_3.6.1  
-[37] jsonlite_1.7.2   httpuv_1.6.5     pkgconfig_2.0.3 </code></pre>
+ [1] Rcpp_1.0.8.3      compiler_3.6.1    pillar_1.4.3      bslib_0.3.1      
+ [5] later_1.3.0       git2r_0.30.1      jquerylib_0.1.4   tools_3.6.1      
+ [9] getPass_0.2-2     digest_0.6.25     viridisLite_0.3.0 lifecycle_1.0.1  
+[13] jsonlite_1.7.2    evaluate_0.14     tibble_2.1.3      pkgconfig_2.0.3  
+[17] rlang_1.0.1       cli_3.1.1         rstudioapi_0.13   yaml_2.2.1       
+[21] xfun_0.31         fastmap_1.1.0     kableExtra_1.3.4  xml2_1.3.3       
+[25] httr_1.4.3        stringr_1.4.0     knitr_1.31        systemfonts_1.0.2
+[29] generics_0.0.2    vctrs_0.3.8       fs_1.5.2          sass_0.4.0       
+[33] webshot_0.5.3     tidyselect_1.1.0  rprojroot_2.0.3   svglite_2.1.0    
+[37] glue_1.6.1        R6_2.4.1          processx_3.5.3    rmarkdown_2.14   
+[41] purrr_0.3.3       callr_3.7.0       magrittr_1.5      whisker_0.4      
+[45] scales_1.1.1      ps_1.7.0          promises_1.2.0.1  htmltools_0.5.2  
+[49] rvest_1.0.2       colorspace_2.0-0  httpuv_1.6.5      stringi_1.4.6    
+[53] munsell_0.5.0     crayon_1.3.4     </code></pre>
 </div>
 </div>
 
