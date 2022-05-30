@@ -31,6 +31,7 @@ Each session builds on previous sessions so you will get maximum benefit by atte
 ## Pre-requisites
 
 **Prior to the module**, please install working versions of:
+
 * R (Version 4.1+): https://www.r-project.org/
 * RStudio (Version 1.4+): https://rstudio.com/products/rstudio/download/
 * PLINK (Version 1.9): available here
