@@ -8,7 +8,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-**Welcome to the website for the Summer Institue in Statistical Genetics module: Association mapping and Sequencing.**
 
 Instructors: Loic Yengo & Joelle Mbatchou
 
