@@ -1,7 +1,7 @@
 name: "SISG2022_Association_Mapping"
 output_dir: ../docs
 navbar:
-  title: "SISG2022 Module 22"
+  title: "SISG2022 Module 15"
   left:
   - text: Home
     href: index.html
