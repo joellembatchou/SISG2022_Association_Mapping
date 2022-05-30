@@ -1,5 +1,5 @@
 ---
-title: "Module XX: Association mapping & Sequencing"
+title: "Module 15: Association mapping & Sequencing"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -24,34 +24,34 @@ The module has 10 sessions, each of 80 minutes. The standard format for a sessio
 Please join the module's [Slack channel](www.expage.com), where you can ask questions and see real-time updates from the instructors and TAs.
 
 We will cover a total of 8 sessions split between July 25-27th. The tentative course schedule is below.
+Material will be delivered via zoom by live lectures and live practical sessions, with additional reading materials and/or slides also provided. 
+Each session builds on previous sessions so you will get maximum benefit by attending every session live and in sequence.
 
 
 ## Pre-requisites
 
-**Prior to the module**, please install up-to-date versions of:
-* R (Version 4.1+): available from this list of sites
-* RStudio (Version 1.4+): available here
+**Prior to the module**, please install working versions of:
+* R (Version 4.1+): https://www.r-project.org/
+* RStudio (Version 1.4+): https://rstudio.com/products/rstudio/download/
 * PLINK (Version 1.9): available here
 * PLINK (Version 2.0): available here
 * REGENIE (Version 3.1.1+): available here
+* Zoom (latest version): https://zoom.us/
 
-All four are free software. 
+All are free software. 
 REGENIE requires MAC/Linux system; if you have a Windows laptop, you can install docker to setup a Linux image (see here).
 
-The following R packages from CRAN will be used and should be installed prior to the module:
-* qqman
-The R commands below can be used to install the CRAN R package:
+Please be sure to install some necessary R packages with 
 ```{r, eval = FALSE}
 install.packages("qqman")
 ```
 
 ## Schedule
 
-This is a tentative schedule. All times listed below for the schedule are Eastern Standard Time (EST).
+This is a tentative schedule. All times listed below for the schedule are Pacific Standard Time (Seattle time, PST).
 
 ## Datasets
 
 All individual data files below can be downloaded from two zipped folder from dropbox. This files can be downloaded here:
 
 Alternatively, you can download each of the data files in the Github repository.
-
