@@ -8,9 +8,12 @@ editor_options:
   chunk_output_type: console
 ---
 
-*Welcome to the website for the Summer Institue in Statistical Genetics module: Association mapping and Sequencing.*
+**Welcome to the website for the Summer Institue in Statistical Genetics module: Association mapping and Sequencing.**
 
 Instructors: Loic Yengo & Joelle Mbatchou
+
+You will find on this website link to lecture slides, exercises including some solutions, and link to the class video recordings.
+
 
 ## Session Format
 The module has 10 sessions, each of 80 minutes. The standard format for a session is approximately:
@@ -20,18 +23,20 @@ The module has 10 sessions, each of 80 minutes. The standard format for a sessio
 * 15 minute discussion of exercises, where the instructors will present possible solutions and answer questions
 Please join the module's [Slack channel](www.expage.com), where you can ask questions and see real-time updates from the instructors and TAs.
 
-We will cover a total of 8 sessions split between July 25-28th. The course schedule is available here.
+We will cover a total of 8 sessions split between July 25-27th. The tentative course schedule is below.
+
 
 ## Pre-requisites
 
-Prior to the module, please install up-to-date versions of:
-* R (Version 4.1): available from this list of sites
-* RStudio (Version 1.4): available here
-* Plink (Version 1.9): available here
-* Plink (Version 2.0): available here
-* Regenie (Version 3.1.1): available here
+**Prior to the module**, please install up-to-date versions of:
+* R (Version 4.1+): available from this list of sites
+* RStudio (Version 1.4+): available here
+* PLINK (Version 1.9): available here
+* PLINK (Version 2.0): available here
+* REGENIE (Version 3.1.1+): available here
 
-All three are free software (Regenie requires MAC/Linux system). If you have a Windows laptop, you can install docker to setup a Linux image (see here).
+All four are free software. 
+REGENIE requires MAC/Linux system; if you have a Windows laptop, you can install docker to setup a Linux image (see here).
 
 The following R packages from CRAN will be used and should be installed prior to the module:
 * qqman
@@ -40,4 +45,13 @@ The R commands below can be used to install the CRAN R package:
 install.packages("qqman")
 ```
 
+## Schedule
+
+This is a tentative schedule. All times listed below for the schedule are Eastern Standard Time (EST).
+
+## Datasets
+
+All individual data files below can be downloaded from two zipped folder from dropbox. This files can be downloaded here:
+
+Alternatively, you can download each of the data files in the Github repository.
 
