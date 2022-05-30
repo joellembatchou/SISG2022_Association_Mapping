@@ -31,7 +31,8 @@ The tentative course schedule is below.
 
 **Prior to the module**, please install working and latest versions of:
 
-* R (Version 4.1+): https://www.r-project.org/
+* R (Version 4.1+): 
+  <a href="https://www.r-project.org/" target="_blank">https://www.r-project.org/</a>
 * RStudio (Version 1.4+) : https://rstudio.com/products/rstudio/download/
 * PLINK 1.9 : https://www.cog-genomics.org/plink2/
 * PLINK 2.0 : https://www.cog-genomics.org/plink2.0/
