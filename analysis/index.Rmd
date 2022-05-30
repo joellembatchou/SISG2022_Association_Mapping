@@ -3,7 +3,6 @@ title: "Module 15 - Association mapping: GWAS & sequencing data"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
-    toc: false
 editor_options:
   chunk_output_type: console
 ---
