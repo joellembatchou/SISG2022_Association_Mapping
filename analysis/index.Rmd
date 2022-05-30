@@ -22,9 +22,9 @@ The module has 10 sessions, each of 80 minutes. The standard format for a sessio
 * 15 minute discussion of exercises, where the instructors will present possible solutions and answer questions
 
 Please join the module's [Slack channel](www.expage.com), where you can ask questions and see real-time updates from the instructors and TAs.
-
-We will cover a total of 8 sessions split between July 25-27th. The tentative course schedule is below.
 Each session builds on previous sessions so you will get maximum benefit by attending every session live and in sequence.
+
+The tentative course schedule is [below](#Schedule).
 
 
 ## Pre-requisites
