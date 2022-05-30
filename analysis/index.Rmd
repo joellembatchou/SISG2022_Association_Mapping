@@ -45,11 +45,14 @@ The tentative course schedule is below.
   <a href="https://zoom.us/" target="_blank">https://zoom.us/</a>
 
 All are free software. 
-REGENIE requires MAC/Linux system; if you have a Windows laptop, you can install docker to setup a Linux image (see here).
+REGENIE requires MAC/Linux system; if you have a Windows laptop, you can use docker to setup a Linux image (see guide here).
 
 Please be sure to install some necessary R packages with 
-```{r, eval = FALSE}
+```{r install-pkgs, eval = FALSE}
 install.packages("qqman")
+install.packages("GWASTools")
+install.packages("bigsnpr")
+install.packages("ggplot2")
 ```
 
 ## Schedule
