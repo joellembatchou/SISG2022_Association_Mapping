@@ -8,14 +8,14 @@ editor_options:
   chunk_output_type: console
 ---
 
-**Welcome to the website for the Summer Institue in Statistical Genetics module: Association mapping and Sequencing.**
+## Welcome to the website for the Summer Institue in Statistical Genetics module: Association mapping and Sequencing.
 
 Instructors: Loic Yengo & Joelle Mbatchou
 
 You will find on this website link to lecture slides, exercises including some solutions, and link to the class video recordings.
 
 
-## Session Format
+### Session Format
 The module has 10 sessions, each of 80 minutes. The standard format for a session is approximately:
 
 * 45 minutes of lecture material that will be recorded via Zoom live and posted at the end of the day
@@ -28,7 +28,7 @@ Material will be delivered via zoom by live lectures and live practical sessions
 Each session builds on previous sessions so you will get maximum benefit by attending every session live and in sequence.
 
 
-## Pre-requisites
+### Pre-requisites
 
 **Prior to the module**, please install working versions of:
 
@@ -47,12 +47,12 @@ Please be sure to install some necessary R packages with
 install.packages("qqman")
 ```
 
-## Schedule
+### Schedule
 
 This is a tentative schedule. All times listed below for the schedule are Pacific Standard Time (Seattle time, PST).
 
-## Datasets
+### Datasets
 
-All individual data files below can be downloaded from two zipped folder from dropbox. This files can be downloaded here:
+All individual data files below can be downloaded from two zipped folder from dropbox:
 
 Alternatively, you can download each of the data files in the Github repository.
