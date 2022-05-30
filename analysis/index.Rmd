@@ -33,11 +33,16 @@ The tentative course schedule is below.
 
 * R (Version 4.1+): 
   <a href="https://www.r-project.org/" target="_blank">https://www.r-project.org/</a>
-* RStudio (Version 1.4+) : https://rstudio.com/products/rstudio/download/
-* PLINK 1.9 : https://www.cog-genomics.org/plink2/
-* PLINK 2.0 : https://www.cog-genomics.org/plink2.0/
-* REGENIE : https://github.com/rgcgithub/regenie/releases/
-* Zoom : https://zoom.us/
+* RStudio (Version 1.4+) : 
+  <a href="https://rstudio.com/products/rstudio/download/" target="_blank">https://rstudio.com/products/rstudio/download/</a>
+* PLINK 1.9 : 
+  <a href="https://www.cog-genomics.org/plink2/" target="_blank">https://www.cog-genomics.org/plink2/</a>
+* PLINK 2.0 : 
+  <a href="https://www.cog-genomics.org/plink2.0/" target="_blank">https://www.cog-genomics.org/plink2.0/</a>
+* REGENIE : 
+  <a href="https://github.com/rgcgithub/regenie/releases/" target="_blank">https://github.com/rgcgithub/regenie/releases/</a>
+* Zoom : 
+  <a href="https://zoom.us/" target="_blank">https://zoom.us/</a>
 
 All are free software. 
 REGENIE requires MAC/Linux system; if you have a Windows laptop, you can install docker to setup a Linux image (see here).
