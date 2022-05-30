@@ -1,5 +1,5 @@
 ---
-title: "SISG 2022 Association mapping & Sequencing"
+title: "Module XX: Association mapping & Sequencing"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -8,7 +8,9 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to the website for the Summer Institue in Statistical Genetics module: Association mapping and Sequencing.
+*Welcome to the website for the Summer Institue in Statistical Genetics module: Association mapping and Sequencing.*
+
+Instructors: Loic Yengo & Joelle Mbatchou
 
 ## Session Format
 The module has 10 sessions, each of 80 minutes. The standard format for a session is approximately:
