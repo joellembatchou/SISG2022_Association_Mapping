@@ -5,10 +5,8 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: Lectures
+  - text: Sessions
     href: about.html
-      #  - text: Exercises
-      # href: about.html
   - text: License
     href: license.html
   right:
