@@ -259,7 +259,7 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">Lectures</a>
+  <a href="about.html">Sessions</a>
 </li>
 <li>
   <a href="license.html">License</a>
@@ -440,13 +440,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongcff096b">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong0f3e6d6">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> cff096b
+aria-hidden="true"></span> <strong>Repository version:</strong> 0f3e6d6
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongcff096b"
+<div id="strongRepositoryversionstrong0f3e6d6"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -455,7 +455,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version cff096b.
+The results in this page were generated with repository version 0f3e6d6.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -469,9 +469,7 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Untracked files:
-    Untracked:  analysis/.index.Rmd.swp
-
+working directory clean
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -515,6 +513,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+f334c30
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-05-30
+</td>
+<td>
+wflow_git_commit("analysis/index.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+16d00cd
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-05-30
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1158,10 +1190,13 @@ latest versions of:</p>
 <a href="https://zoom.us/" target="_blank">https://zoom.us/</a></li>
 </ul>
 <p>All are free software. REGENIE requires MAC/Linux system; if you have
-a Windows laptop, you can install docker to setup a Linux image (see
+a Windows laptop, you can use docker to setup a Linux image (see guide
 here).</p>
 <p>Please be sure to install some necessary R packages with</p>
-<pre class="r"><code>install.packages(&quot;qqman&quot;)</code></pre>
+<pre class="r"><code>install.packages(&quot;qqman&quot;)
+install.packages(&quot;GWASTools&quot;)
+install.packages(&quot;bigsnpr&quot;)
+install.packages(&quot;ggplot2&quot;)</code></pre>
 </div>
 <div id="schedule" class="section level2">
 <h2>Schedule</h2>
