@@ -1,43 +1,44 @@
-name: "SISG2022_Association_Mapping"
+name: SISG2022_Association_Mapping
 output_dir: ../docs
-exclude: ["data/*"]
+exclude: data/*
 navbar:
-  title: "SISG2022 Module 15"
+  title: SISG2022 Module 15
   left:
   - text: Home
     href: index.html
   - text: Sessions
     href: about.html
     menu:
-      - text: "Day 1"
-      - text: "Session 1"
-        href: page-a.html
-      - text: "Session 2"
-        href: page-b.html
-      - text: "Session 3"
-        href: page-a.html
-      - text: "Session 4"
-        href: page-b.html
-      - text: "---------"
-      - text: "Day 2"
-      - text: "Session 5"
-        href: page-c.html
-      - text: "Session 6"
-        href: page-d.html
-      - text: "Session 7"
-        href: page-c.html
-      - text: "Session 8"
-        href: page-d.html
-      - text: "---------"
-      - text: "Day 3"
-      - text: "Session 9"
-        href: page-c.html
-      - text: "Session 10"
-        href: page-c.html
+    - text: Day 1
+    - text: Session 1
+      href: page-a.html
+    - text: Session 2
+      href: page-b.html
+    - text: Session 3
+      href: page-a.html
+    - text: Session 4
+      href: page-b.html
+    - text: '---------'
+    - text: Day 2
+    - text: Session 5
+      href: page-c.html
+    - text: Session 6
+      href: page-d.html
+    - text: Session 7
+      href: page-c.html
+    - text: Session 8
+      href: page-d.html
+    - text: '---------'
+    - text: Day 3
+    - text: Session 9
+      href: page-c.html
+    - text: Session 10
+      href: page-c.html
   - text: License
     href: license.html
   right:
-  - text: Github
+  - icon: fab fa-github
+    text: Source code
     href: https://github.com/joellembatchou/SISG2022_Association_Mapping
 output:
   workflowr::wflow_html:
