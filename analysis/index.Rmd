@@ -16,6 +16,8 @@ Instructors: Loic Yengo & Joelle Mbatchou
 
 You will find on this website link to lecture slides, exercises including some solutions, and link to the class video recordings.
 
+The official SISG web page can be found [here](https://si.biostat.washington.edu/courses/SM2215) (requires login) – course evaluations and certificates of completion are available via this page.
+
 
 ## Session Format
 The module has 10 sessions, each of 90 minutes. The standard format for a session is approximately:
@@ -24,10 +26,10 @@ The module has 10 sessions, each of 90 minutes. The standard format for a sessio
 * 30 minutes of exercises for you to try, with small-group "breakout" Zoom sessions available, attended by other class participants, and Teaching Assistants
 * 15 minute discussion of exercises, where the instructors will present possible solutions and answer questions
 
-Please join the module's [Slack channel](TBD), where you can ask questions and see real-time updates from the instructors and TAs.
+Please join the module's [Slack channel](https://uwbiostatisticssisg.slack.com), where you can ask questions and see real-time updates from the instructors and TAs.
 Each session builds on previous sessions so you will get maximum benefit by attending every session live and in sequence.
 
-The tentative course schedule is below.
+The course schedule is below.
 
 
 ## Pre-requisites
@@ -50,17 +52,19 @@ The tentative course schedule is below.
 All are free software. 
 REGENIE requires MAC/Linux system; if you have a Windows laptop, you can use docker to setup a Linux image (see guide here).
 
-Please be sure to install some necessary R packages with 
+Please be sure to install some necessary R packages with:
 ```{r install-pkgs, eval = FALSE}
 install.packages("qqman")
 install.packages("GWASTools")
 install.packages("bigsnpr")
+install.packages("dplyr")
+install.packages("tidyr")
 install.packages("ggplot2")
 ```
 
 ## Schedule
 
-This is a tentative schedule. All times listed below for the schedule are Pacific Standard Time (Seattle time, PST).
+All times listed below for the schedule are Pacific Standard Time (PST, Seattle time).
 
 ```{r mon-sched, echo = FALSE, results = "asis"}
 data.frame(
@@ -161,13 +165,13 @@ kableExtra::kable_styling(bootstrap_options = c("hover", "condensed","striped"))
 
 ## Datasets
 
-All individual data files below can be downloaded from two zipped folder from dropbox.
+All individual data files below can be downloaded from a zipped folder in Dropbox.
 
-Alternatively, you can download each of the data files in the Github repository.
+Alternatively, you can download the files from the Github repository (the largest file "Transferrin.bed" can be downloaded from the Dropbox folder above).
 
 ## Additional resources
 
-* A tutorial for the SNPRelate package is available here: SNPRelate Tutorial
-* 2009 AJHG article by Benyamin et al for a GWAS of Transferrin
-* 2016 TPB Paper on EIGENANALYSIS (PCA) for population Structure Inference and Admixture Estimation
+* [2009 AJHG article](https://faculty.washington.edu/tathornt/sisg/AJHG_Transferrin_2009.pdf) by Benyamin et al for a GWAS of Transferrin
+* [2016 TPB Paper](https://faculty.washington.edu/tathornt/sisg/Zheng_Weir_Eigenanalysis_TPB_2016.pdf) on EIGENANALYSIS (PCA) for population Structure Inference and Admixture Estimation
 * HapMap MXL Individual Ancestry Figure (Supervised Learning)
+
