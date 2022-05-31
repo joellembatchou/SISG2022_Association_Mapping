@@ -62,25 +62,34 @@ install.packages("ggplot2")
 
 This is a tentative schedule. All times listed below for the schedule are Pacific Standard Time (Seattle time, PST).
 
-```{r echo = FALSE, results = "asis"}
+```{r mon-sched, echo = FALSE, results = "asis"}
 data.frame(
-  Time = c("8:00am-9:20am", "9:40am-11:00am"),
-  Session = 1:2,
-  Topic = c("Introduction, Case Control Association Testing",
-    "Association Testing with Quantitative Traits"),
+  Time = c("8:00am-9:30am", "10am-11:30am", "12pm-1:30pm", "1:45pm-2:30pm"),
+  Session = 1:4,
+  Topic = c("Introduction, Case Control Association Testing & Association Testing with Quantitative Traits",
+    "Introduction to the PLINK Software for GWAS & Population Structure Inference",
+    "GWAS in Samples with Structure & Introduction to the REGENIE Software",
+    "Power, Sample Size & Design Considerations"
+    ),
   Lecture = c(
-    "[Intro](link), [Lecture](link), [Video](link4)",
-    "[Lecture](link3), [Video](link4)" 
+    "[Intro](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session00.pdf), [Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf), [Video](link4)",
+    "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session03.pdf), [Video](link4)",
+    "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session06.pdf), [Video](link4)",
+    "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session10.pdf), [Video](link4)" 
       ),
   "Exercises" = c(
+    "[Exercises](https://faculty.washington.edu/tathornt/SISG2021/exercises/assoc_ex01.pdf), Video",
     "[Exercises](.pdf), Video",
-    "[Exercises](.pdf), Video"
+    "[Exercises](https://faculty.washington.edu/tathornt/SISG2021/exercises/assoc_ex03.pdf), Video",
+    "[Exercises](https://faculty.washington.edu/tathornt/SISG2021/exercises/assoc_ex4.pdf), Video"
   ),
-  "Solution key" = c(
-    "Key: [.html ], [.Rmd]",
-    "Key: [.html ], [.Rmd]"
+  "Key" = c(
+     "[.html ], [.Rmd]",
+    "[.html ], [.Rmd]",
+    "[.html ], [.Rmd]",
+    "[.html ], [.Rmd]"
   )
-  ) %>%
+ , check.names = FALSE ) %>%
 knitr::kable("html", escape = FALSE, 
   caption = "Monday, July 25th", 
   align = c('l', 'c', 'l', 'l', 'l')
@@ -88,6 +97,67 @@ knitr::kable("html", escape = FALSE,
 kableExtra::kable_styling(bootstrap_options = c("hover", "condensed","striped"))
 ```
 
+```{r tue-sched, echo = FALSE, results = "asis"}
+data.frame(
+  Time = c("8:00am-9:30am", "10am-11:30am", "12pm-1:30pm", "1:45pm-2:30pm"),
+  Session = 4 + 1:4,
+  Topic = c("Downstream analyses: conditional analyses, colocalization & fine-mapping",
+    "Downstream analyses: gene-based and pathways analysis & polygenic risk scores",
+    "Rare Variant Analysis: Collapsing Tests, Kernel (Variance Component) Tests and Omnibus Tests",
+    "Emerging issues showcasing ongoing research"
+    ),
+  Lecture = c(
+    "[Intro](TBD), [Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf), [Video](link4)",
+    "[Lecture](TBD), [Video](link4)",
+    "[Lecture](TBD), [Video](link4)",
+    "[Lecture](TBD), [Video](link4)" 
+      ),
+  "Exercises" = c(
+    "[Exercises](TBD), Video",
+    "[Exercises](TBD), Video",
+    "[Exercises](TBD), Video",
+    "[Exercises](TBD), Video"
+  ),
+  "Key" = c(
+    "[.html ], [.Rmd]",
+    "[.html ], [.Rmd]",
+    "[.html ], [.Rmd]",
+    "[.html ], [.Rmd]"
+  )
+  , check.names = FALSE) %>%
+knitr::kable("html", escape = FALSE, 
+  caption = "Tuesday, July 26th", 
+  align = c('l', 'c', 'l', 'l', 'l')
+) %>%
+kableExtra::kable_styling(bootstrap_options = c("hover", "condensed","striped"))
+```
+
+```{r wed-sched, echo = FALSE, results = "asis"}
+data.frame(
+  Time = c("8:00am-9:30am", "10am-11am"),
+  Session = 8 + 1:2,
+  Topic = c("Beyond traditional GWAS: Variance QTL, Interaction Testing, GWAX, Time-to-event, Multi-trait analysis",
+    "Emerging Issues showcasing ongoing research"
+    ),
+  Lecture = c(
+    "[Intro](TBD), [Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf), [Video](link4)",
+    "[Lecture](TBD), [Video](link4)" 
+      ),
+  "Exercises" = c(
+    "[Exercises](TBD), Video",
+    "[Exercises](TBD), Video"
+  ),
+  "Key" = c(
+    "[.html ], [.Rmd]",
+    "[.html ], [.Rmd]"
+  )
+  , check.names = FALSE) %>%
+knitr::kable("html", escape = FALSE, 
+  caption = "Wednesday, July 27th", 
+  align = c('l', 'c', 'l', 'l', 'l')
+) %>%
+kableExtra::kable_styling(bootstrap_options = c("hover", "condensed","striped"))
+```
 
 ## Datasets
 
