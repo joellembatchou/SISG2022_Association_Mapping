@@ -483,13 +483,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong11522aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstronge40db26">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 11522aa
+aria-hidden="true"></span> <strong>Repository version:</strong> e40db26
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong11522aa"
+<div id="strongRepositoryversionstronge40db26"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -498,7 +498,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 11522aa.
+The results in this page were generated with repository version e40db26.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -512,6 +512,10 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Untracked files:
+    Untracked:  LICENSE.md
+    Untracked:  analysis/.license.Rmd.swp
+
 Unstaged changes:
     Modified:   analysis/_site.yml
 
@@ -558,6 +562,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+e40db26
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-05-31
+</td>
+<td>
+update site
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+7111e0f
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-05-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1282,6 +1320,10 @@ Start workflowr project.
 <p>Instructors: Loic Yengo &amp; Joelle Mbatchou</p>
 <p>You will find on this website link to lecture slides, exercises
 including some solutions, and link to the class video recordings.</p>
+<p>The official SISG web page can be found <a
+href="https://si.biostat.washington.edu/courses/SM2215">here</a>
+(requires login) – course evaluations and certificates of completion are
+available via this page.</p>
 <div id="session-format" class="section level2">
 <h2>Session Format</h2>
 <p>The module has 10 sessions, each of 90 minutes. The standard format
@@ -1295,11 +1337,12 @@ Teaching Assistants</li>
 <li>15 minute discussion of exercises, where the instructors will
 present possible solutions and answer questions</li>
 </ul>
-<p>Please join the module’s <a href="TBD">Slack channel</a>, where you
-can ask questions and see real-time updates from the instructors and
+<p>Please join the module’s <a
+href="https://uwbiostatisticssisg.slack.com">Slack channel</a>, where
+you can ask questions and see real-time updates from the instructors and
 TAs. Each session builds on previous sessions so you will get maximum
 benefit by attending every session live and in sequence.</p>
-<p>The tentative course schedule is below.</p>
+<p>The course schedule is below.</p>
 </div>
 <div id="pre-requisites" class="section level2">
 <h2>Pre-requisites</h2>
@@ -1322,16 +1365,18 @@ latest versions of:</p>
 <p>All are free software. REGENIE requires MAC/Linux system; if you have
 a Windows laptop, you can use docker to setup a Linux image (see guide
 here).</p>
-<p>Please be sure to install some necessary R packages with</p>
+<p>Please be sure to install some necessary R packages with:</p>
 <pre class="r"><code>install.packages(&quot;qqman&quot;)
 install.packages(&quot;GWASTools&quot;)
 install.packages(&quot;bigsnpr&quot;)
+install.packages(&quot;dplyr&quot;)
+install.packages(&quot;tidyr&quot;)
 install.packages(&quot;ggplot2&quot;)</code></pre>
 </div>
 <div id="schedule" class="section level2">
 <h2>Schedule</h2>
-<p>This is a tentative schedule. All times listed below for the schedule
-are Pacific Standard Time (Seattle time, PST).</p>
+<p>All times listed below for the schedule are Pacific Standard Time
+(PST, Seattle time).</p>
 <table class="table table-hover table-condensed table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
 Monday, July 25th
@@ -1649,19 +1694,22 @@ Emerging Issues showcasing ongoing research
 </div>
 <div id="datasets" class="section level2">
 <h2>Datasets</h2>
-<p>All individual data files below can be downloaded from two zipped
-folder from dropbox.</p>
-<p>Alternatively, you can download each of the data files in the Github
-repository.</p>
+<p>All individual data files below can be downloaded from a zipped
+folder in Dropbox.</p>
+<p>Alternatively, you can download the files from the Github repository
+(the largest file “Transferrin.bed” can be downloaded from the Dropbox
+folder above).</p>
 </div>
 <div id="additional-resources" class="section level2">
 <h2>Additional resources</h2>
 <ul>
-<li>A tutorial for the SNPRelate package is available here: SNPRelate
-Tutorial</li>
-<li>2009 AJHG article by Benyamin et al for a GWAS of Transferrin</li>
-<li>2016 TPB Paper on EIGENANALYSIS (PCA) for population Structure
-Inference and Admixture Estimation</li>
+<li><a
+href="https://faculty.washington.edu/tathornt/sisg/AJHG_Transferrin_2009.pdf">2009
+AJHG article</a> by Benyamin et al for a GWAS of Transferrin</li>
+<li><a
+href="https://faculty.washington.edu/tathornt/sisg/Zheng_Weir_Eigenanalysis_TPB_2016.pdf">2016
+TPB Paper</a> on EIGENANALYSIS (PCA) for population Structure Inference
+and Admixture Estimation</li>
 <li>HapMap MXL Individual Ancestry Figure (Supervised Learning)</li>
 </ul>
 <br>
@@ -1688,23 +1736,24 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] dplyr_1.0.2     workflowr_1.7.0
+[1] dplyr_1.0.8     workflowr_1.7.0
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8.3      compiler_3.6.1    pillar_1.4.3      bslib_0.3.1      
- [5] later_1.3.0       git2r_0.30.1      jquerylib_0.1.4   tools_3.6.1      
- [9] getPass_0.2-2     digest_0.6.25     viridisLite_0.3.0 lifecycle_1.0.1  
-[13] jsonlite_1.7.2    evaluate_0.14     tibble_2.1.3      pkgconfig_2.0.3  
-[17] rlang_1.0.1       cli_3.1.1         rstudioapi_0.13   yaml_2.2.1       
-[21] xfun_0.31         fastmap_1.1.0     kableExtra_1.3.4  xml2_1.3.3       
-[25] httr_1.4.3        stringr_1.4.0     knitr_1.31        systemfonts_1.0.2
-[29] generics_0.0.2    vctrs_0.3.8       fs_1.5.2          sass_0.4.0       
-[33] webshot_0.5.3     tidyselect_1.1.0  rprojroot_2.0.3   svglite_2.1.0    
-[37] glue_1.6.1        R6_2.4.1          processx_3.5.3    rmarkdown_2.14   
-[41] purrr_0.3.3       callr_3.7.0       magrittr_1.5      whisker_0.4      
-[45] scales_1.1.1      ps_1.7.0          promises_1.2.0.1  htmltools_0.5.2  
-[49] rvest_1.0.2       colorspace_2.0-0  httpuv_1.6.5      stringi_1.4.6    
-[53] munsell_0.5.0     crayon_1.3.4     </code></pre>
+ [1] tidyselect_1.1.1  xfun_0.31         bslib_0.3.1       purrr_0.3.3      
+ [5] colorspace_2.0-0  vctrs_0.3.8       generics_0.0.2    htmltools_0.5.2  
+ [9] viridisLite_0.3.0 yaml_2.2.1        utf8_1.1.4        rlang_1.0.1      
+[13] later_1.3.0       pillar_1.7.0      jquerylib_0.1.4   glue_1.6.1       
+[17] lifecycle_1.0.1   stringr_1.4.0     munsell_0.5.0     rvest_1.0.2      
+[21] kableExtra_1.3.4  evaluate_0.14     knitr_1.31        callr_3.7.0      
+[25] fastmap_1.1.0     httpuv_1.6.5      ps_1.7.0          fansi_0.4.1      
+[29] Rcpp_1.0.8.3      promises_1.2.0.1  scales_1.1.1      webshot_0.5.3    
+[33] jsonlite_1.7.2    fs_1.5.2          systemfonts_1.0.2 digest_0.6.25    
+[37] stringi_1.4.6     processx_3.5.3    getPass_0.2-2     rprojroot_2.0.3  
+[41] cli_3.1.1         tools_3.6.1       magrittr_1.5      sass_0.4.0       
+[45] tibble_2.1.3      crayon_1.3.4      whisker_0.4       pkgconfig_2.0.3  
+[49] ellipsis_0.3.2    xml2_1.3.3        rmarkdown_2.14    svglite_2.1.0    
+[53] httr_1.4.3        rstudioapi_0.13   R6_2.4.1          git2r_0.30.1     
+[57] compiler_3.6.1   </code></pre>
 </div>
 </div>
 
