@@ -12,7 +12,7 @@ editor_options:
 require(dplyr)
 ```
 
-Instructors: Loic Yengo & Joelle Mbatchou
+Instructors: Joelle Mbatchou & Loic Yengo
 
 You will find on this website link to lecture slides, exercises including some solutions, and link to the class video recordings.
 
@@ -178,3 +178,4 @@ Alternatively, you can download the files from the Github repository (the larges
   * [Introduction to R materials](https://faculty.washington.edu/kenrice/rintro/) from SISG Module 3
   * [Graphics with ggplot2](https://ggplot2.tidyverse.org/)
   * [Data manipulation with dplyr](http://dplyr.tidyverse.org/)
+* https://pages.stat.wisc.edu/~miaoyan/tensor.html
