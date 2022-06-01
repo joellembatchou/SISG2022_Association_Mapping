@@ -57,9 +57,7 @@ Please be sure to install some necessary R packages with:
 install.packages("qqman")
 install.packages("GWASTools")
 install.packages("bigsnpr")
-install.packages("dplyr")
-install.packages("tidyr")
-install.packages("ggplot2")
+install.packages("tidyverse")
 ```
 
 ## Schedule
