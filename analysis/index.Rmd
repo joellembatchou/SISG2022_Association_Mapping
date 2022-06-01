@@ -176,4 +176,3 @@ Alternatively, you can download the files from the Github repository (the larges
   * [Introduction to R materials](https://faculty.washington.edu/kenrice/rintro/) from SISG Module 3
   * [Graphics with ggplot2](https://ggplot2.tidyverse.org/)
   * [Data manipulation with dplyr](http://dplyr.tidyverse.org/)
-* https://pages.stat.wisc.edu/~miaoyan/tensor.html
