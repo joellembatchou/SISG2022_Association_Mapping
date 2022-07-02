@@ -357,7 +357,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-06-01
+<strong>Last updated:</strong> 2022-07-02
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -489,15 +489,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree85d640c54320bd49dfc18095854518512c5395d6targetblank85d640ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreec114235db68643812c7259b8ad9ff04e4f9712e0targetblankc114235a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/85d640c54320bd49dfc18095854518512c5395d6" target="_blank">85d640c</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/c114235db68643812c7259b8ad9ff04e4f9712e0" target="_blank">c114235</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree85d640c54320bd49dfc18095854518512c5395d6targetblank85d640ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreec114235db68643812c7259b8ad9ff04e4f9712e0targetblankc114235a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -507,7 +507,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/85d640c54320bd49dfc18095854518512c5395d6" target="_blank">85d640c</a>.
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/c114235db68643812c7259b8ad9ff04e4f9712e0" target="_blank">c114235</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -522,7 +522,7 @@ were generated:
 </p>
 <pre><code>
 Untracked files:
-    Untracked:  analysis/.index.Rmd.swp
+    Untracked:  .swp
 
 </code></pre>
 <p>
@@ -567,6 +567,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/c114235db68643812c7259b8ad9ff04e4f9712e0/analysis/index.Rmd" target="_blank">c114235</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-02
+</td>
+<td>
+wflow_publish(c("analysis/index.Rmd"))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/5efdb9cabbfe425ffc50cf881b48f15cd231dd61/docs/index.html" target="_blank">5efdb9c</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-06-01
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1542,9 +1576,11 @@ a Windows laptop, you can use docker to setup a Linux image (see guide
 here).</p>
 <p>Please be sure to install some necessary R packages with:</p>
 <pre class="r"><code>install.packages(&quot;qqman&quot;)
-install.packages(&quot;GWASTools&quot;)
 install.packages(&quot;bigsnpr&quot;)
-install.packages(&quot;tidyverse&quot;)</code></pre>
+install.packages(&quot;tidyverse&quot;)
+if (!require(&quot;BiocManager&quot;, quietly = TRUE))
+    install.packages(&quot;BiocManager&quot;)
+BiocManager::install(&quot;GWASTools&quot;)</code></pre>
 </div>
 <div id="schedule" class="section level2">
 <h2>Schedule</h2>
@@ -1593,7 +1629,7 @@ with Quantitative Traits
 href="https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session00.pdf">Intro</a>,
 <a
 href="https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf">Lecture</a>,
-<a href="link4">Video</a>
+Video
 </td>
 <td style="text-align:left;">
 <a
@@ -1618,7 +1654,7 @@ Inference
 <td style="text-align:left;">
 <a
 href="https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session03.pdf">Lecture</a>,
-<a href="link4">Video</a>
+Video
 </td>
 <td style="text-align:left;">
 <a href=".pdf">Exercises</a>, Video
@@ -1641,7 +1677,7 @@ Software
 <td style="text-align:left;">
 <a
 href="https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session06.pdf">Lecture</a>,
-<a href="link4">Video</a>
+Video
 </td>
 <td style="text-align:left;">
 <a
@@ -1665,7 +1701,7 @@ Power, Sample Size &amp; Design Considerations
 <td style="text-align:left;">
 <a
 href="https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session10.pdf">Lecture</a>,
-<a href="link4">Video</a>
+Video
 </td>
 <td style="text-align:left;">
 <a
@@ -1719,7 +1755,7 @@ fine-mapping
 <td style="text-align:left;">
 <a href="TBD">Intro</a>, <a
 href="https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf">Lecture</a>,
-<a href="link4">Video</a>
+Video
 </td>
 <td style="text-align:left;">
 <a href="TBD">Exercises</a>, Video
@@ -1740,7 +1776,7 @@ Downstream analyses: gene-based and pathways analysis &amp; polygenic
 risk scores
 </td>
 <td style="text-align:left;">
-<a href="TBD">Lecture</a>, <a href="link4">Video</a>
+<a href="TBD">Lecture</a>, Video
 </td>
 <td style="text-align:left;">
 <a href="TBD">Exercises</a>, Video
@@ -1761,7 +1797,7 @@ Rare Variant Analysis: Collapsing Tests, Kernel (Variance Component)
 Tests and Omnibus Tests
 </td>
 <td style="text-align:left;">
-<a href="TBD">Lecture</a>, <a href="link4">Video</a>
+<a href="TBD">Lecture</a>, Video
 </td>
 <td style="text-align:left;">
 <a href="TBD">Exercises</a>, Video
@@ -1781,7 +1817,7 @@ Tests and Omnibus Tests
 Emerging issues showcasing ongoing research
 </td>
 <td style="text-align:left;">
-<a href="TBD">Lecture</a>, <a href="link4">Video</a>
+<a href="TBD">Lecture</a>, Video
 </td>
 <td style="text-align:left;">
 <a href="TBD">Exercises</a>, Video
@@ -1853,7 +1889,7 @@ href="https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session0
 Emerging Issues showcasing ongoing research
 </td>
 <td style="text-align:left;">
-<a href="TBD">Lecture</a>, <a href="link4">Video</a>
+<a href="TBD">Lecture</a>, Video
 </td>
 <td style="text-align:left;">
 <a href="TBD">Exercises</a>, Video
