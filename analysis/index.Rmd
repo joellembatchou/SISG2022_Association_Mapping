@@ -55,9 +55,11 @@ REGENIE requires MAC/Linux system; if you have a Windows laptop, you can use doc
 Please be sure to install some necessary R packages with:
 ```{r install-pkgs, eval = FALSE}
 install.packages("qqman")
-install.packages("GWASTools")
 install.packages("bigsnpr")
 install.packages("tidyverse")
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("GWASTools")
 ```
 
 ## Schedule
@@ -74,10 +76,10 @@ data.frame(
     "Power, Sample Size & Design Considerations"
     ),
   Lecture = c(
-    "[Intro](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session00.pdf), [Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf), [Video](link4)",
-    "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session03.pdf), [Video](link4)",
-    "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session06.pdf), [Video](link4)",
-    "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session10.pdf), [Video](link4)" 
+    "[Intro](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session00.pdf), [Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf), Video",
+    "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session03.pdf), Video",
+    "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session06.pdf), Video",
+    "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session10.pdf), Video" 
       ),
   "Exercises" = c(
     "[Exercises](https://faculty.washington.edu/tathornt/SISG2021/exercises/assoc_ex01.pdf), Video",
@@ -109,10 +111,10 @@ data.frame(
     "Emerging issues showcasing ongoing research"
     ),
   Lecture = c(
-    "[Intro](TBD), [Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf), [Video](link4)",
-    "[Lecture](TBD), [Video](link4)",
-    "[Lecture](TBD), [Video](link4)",
-    "[Lecture](TBD), [Video](link4)" 
+    "[Intro](TBD), [Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf), Video",
+    "[Lecture](TBD), Video",
+    "[Lecture](TBD), Video",
+    "[Lecture](TBD), Video" 
       ),
   "Exercises" = c(
     "[Exercises](TBD), Video",
@@ -143,7 +145,7 @@ data.frame(
     ),
   Lecture = c(
     "[Intro](TBD), [Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf), [Video](link4)",
-    "[Lecture](TBD), [Video](link4)" 
+    "[Lecture](TBD), Video" 
       ),
   "Exercises" = c(
     "[Exercises](TBD), Video",
