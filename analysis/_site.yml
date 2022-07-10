@@ -2,7 +2,7 @@ name: SISG2022_Association_Mapping
 output_dir: ../docs
 exclude: data/*
 navbar:
-  title: SISG2022 Module 15
+  title: SISG 2022 Module 15
   left:
   - text: Home
     href: index.html
