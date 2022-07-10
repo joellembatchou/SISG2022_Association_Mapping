@@ -167,7 +167,7 @@ kableExtra::kable_styling(bootstrap_options = c("hover", "condensed","striped"))
 
 All individual data files below can be downloaded from a zipped folder in Dropbox.
 
-Alternatively, you can download the files from the Github repository (the largest file "Transferrin.bed" can be downloaded from the Dropbox folder above).
+`r #Alternatively, you can download the files from the Github repository (the largest file "Transferrin.bed" can be downloaded from the Dropbox folder above).`
 
 ## Additional resources
 
