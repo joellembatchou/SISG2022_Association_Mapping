@@ -331,7 +331,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">SISG2022 Module 15</a>
+      <a class="navbar-brand" href="index.html">SISG 2022 Module 15</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -412,7 +412,7 @@ sequencing data</h1>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -423,8 +423,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -437,9 +437,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong>
@@ -463,21 +463,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -568,15 +565,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreefc79b9ed8fef49445eade3a0400bedfd9eed3f89targetblankfc79b9ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree9580c9dca0dccba5d3586fe1aca7526b649d03c7targetblank9580c9da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/fc79b9ed8fef49445eade3a0400bedfd9eed3f89" target="_blank">fc79b9e</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/9580c9dca0dccba5d3586fe1aca7526b649d03c7" target="_blank">9580c9d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreefc79b9ed8fef49445eade3a0400bedfd9eed3f89targetblankfc79b9ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree9580c9dca0dccba5d3586fe1aca7526b649d03c7targetblank9580c9da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -586,7 +583,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/fc79b9ed8fef49445eade3a0400bedfd9eed3f89" target="_blank">fc79b9e</a>.
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/9580c9dca0dccba5d3586fe1aca7526b649d03c7" target="_blank">9580c9d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -604,10 +601,6 @@ Untracked files:
     Untracked:  .swp
     Untracked:  analysis/.index.Rmd.swp
     Untracked:  analysis/.license.Rmd.swp
-
-Unstaged changes:
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/license.Rmd
 
 </code></pre>
 <p>
@@ -652,6 +645,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/9580c9dca0dccba5d3586fe1aca7526b649d03c7/analysis/index.Rmd" target="_blank">9580c9d</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-10
+</td>
+<td>
+refresh header
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/45f88a2086ce3f372861d65078c761422288df24/analysis/index.Rmd" target="_blank">45f88a2</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-10
+</td>
+<td>
+wflow_git_commit(all = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/45f88a2086ce3f372861d65078c761422288df24/docs/index.html" target="_blank">45f88a2</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-10
+</td>
+<td>
+wflow_git_commit(all = TRUE)
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -2007,9 +2051,6 @@ Emerging Issues showcasing ongoing research
 <h2>Datasets</h2>
 <p>All individual data files below can be downloaded from a zipped
 folder in Dropbox.</p>
-<p>Alternatively, you can download the files from the Github repository
-(the largest file “Transferrin.bed” can be downloaded from the Dropbox
-folder above).</p>
 </div>
 <div id="additional-resources" class="section level2">
 <h2>Additional resources</h2>
