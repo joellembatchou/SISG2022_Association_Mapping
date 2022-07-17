@@ -1,0 +1,92 @@
+---
+title: "Session 01 - Exercises"
+author: ""
+date: ""
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Case-Control Association Testing
+
+Before you begin:
+
+* Make sure that R is installed on your computer
+* For this lab, we will use the `data.table` and `dplyr` library
+```{r load-libs}
+require(data.table)
+require(dplyr)
+```
+
+### Introduction
+We will be using the [LHON dataset](https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt) covered in the lecture notes for this portion of the exercises.
+The LHON dataset is from a case-control study and includes both phenotype and genotype data for a candidate gene.
+
+Let's first load the LHON data file into the R session. You can read the file directly from the web (if you are connected to the web) using the following command:
+```{r load-lhon-data}
+LHON.df <- fread("https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt", header=TRUE)
+```
+
+Alternatively, you can save the file to your computer and read it into R from the directory where the file is located:
+```{r load-lhon-data-direct, eval=FALSE}
+LHON.df <- fread("LHON.txt", header=TRUE)
+```
+
+### Exercises
+Here are some things to look at:
+
+1. Examine the variables in the dataset:
+  * How many observations? 
+  * How many cases/controls?
+  * What is the distribution of the genotypes across cases/controls?
+  * What about for allele types?
+
+2. Perform a logistic regression analysis for this data with `CC` as the reference genotype using the `glm()` function. 
+(Hint: make sure to convert the phenotype to a binary 0/1 variable)
+
+3. Obtain odds ratios and confidence intervals for the `CT` and `TT` genotypes.
+
+4. Now redo the logistic regression analysis from question 2, but with `TT` as the reference genotype. 
+  * How do the results change? Explain. 
+  (Hint: Use a plot to gain some insight.)
+  
+## Association Testing with Quantitative Traits
+
+### Introduction
+We will be using the [Blood Pressure dataset](https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt) for this portion of the exercises.
+This dataset contains diastolic and systolic blood pressure measurements for 1000 individuals, and genotype data at 11 SNPs in a candidate gene for blood pressure. Covariates such as gender (sex) and body mass index (bmi) are included as well.
+
+Let's first load the file into R. You can read the file directly from the web (if you are connected to the web) using the following command:
+```{r load-bp-data}
+BP.df <- fread("https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/bpdata.csv", header=TRUE)
+```
+
+Alternatively, you can save the file to your computer and read it into R from the directory where the file is located:
+```{r load-bp-data-direct, eval=FALSE}
+BP.df <- fread("bpdata.csv", header=TRUE)
+```
+
+### Exercises
+Here are some things to try:
+
+1. Perform a linear regression of systolic blood pressure (`sbp`) on `SNP3` using the `lm()` function. 
+Compare the estimates, confidence intervals and p-values you get using:
+* additive (linear) model 
+* dominant model 
+* recessive model
+* 2 parameter model
+
+(Hint: for each case, first add a new column to the data frame, containing the 'predictor' variable you need. Then do the regression using `lm()`)
+
+2. Provide a plot illustrating the relationship between sbp and the three genotypes at SNP3.
+
+For question 3 and 4 below, R also has a 'formula' syntax, frequently used when specifying regression models with many predictors. To regress an outcome `y` on several covariates, the syntax is:
+
+```{r lm-ex, eval=FALSE}
+outcome ~ covariate1 + covariate2 + covariate3
+```
+
+3. Now redo the linear regression analysis of `sbp` from question 1 for the additive model, but this time adjust for `sex` and `bmi`. Do the results change?
+
+4. What proportion of the heritability of `sbp` is explained by all of the 11 SNPs together?
+ 
