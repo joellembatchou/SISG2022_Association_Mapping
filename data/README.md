@@ -1,3 +1,3 @@
 # Data
 
-Save raw data files here.
+Data files used in the exercises.
