@@ -13,7 +13,7 @@ Before you begin:
 
 * Make sure that R is installed on your computer
 * For this lab, we will use the `data.table` and `dplyr` library
-```{r load-libs}
+```{r load-libs, eval=FALSE}
 require(data.table)
 require(dplyr)
 ```
@@ -23,7 +23,7 @@ We will be using the [LHON dataset](https://raw.githubusercontent.com/joellembat
 The LHON dataset is from a case-control study and includes both phenotype and genotype data for a candidate gene.
 
 Let's first load the LHON data file into the R session. You can read the file directly from the web (if you are connected to the web) using the following command:
-```{r load-lhon-data}
+```{r load-lhon-data, eval=FALSE}
 LHON.df <- fread("https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt", header=TRUE)
 ```
 
@@ -57,7 +57,7 @@ We will be using the [Blood Pressure dataset](https://raw.githubusercontent.com/
 This dataset contains diastolic and systolic blood pressure measurements for 1000 individuals, and genotype data at 11 SNPs in a candidate gene for blood pressure. Covariates such as gender (sex) and body mass index (bmi) are included as well.
 
 Let's first load the file into R. You can read the file directly from the web (if you are connected to the web) using the following command:
-```{r load-bp-data}
+```{r load-bp-data, eval=FALSE}
 BP.df <- fread("https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/bpdata.csv", header=TRUE)
 ```
 
