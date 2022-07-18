@@ -563,15 +563,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreee1f90925ac5e6c96211bc55f63c934e0c994c892targetblanke1f9092a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree56518408a080959f644562365ce27b2d99c7acbftargetblank5651840a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/e1f90925ac5e6c96211bc55f63c934e0c994c892" target="_blank">e1f9092</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/56518408a080959f644562365ce27b2d99c7acbf" target="_blank">5651840</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreee1f90925ac5e6c96211bc55f63c934e0c994c892targetblanke1f9092a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree56518408a080959f644562365ce27b2d99c7acbftargetblank5651840a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -581,7 +581,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/e1f90925ac5e6c96211bc55f63c934e0c994c892" target="_blank">e1f9092</a>.
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/56518408a080959f644562365ce27b2d99c7acbf" target="_blank">5651840</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -647,6 +647,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/56518408a080959f644562365ce27b2d99c7acbf/analysis/Session03_practical.Rmd" target="_blank">5651840</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-18
+</td>
+<td>
+session 3 practical
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/301fa2814ceea7978db2ca8babca4cb5770c57cd/docs/Session03_practical.html" target="_blank">301fa28</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -756,10 +790,9 @@ et al. (2009, AJHG)</a>.</p>
 <li><p>Compute the genomic control inflation factor <span
 class="math inline">\(\lambda_{GC}\)</span> based on the p-values.
 (Hint: convert p-values to <span class="math inline">\(\chi^2_1\)</span>
-test statistics using the R function
-<code>qchisq(&lt;pvals&gt;, df = 1, lower.tail = FALSE)</code>)</p></li>
-<li><p>Now use REGENIE to perform a GWAS of the transferrin phenotype
-using a whole genome regression model.</p></li>
+test statistics using the R function <code>qchisq()</code>)</p></li>
+<li><p>Now use REGENIE to perform a GWAS of the phenotype using a whole
+genome regression model.</p></li>
 </ol>
 <ul>
 <li><p>Write the list of samples with non-missing phenotype to file
@@ -784,7 +817,7 @@ e.g.</p>
 <li>Run REGENIE Step 2 to perform association testing at the same
 variants analyzed in PLINK. The basic command would look like</li>
 </ul>
-<pre class="bash"><code>regenie --bed Transferrin_height --phenoFile Transferrin_pheno.txt --keep &lt;nomiss.ids&gt; --step 2 --bsize 400 --qt --pred &lt;output_prefix_step1&gt;_pred.list --extract &lt;plink_variant_list_file&gt; --out &lt;output_prefix_step2&gt;</code></pre>
+<pre class="bash"><code>regenie --bed Transferrin_height --phenoFile Transferrin_pheno.txt --keep &lt;nomiss.ids&gt; --step 2 --bsize 400 --qt --pred &lt;LOCO_list_file&gt; --extract &lt;plink_variant_list_file&gt; --out &lt;output_prefix_step2&gt;</code></pre>
 <ul>
 <li>Generate Manhatthan and Q-Q plots based on the association results
 and compute <span class="math inline">\(\lambda_{GC}\)</span>.</li>
