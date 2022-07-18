@@ -1,5 +1,5 @@
-# SISG2022_Association_Mapping
+# SISG 2022 Module 15: Association Mapping
 
-A [workflowr][] project.
+This repository hosts lecture materials, exercises as well as data sets used during the [Summer Institute in Statistical Genetics](https://si.biostat.washington.edu/courses/SM2215) module on Association mapping: GWAS & sequencing data.
 
-[workflowr]: https://github.com/workflowr/workflowr
+The [website](https://joellembatchou.github.io/SISG2022_Association_Mapping/index.html) was built using [workflowr](https://github.com/workflowr/workflowr).
