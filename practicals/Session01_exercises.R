@@ -1,5 +1,7 @@
 require(data.table)
 require(dplyr)
+require(tidyr)
+require(ggplot2)
 
 ######################################
 ## Case-Control Association Testing ##
@@ -22,6 +24,9 @@ LHON.df <- fread("https://raw.githubusercontent.com/joellembatchou/SISG2022_Asso
 
 # Question 3: Redo the logistic regression analysis from question 2, but with `TT` as the reference genotype.
 # Hint: Use the relevel function to create a new genotype vector with reference genotype TT.
+
+
+# Question 4: Is there evidence of differences in odds of being a case for the `CT` and `TT` genotypes (compared to `CC`)?
 
 
 ##################################################
