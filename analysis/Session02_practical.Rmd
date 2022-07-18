@@ -1,0 +1,97 @@
+---
+title: "Session 02 - Exercises"
+author: ""
+date: ""
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+Before you begin:
+
+* Make sure that R is installed on your computer
+* For this lab, we will use the following R libraries:
+```{r load-libs, eval=FALSE}
+require(data.table)
+require(dplyr)
+require(tidyr)
+require(bigsnpr)
+require(ggplot2)
+```
+
+## Population Structure Inference
+
+### Introduction
+We will be working with a subset of the genotype data from the Human Genome Diversity Panel (HGDP) and HapMap.
+
+The file “[YRI_CEU_ASW_MEX_NAM.bed](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data)” is a binary file in PLINK BED format with accompanying BIM and FAM files.
+It contains genotype data at autosomal SNPs for:
+
+* Native American samples from HGDP
+* Four population samples from HapMap: 
+  + Yoruba in Ibadan, Nigeria (YRI)
+  + Utah residents with ancestry from
+Northern and Western Europe (CEU)
+  + Mexican Americans in Los Angeles, California (MXL)
+  + African Americans from the south-western United States (ASW)
+
+### Exercises
+Here are some things to look at:
+
+1. Examine the dataset:
+  * How many samples are present? 
+  * How many SNPs?
+  * What is the number of samples in each population?
+
+2. Get the first 10 principal components (PCs) in PLINK using all SNPs. The basic command would look like
+```{bash, eval = FALSE}
+plink --bfile <plink_bed_prefix> --pca 10 --out <output_prefix>
+```
+This generates a file `<output_prefix>.eigenvec` containing the PCs (eigenvectors) as well as another file `<output_prefix>.eigenval` containing the top eigenvalues.
+
+  * Make a scatterplot of the first two PCs with each point colored by population membership. 
+  * Interpret the first two PCs, what ancestries are they reflecting?
+  * Make a scree plot of the eigenvalues for the first 10 PCs. Approximate the proportion of variance explained by the first two PCs.
+
+3. Now redo Question 2 above using the [`bigsnpr` R package](https://privefl.github.io/bigsnpr/reference/index.html) specifying a $r^2$ threshold of 0.2 (i.e. LD pruning) as well as a minimum minor allele count (MAC) of 20. The basic command would look like
+```{r, eval = FALSE}
+# run PCA
+obj.bed <- bed(bedfile = <plink_bed_file>)
+pc.out <- bed_autoSVD(
+  obj.bed, 
+  thr.r2 = <r2_threshold>, 
+  k = <number_of_PCs>, 
+  min.mac = <min_MAC>
+)
+# plot PC2 vs PC1
+plot(pc.out, type = "scores", scores = 1:2)
+# scree plot
+plot(pc.out) 
+# plot SNP loadings (should be centered at 0)
+plot(pc.out, type = "loadings", scores = 1:<number_of_PCs>, coeff = 0.4)
+```
+  * Run PCA and make a scatter plot of the first two
+principal components (PCs) with each point colored according to population
+membership. 
+  * Does the plot change from the one in Question 2?
+  * Check the SNP loadings for the first 10 PCs.
+  
+*(Hint: This [tutorial document](https://privefl.github.io/bigsnpr/articles/bedpca.html) from `bigsnpr` might be helpful)*
+
+4. Predict the proportional Native American and European Ancestry for the HapMap
+MXL from the PCA output in Question 3 *using one of the principal components*. (Which PC is most appropriate for this analysis?) Assume that the HapMap MXL have negligible African Ancestry.
+
+5. Make a barplot of the proportional ancestry estimates from question 4.
+
+*Extra: 6. Check if there are samples related 2nd degree or closer. If so, run PCA as in Question 3 removing these samples then project the remaining samples onto the PC space. The basic command would look like*
+```{r, eval = FALSE}
+# check for 3rd degree relateds or closer
+snp_plinkKINGQC(
+  plink2.path = "/usr/bin/plink2", 
+  bedfile.in = <plink_bed_prefix>, 
+  thr.king = 2^-3.5,
+  make.bed = FALSE
+)
+```
+*(Hint: This returns a data frame which contains all pairs of individuals related 3rd degree or closer. We can then remove them when calling `bed_autoSVD()` using the `ind.row` argument. Finally, you can use `bed_projectSelfPCA()` to project related samples on the PC space.)*
+
+

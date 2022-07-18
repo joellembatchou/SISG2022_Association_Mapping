@@ -6,17 +6,19 @@ output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
-
-## Case-Control Association Testing
-
 Before you begin:
 
 * Make sure that R is installed on your computer
-* For this lab, we will use the `data.table` and `dplyr` library
+* For this lab, we will use a few R libraries:
 ```{r load-libs, eval=FALSE}
 require(data.table)
 require(dplyr)
+require(tidyr)
+require(ggplot2)
 ```
+
+## Case-Control Association Testing
+
 
 ### Introduction
 We will be using the [LHON dataset](https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt) covered in the lecture notes for this portion of the exercises.
@@ -44,11 +46,11 @@ Here are some things to look at:
 2. Perform a logistic regression analysis for this data with `CC` as the reference genotype using the `glm()` function. 
 (Hint: make sure to convert the phenotype to a binary 0/1 variable)
 
-3. Obtain odds ratios and confidence intervals for the `CT` and `TT` genotypes.
+3. Obtain odds ratios and confidence intervals for the `CT` and `TT` genotypes relative to the `CC` reference genotype. Interpret.
 
-4. Now redo the logistic regression analysis from question 2, but with `TT` as the reference genotype. 
-  * How do the results change? Explain. 
-  (Hint: Use a plot to gain some insight.)
+4. Is there evidence of differences in odds of being a case for the `CT` and `TT` genotypes (compared to `CC`)?
+
+*Extra*: 5. Perform the logistic regression analysis with the additive genotype coding. Obtain odds ratios and confidence intervals. Is there evidence of an association? How does it compare with the 2-parameter model?
   
 ## Association Testing with Quantitative Traits
 
@@ -88,5 +90,5 @@ outcome ~ covariate1 + covariate2 + covariate3
 
 3. Now redo the linear regression analysis of `sbp` from question 1 for the additive model, but this time adjust for `sex` and `bmi`. Do the results change?
 
-4. What proportion of the heritability of `sbp` is explained by all of the 11 SNPs together?
+4. What proportion of the heritability of `sbp` is explained by all 11 SNPs combined? (contrast categorical coding vs additive coding for the genotypes)
  
