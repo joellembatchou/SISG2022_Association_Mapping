@@ -23,7 +23,7 @@ system("plink2 --bfile <plink_bed_prefix> --chr .. --from-mb .. --to-mb .. --max
 
 
 # Question 3: Examine the genotype data:
-## Compute the minor allele frequency for each SNP and plot a histogram. (hint: use `na.rm=TRUE` when calling `mean()`)
+## Compute and store the minor allele frequency for each SNP. (hint: use `na.rm=TRUE` when calling `mean()`)
 
 ## Impute missing values using the sample average.
 SKAT:::Impute( .. , impute.method = "fixed")
