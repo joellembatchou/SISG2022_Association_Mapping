@@ -1,0 +1,100 @@
+---
+title: "Session 03 - Exercises"
+author: ""
+date: ""
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+Before you begin:
+
+* Make sure that R is installed on your computer
+* For this lab, we will use the following R libraries:
+```{r load-libs, eval=FALSE}
+require(data.table)
+require(dplyr)
+require(tidyr)
+require(GWASTools)
+require(ggplot2)
+```
+
+## GWAS in Samples with Structure & Using REGENIE
+
+### Introduction
+We will be analyzing serum transferrin levels to identify whether there are associated variants in the genotype data. 
+Serum transferrin is a biomarker which can give us information about iron levels in the body. Excessive iron can cause liver disease whereas iron deficiency can lead to anemia.
+
+The file ["Transferrin_pheno.txt"](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data)” contains the transferrin levels for a set of individuals and the file "Transferrin_height.bed" is a binary file in PLINK BED format with accompanying BIM and FAM files which contain the genotype data.
+
+### Exercises
+Here are some things to try:
+
+1. Examine the dataset:
+  * How many samples are present? 
+  * How many SNPs? In how many chromosomes?
+
+2. Examine the phenotype data:
+  * How many individuals in the study have measurements?
+  * What is the distribution of the phenotype? (hint: plot a histogram)
+
+3. Using PLINK, perform a GWAS of transferrin using the phenotype file `Transferrin_pheno.txt` and the `Transferrin_height.{bed,bim,fam}` genotype files.
+Only perform association test on SNPs that pass the following quality control threshold filters:
+
+* minor allele frequency (MAF) > 0.05
+* at least a 99% genotyping call rate (less than 1% missing)
+* HWE p-values greater than 0.001
+
+The basic command would look like
+```{bash, eval = FALSE}
+plink2 --bfile Transferrin_height --pheno Transferrin_pheno.txt --pheno-name <pheno_name> --maf <min_MAF> --geno <max_miss> --hwe <hwe_p_thresh> --glm allow-no-covars --out <output_prefix>
+```
+
+4. Make a Manhattan plot of the association results using the `manhattanPlot()` R function. The basic command would look like
+```{r, eval = FALSE}
+manhattanPlot(
+  p = <pvalues>,
+  chromosome = <chromosomes>, 
+  thinThreshold = 1e-4,
+  main= <title>
+)
+```
+Compare your Manhattan plot to the one shown in [Benjamin et al. (2009, AJHG)](https://faculty.washington.edu/tathornt/sisg/AJHG_Transferrin_2009.pdf).
+
+5. Make a Q-Q plot of the association results using the `qqPlot()` R function. The basic command would look like
+```{r, eval = FALSE}
+qqPlot(
+  pval = <pvalues>,
+  thinThreshold = 1e-4,
+  main= <title>
+ )
+```
+
+6. Compute the genomic control inflation factor $\lambda_{GC}$ based on the p-values.
+(Hint: convert p-values to $\chi^2_1$ test statistics using the R function `qchisq(<pvals>, df = 1, lower.tail = FALSE)`)
+
+7. Now use REGENIE to perform a GWAS of the transferrin phenotype
+using a whole genome regression model.
+  
+  * Write the list of samples with non-missing phenotype to file (FID/IID columns).
+  
+  * Using PLINK, apply QC filters to remove variants with MAF below 5%, missingness above 1%, HWE p-value below 0.001, minor allele count (MAC) below 20. Make sure to specify the ID of samples to analyze using `--keep`. (hint: use `--write-snplist` to store list of variants passing QC without making a new BED file)
+  
+  * Run REGENIE Step 1 to fit the null model and obtain polygenic predictions using LOCO. The basic command would look like
+```{bash, eval = FALSE}
+regenie --bed Transferrin_height --phenoFile Transferrin_pheno.txt --keep <nomiss.ids> --step 1 --bsize 1000 --qt --extract <plink_QC_pass_snplist> --out <output_prefix_step1>
+```
+
+**Skip this step and instead download the Step 1 output file [`transferrin_regenie_step1_1.loco`](https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/transferrin_regenie_step1_1.loco) which contains the LOCO predictions for each chromosome.**
+
+Before running Step 2, generate the list file which has a single line with phenotype name followed by path to `*.loco` file; e.g.
+```{bash, eval = FALSE}
+Transferrin data/transferrin_regenie_step1_1.loco
+```
+
+  * Run REGENIE Step 2 to perform association testing at the same variants analyzed in PLINK. The basic command would look like
+```{bash, eval = FALSE}
+regenie --bed Transferrin_height --phenoFile Transferrin_pheno.txt --keep <nomiss.ids> --step 2 --bsize 400 --qt --pred <output_prefix_step1>_pred.list --extract <plink_variant_list_file> --out <output_prefix_step2>
+```  
+
+  * Generate Manhatthan and Q-Q plots based on the association results and compute $\lambda_{GC}$.
+  
