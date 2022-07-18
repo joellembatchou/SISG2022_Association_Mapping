@@ -16,7 +16,7 @@ require(ggplot2)
 
 
 # Question 2. Get the first 10 principal components (PCs) in PLINK using all SNPs.
-system("plink --bfile <plink_bed_prefix> --pca 10 --out <output_prefix>")
+system("plink2 --bfile <plink_bed_prefix> --pca 10 --out <output_prefix>")
 
 ## Make a scatterplot of the first two PCs with each point colored by population membership. 
 

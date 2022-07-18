@@ -44,7 +44,7 @@ Here are some things to look at:
 
 2. Get the first 10 principal components (PCs) in PLINK using all SNPs. The basic command would look like
 ```{bash, eval = FALSE}
-plink --bfile <plink_bed_prefix> --pca 10 --out <output_prefix>
+plink2 --bfile <plink_bed_prefix> --pca 10 --out <output_prefix>
 ```
 This generates a file `<output_prefix>.eigenvec` containing the PCs (eigenvectors) as well as another file `<output_prefix>.eigenval` containing the top eigenvalues.
 
