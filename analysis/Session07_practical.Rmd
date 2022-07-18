@@ -1,0 +1,102 @@
+---
+title: "Session 07 - Exercises"
+author: ""
+date: ""
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+Before you begin:
+
+* Make sure that R is installed on your computer
+* For this lab, we will use the following R libraries:
+```{r load-libs, eval=FALSE}
+require(data.table)
+require(dplyr)
+require(tidyr)
+require(BEDMatrix)
+require(SKAT)
+require(ACAT)
+require(ggplot2)
+```
+
+## Rare Variant Analysis
+
+### Introduction
+We will look further into the serum transferrin dataset focusing on the chromosome 3 signal that was detected in our GWAS to determine if the signal is coming from rare variation at the locus. In our analyses, *we will define rare variants as those with* $MAF \leq 5\%$.
+
+The file ["Transferrin_pheno.txt"](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data)” contains the transferrin levels for a set of individuals and the file "Transferrin_height.bed" is a binary file in PLINK BED format with accompanying BIM and FAM files which contain the genotype data.
+
+### Exercises
+Here are some things to try:
+
+1.  Using PLINK, extract **rare variants** that are within  $\sim$ 10Mb of the $TF$ gene in a new PLINK BED file. From figure 2 of [Benyamin et al. (2009)](https://faculty.washington.edu/tathornt/sisg/AJHG_Transferrin_2009.pdf), the coordinates for the region of interest is on chromosome 3 from 124Mb to 145Mb.
+(Hint: use options `--chr/--from-mb/--to-mb` for specifying gene region, `--max-maf` to select rare variants and `--maj-ref force` so that the minor allele is the effect allele)
+  
+
+2. Load the data in R: 
+
+  * Read in the SNPs in the TF gene using R function `BEDMatrix()` (hint: use option `simple_names = TRUE` to easily filter by sample IID later)
+  * Load the phenotype data from `Transferrin_pheno.txt`
+  * Keep only samples who are present both in the genotype as well as phenotype data and who don't have missing values for the phenotype
+
+3. Examine the genotype data:
+  * Compute the minor allele frequency for each SNP and plot a histogram. (hint: use `na.rm=TRUE` when calling `mean()`)
+  * Impute missing values using the sample average. Use `Impute()` from SKAT R package as
+```{r, eval=FALSE}
+SKAT:::Impute( <genotype_matrix>, impute.method = "fixed")
+```
+  
+4. Run the single variant association tests in PLINK (only for the extracted variants).
+  * Compute the minimum p-value across SNPs and apply Bonferroni correction for the multiple testing (hint: take $\min(1, p\cdot K)$, where $p$ is the minimum p-value and $K$ is the number of tests). Is anything significant after adjusting for multiple testing?
+  * Make a volcano plot (i.e. log10 p-values vs effect sizes).
+
+Reminder: The PLINK2 command would look like
+```{bash, eval = FALSE}
+plink2 --bfile <BED_file_with_extracted_SNPs> --pheno Transferrin_pheno.txt --pheno-name <pheno_name> --glm allow-no-covars --out <output_prefix>
+```
+
+5. We will first compare three collapsing/burden approaches:
+  * CAST (Binary collapsing approach): for each individual, count where they have a rare allele at any of the sites
+  * MZ Test/GRANVIL (Count based collapsing): for each individual, count the total number of sites where a rare allele is present
+  * Weighted burden test: for each individual, take a weighted count of the rare alleles across sites (for the weights, use `weights <- dbeta(MAF, 1, 25)`)
+
+For each approach, first generate the burden scores vector then test it for association with the phenotype using `lm()` R function. 
+
+6. Now use SKAT to test for an association. 
+The basic command would look like
+```{r, eval = FALSE}
+# fit null model (no covariates)
+skat.null <- SKAT_Null_Model( <phenotype_vector> ~ 1 , out_type = "C")
+# Run SKAT association test (returns a list - p-value is in `$p.value`)
+SKAT( <genotype_matrix>, skat.null )
+```
+
+7. Run the omnibus SKAT, but consider setting $\rho$ (i.e.`r.corr`) to 0 and then 1. 
+  * Compare the results to using the CAST,MZ/GRANVIL and Weighted burden collapsing approaches in Question 5 as well as SKAT in Question 6. What tests do these $\rho$ values correspond to?
+The basic command would look like
+```{r, eval = FALSE}
+# Run SKATO association test specifying rho
+SKAT( <genotype_matrix>, skat.null, r.corr = <rho_value>)
+```
+
+8. Now the omnibus version of SKAT, but use the “optimal.adj” approach which searches across a range of rho values.
+The basic command would look like
+```{r, eval = FALSE}
+# Run SKATO association test using grid of rho values
+SKAT( <genotype_matrix>, skat.null, method="optimal.adj")
+```
+
+9. Run ACATV on the single variant p-values.
+The basic command would look like
+```{r, eval = FALSE}
+# `weights` vector is from Qesution 5
+acat.weights <- weights * weights * MAF * (1 - MAF)
+ACAT( <pvalues>, weights = acat.weights)
+```
+
+10. Run ACATO combining the SKAT and BURDEN p-values (from Question 7) with the ACATV p-value (from Question 9).
+The basic command would look like
+```{r, eval = FALSE}
+ACAT( c(<pvalue_SKAT>, <pvalue_Burden>, <pvalue_ACATV>))
+```
