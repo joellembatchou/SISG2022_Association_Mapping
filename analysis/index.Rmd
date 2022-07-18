@@ -56,6 +56,7 @@ Please be sure to install some necessary R packages with:
 ```{r install-pkgs, eval = FALSE}
 install.packages("qqman")
 install.packages("bigsnpr")
+install.packages("hexbin")
 install.packages("tidyverse")
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
