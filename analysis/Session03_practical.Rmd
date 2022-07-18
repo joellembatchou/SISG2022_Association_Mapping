@@ -18,6 +18,8 @@ require(GWASTools)
 require(ggplot2)
 ```
 
+The R template to do the exercises is [here](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/code).
+
 ## GWAS in Samples with Structure & Using REGENIE
 
 ### Introduction

@@ -18,6 +18,8 @@ require(bigsnpr)
 require(ggplot2)
 ```
 
+The R template to do the exercises is [here](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/code).
+
 ## Population Structure Inference
 
 ### Introduction
