@@ -1,3 +1,3 @@
 # Code
 
-Save command-line scripts and shared R code here.
+R script templates for the class exercises.
