@@ -70,9 +70,9 @@ qqPlot(
 ```
 
 6. Compute the genomic control inflation factor $\lambda_{GC}$ based on the p-values.
-(Hint: convert p-values to $\chi^2_1$ test statistics using the R function `qchisq(<pvals>, df = 1, lower.tail = FALSE)`)
+(Hint: convert p-values to $\chi^2_1$ test statistics using the R function `qchisq()`)
 
-7. Now use REGENIE to perform a GWAS of the transferrin phenotype
+7. Now use REGENIE to perform a GWAS of the phenotype
 using a whole genome regression model.
   
   * Write the list of samples with non-missing phenotype to file (FID/IID columns).
@@ -93,7 +93,7 @@ Transferrin data/transferrin_regenie_step1_1.loco
 
   * Run REGENIE Step 2 to perform association testing at the same variants analyzed in PLINK. The basic command would look like
 ```{bash, eval = FALSE}
-regenie --bed Transferrin_height --phenoFile Transferrin_pheno.txt --keep <nomiss.ids> --step 2 --bsize 400 --qt --pred <output_prefix_step1>_pred.list --extract <plink_variant_list_file> --out <output_prefix_step2>
+regenie --bed Transferrin_height --phenoFile Transferrin_pheno.txt --keep <nomiss.ids> --step 2 --bsize 400 --qt --pred <LOCO_list_file> --extract <plink_variant_list_file> --out <output_prefix_step2>
 ```  
 
   * Generate Manhatthan and Q-Q plots based on the association results and compute $\lambda_{GC}$.
