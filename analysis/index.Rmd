@@ -124,10 +124,10 @@ data.frame(
     "[Exercises](TBD), Video"
   ),
   "Key" = c(
-    "[.html ], [.Rmd]",
-    "[.html ], [.Rmd]",
-    "[.html ], [.Rmd]",
-    "[.html ], [.Rmd]"
+    "[.html], [.Rmd]",
+    "[.html], [.Rmd]",
+    "[.html], [.Rmd]",
+    "[.html], [.Rmd]"
   )
   , check.names = FALSE) %>%
 knitr::kable("html", escape = FALSE, 
@@ -153,8 +153,8 @@ data.frame(
     "[Exercises](TBD), Video"
   ),
   "Key" = c(
-    "[.html ], [.Rmd]",
-    "[.html ], [.Rmd]"
+    "[.html], [.Rmd]",
+    "[.html], [.Rmd]"
   )
   , check.names = FALSE) %>%
 knitr::kable("html", escape = FALSE, 
