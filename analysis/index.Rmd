@@ -78,9 +78,9 @@ data.frame(
     "Power, Sample Size & Design Considerations"
     ),
   Lecture = c(
-    "[Intro](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session00.pdf), [Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf), Video",
-    "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session03.pdf), Video",
-    "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session06.pdf), Video",
+    "[Intro](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session00.pdf), [Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session01.pdf), Video",
+    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session02.pdf), Video",
+    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session03.pdf), Video",
     "Lecture, Video" 
       ),
   "Exercises" = c(
@@ -115,7 +115,7 @@ data.frame(
   Lecture = c(
     "Lecture, Video",
     "Lecture, Video",
-    "[Lecture](TBD), Video",
+    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session07.pdf), Video",
     "Lecture, Video" 
       ),
   "Exercises" = c(
