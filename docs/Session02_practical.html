@@ -11,7 +11,7 @@
 
 
 
-<title>Session 01 - Exercises</title>
+<title>Session 02 - Exercises</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -401,7 +401,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Session 01 - Exercises</h1>
+<h1 class="title toc-ignore">Session 02 - Exercises</h1>
 <h4 class="author"></h4>
 
 </div>
@@ -615,8 +615,8 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/Session01_practical.Rmd</code>)
-and HTML (<code>docs/Session01_practical.html</code>) files. If you’ve
+made to the R Markdown (<code>analysis/Session02_practical.Rmd</code>)
+and HTML (<code>docs/Session02_practical.html</code>) files. If you’ve
 configured a remote Git repository (see <code>?wflow_git_remote</code>),
 click on the hyperlinks in the table below to view the files as they
 were in that past version.
@@ -648,7 +648,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/4b95c5ba32753085ac5814e1926728dec400a241/analysis/Session01_practical.Rmd" target="_blank">4b95c5b</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/4b95c5ba32753085ac5814e1926728dec400a241/analysis/Session02_practical.Rmd" target="_blank">4b95c5b</a>
 </td>
 <td>
 Joelle Mbatchou
@@ -658,74 +658,6 @@ Joelle Mbatchou
 </td>
 <td>
 session 1-2 praticals
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/bdd6cebd56554743f4c1700466b7549fa4e6f0ff/docs/Session01_practical.html" target="_blank">bdd6ceb</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/402daf4b34df0d8d122ffa2818507e5e3ae4ddb6/analysis/Session01_practical.Rmd" target="_blank">402daf4</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-16
-</td>
-<td>
-session 1 practical
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/6c5104e0f1b56e91e7cc99a4fc74157d5dfdc54a/docs/Session01_practical.html" target="_blank">6c5104e</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/2b8a053f5a7fa322e56a9125fe1d5866c001d081/analysis/Session01_practical.Rmd" target="_blank">2b8a053</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-16
-</td>
-<td>
-session 1 practical
 </td>
 </tr>
 </tbody>
@@ -738,114 +670,120 @@ session 1 practical
 <p>Before you begin:</p>
 <ul>
 <li>Make sure that R is installed on your computer</li>
-<li>For this lab, we will use a few R libraries:</li>
+<li>For this lab, we will use the following R libraries:</li>
 </ul>
 <pre class="r"><code>require(data.table)
 require(dplyr)
 require(tidyr)
+require(bigsnpr)
 require(ggplot2)</code></pre>
-<div id="case-control-association-testing" class="section level2">
-<h2>Case-Control Association Testing</h2>
+<div id="population-structure-inference" class="section level2">
+<h2>Population Structure Inference</h2>
 <div id="introduction" class="section level3">
 <h3>Introduction</h3>
-<p>We will be using the <a
-href="https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt">LHON
-dataset</a> covered in the lecture notes for this portion of the
-exercises. The LHON dataset is from a case-control study and includes
-both phenotype and genotype data for a candidate gene.</p>
-<p>Let’s first load the LHON data file into the R session. You can read
-the file directly from the web (if you are connected to the web) using
-the following command:</p>
-<pre class="r"><code>LHON.df &lt;- fread(&quot;https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt&quot;, header=TRUE)</code></pre>
-<p>Alternatively, you can save the file to your computer and read it
-into R from the directory where the file is located:</p>
-<pre class="r"><code>LHON.df &lt;- fread(&quot;LHON.txt&quot;, header=TRUE)</code></pre>
+<p>We will be working with a subset of the genotype data from the Human
+Genome Diversity Panel (HGDP) and HapMap.</p>
+<p>The file “<a
+href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data">YRI_CEU_ASW_MEX_NAM.bed</a>”
+is a binary file in PLINK BED format with accompanying BIM and FAM
+files. It contains genotype data at autosomal SNPs for:</p>
+<ul>
+<li>Native American samples from HGDP</li>
+<li>Four population samples from HapMap:
+<ul>
+<li>Yoruba in Ibadan, Nigeria (YRI)</li>
+<li>Utah residents with ancestry from Northern and Western Europe
+(CEU)</li>
+<li>Mexican Americans in Los Angeles, California (MXL)</li>
+<li>African Americans from the south-western United States (ASW)</li>
+</ul></li>
+</ul>
 </div>
 <div id="exercises" class="section level3">
 <h3>Exercises</h3>
 <p>Here are some things to look at:</p>
 <ol style="list-style-type: decimal">
-<li>Examine the variables in the dataset:</li>
+<li>Examine the dataset:</li>
 </ol>
 <ul>
-<li>How many observations?</li>
-<li>How many cases/controls?</li>
-<li>What is the distribution of the genotypes across
-cases/controls?</li>
-<li>What about for allele types?</li>
+<li>How many samples are present?</li>
+<li>How many SNPs?</li>
+<li>What is the number of samples in each population?</li>
 </ul>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Perform a logistic regression analysis for this data with
-<code>CC</code> as the reference genotype using the <code>glm()</code>
-function. (Hint: make sure to convert the phenotype to a binary 0/1
-variable)</p></li>
-<li><p>Obtain odds ratios and confidence intervals for the
-<code>CT</code> and <code>TT</code> genotypes relative to the
-<code>CC</code> reference genotype. Interpret.</p></li>
-<li><p>Is there evidence of differences in odds of being a case for the
-<code>CT</code> and <code>TT</code> genotypes (compared to
-<code>CC</code>)?</p></li>
+<li>Get the first 10 principal components (PCs) in PLINK using all SNPs.
+The basic command would look like</li>
 </ol>
-<p><em>Extra</em>: 5. Perform the logistic regression analysis with the
-additive genotype coding. Obtain odds ratios and confidence intervals.
-Is there evidence of an association? How does it compare with the
-2-parameter model?</p>
-</div>
-</div>
-<div id="association-testing-with-quantitative-traits"
-class="section level2">
-<h2>Association Testing with Quantitative Traits</h2>
-<div id="introduction-1" class="section level3">
-<h3>Introduction</h3>
-<p>We will be using the <a
-href="https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt">Blood
-Pressure dataset</a> for this portion of the exercises. This dataset
-contains diastolic and systolic blood pressure measurements for 1000
-individuals, and genotype data at 11 SNPs in a candidate gene for blood
-pressure. Covariates such as gender (sex) and body mass index (bmi) are
-included as well.</p>
-<p>Let’s first load the file into R. You can read the file directly from
-the web (if you are connected to the web) using the following
-command:</p>
-<pre class="r"><code>BP.df &lt;- fread(&quot;https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/bpdata.csv&quot;, header=TRUE)</code></pre>
-<p>Alternatively, you can save the file to your computer and read it
-into R from the directory where the file is located:</p>
-<pre class="r"><code>BP.df &lt;- fread(&quot;bpdata.csv&quot;, header=TRUE)</code></pre>
-</div>
-<div id="exercises-1" class="section level3">
-<h3>Exercises</h3>
-<p>Here are some things to try:</p>
-<ol style="list-style-type: decimal">
-<li>Perform a linear regression of systolic blood pressure
-(<code>sbp</code>) on <code>SNP3</code> using the <code>lm()</code>
-function. Compare the estimates, confidence intervals and p-values you
-get using:</li>
-</ol>
+<pre class="bash"><code>plink --bfile &lt;plink_bed_prefix&gt; --pca 10 --out &lt;output_prefix&gt;</code></pre>
+<p>This generates a file <code>&lt;output_prefix&gt;.eigenvec</code>
+containing the PCs (eigenvectors) as well as another file
+<code>&lt;output_prefix&gt;.eigenval</code> containing the top
+eigenvalues.</p>
 <ul>
-<li>additive (linear) model</li>
-<li>dominant model</li>
-<li>recessive model</li>
-<li>2 parameter model</li>
+<li>Make a scatterplot of the first two PCs with each point colored by
+population membership.</li>
+<li>Interpret the first two PCs, what ancestries are they
+reflecting?</li>
+<li>Make a scree plot of the eigenvalues for the first 10 PCs.
+Approximate the proportion of variance explained by the first two
+PCs.</li>
 </ul>
-<p>(Hint: for each case, first add a new column to the data frame,
-containing the ‘predictor’ variable you need. Then do the regression
-using <code>lm()</code>)</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Provide a plot illustrating the relationship between sbp and the
-three genotypes at SNP3.</li>
-</ol>
-<p>For question 3 and 4 below, R also has a ‘formula’ syntax, frequently
-used when specifying regression models with many predictors. To regress
-an outcome <code>y</code> on several covariates, the syntax is:</p>
-<pre class="r"><code>outcome ~ covariate1 + covariate2 + covariate3</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Now redo the linear regression analysis of <code>sbp</code> from
-question 1 for the additive model, but this time adjust for
-<code>sex</code> and <code>bmi</code>. Do the results change?</p></li>
-<li><p>What proportion of the heritability of <code>sbp</code> is
-explained by all 11 SNPs combined? (contrast categorical coding vs
-additive coding for the genotypes)</p></li>
+<li>Now redo Question 2 above using the <a
+href="https://privefl.github.io/bigsnpr/reference/index.html"><code>bigsnpr</code>
+R package</a> specifying a <span class="math inline">\(r^2\)</span>
+threshold of 0.2 (i.e. LD pruning) as well as a minimum minor allele
+count (MAC) of 20. The basic command would look like</li>
 </ol>
+<pre class="r"><code># run PCA
+obj.bed &lt;- bed(bedfile = &lt;plink_bed_file&gt;)
+pc.out &lt;- bed_autoSVD(
+  obj.bed, 
+  thr.r2 = &lt;r2_threshold&gt;, 
+  k = &lt;number_of_PCs&gt;, 
+  min.mac = &lt;min_MAC&gt;
+)
+# plot PC2 vs PC1
+plot(pc.out, type = &quot;scores&quot;, scores = 1:2)
+# scree plot
+plot(pc.out) 
+# plot SNP loadings (should be centered at 0)
+plot(pc.out, type = &quot;loadings&quot;, scores = 1:&lt;number_of_PCs&gt;, coeff = 0.4)</code></pre>
+<ul>
+<li>Run PCA and make a scatter plot of the first two principal
+components (PCs) with each point colored according to population
+membership.</li>
+<li>Does the plot change from the one in Question 2?</li>
+<li>Check the SNP loadings for the first 10 PCs.</li>
+</ul>
+<p><em>(Hint: This <a
+href="https://privefl.github.io/bigsnpr/articles/bedpca.html">tutorial
+document</a> from <code>bigsnpr</code> might be helpful)</em></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Predict the proportional Native American and European Ancestry
+for the HapMap MXL from the PCA output in Question 3 <em>using one of
+the principal components</em>. (Which PC is most appropriate for this
+analysis?) Assume that the HapMap MXL have negligible African
+Ancestry.</p></li>
+<li><p>Make a barplot of the proportional ancestry estimates from
+question 4.</p></li>
+</ol>
+<p><em>Extra: 6. Check if there are samples related 2nd degree or
+closer. If so, run PCA as in Question 3 removing these samples then
+project the remaining samples onto the PC space. The basic command would
+look like</em></p>
+<pre class="r"><code># check for 3rd degree relateds or closer
+snp_plinkKINGQC(
+  plink2.path = &quot;/usr/bin/plink2&quot;, 
+  bedfile.in = &lt;plink_bed_prefix&gt;, 
+  thr.king = 2^-3.5,
+  make.bed = FALSE
+)</code></pre>
+<p><em>(Hint: This returns a data frame which contains all pairs of
+individuals related 3rd degree or closer. We can then remove them when
+calling <code>bed_autoSVD()</code> using the <code>ind.row</code>
+argument. Finally, you can use <code>bed_projectSelfPCA()</code> to
+project related samples on the PC space.)</em></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
