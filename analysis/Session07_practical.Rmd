@@ -43,7 +43,7 @@ Here are some things to try:
   * Keep only samples who are present both in the genotype as well as phenotype data and who don't have missing values for the phenotype
 
 3. Examine the genotype data:
-  * Compute the minor allele frequency for each SNP and plot a histogram. (hint: use `na.rm=TRUE` when calling `mean()`)
+  * Compute and store the minor allele frequency for each SNP. (hint: use `na.rm=TRUE` when calling `mean()`)
   * Impute missing values using the sample average. Use `Impute()` from SKAT R package as
 ```{r, eval=FALSE}
 SKAT:::Impute( <genotype_matrix>, impute.method = "fixed")
