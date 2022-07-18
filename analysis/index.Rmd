@@ -145,7 +145,7 @@ data.frame(
     "Emerging Issues showcasing ongoing research"
     ),
   Lecture = c(
-    "[Intro](TBD), [Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf), [Video](link4)",
+    "[Intro](TBD), [Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session01.pdf), Video",
     "[Lecture](TBD), Video" 
       ),
   "Exercises" = c(
