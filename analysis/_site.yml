@@ -1,6 +1,6 @@
 name: SISG2022_Association_Mapping
 output_dir: ../docs
-exclude: ["../data/*","../practicals/*"]
+exclude: ["../data/*","../practicals/*","../lectures/*"]
 navbar:
   title: SISG 2022 Module 15
   left:
