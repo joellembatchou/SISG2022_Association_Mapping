@@ -83,16 +83,16 @@ data.frame(
     "[Lecture](https://faculty.washington.edu/tathornt/SISG2021/lectures/SISG2021session10.pdf), Video" 
       ),
   "Exercises" = c(
-    "[Exercises](https://faculty.washington.edu/tathornt/SISG2021/exercises/assoc_ex01.pdf), Video",
-    "[Exercises](.pdf), Video",
-    "[Exercises](https://faculty.washington.edu/tathornt/SISG2021/exercises/assoc_ex03.pdf), Video",
+    "[Exercises](Session01_practical.html), Video",
+    "[Exercises](Session02_practical.html), Video",
+    "[Exercises](Session03_practical.html), Video",
     "[Exercises](https://faculty.washington.edu/tathornt/SISG2021/exercises/assoc_ex4.pdf), Video"
   ),
   "Key" = c(
-     "[.html ], [.Rmd]",
-    "[.html ], [.Rmd]",
-    "[.html ], [.Rmd]",
-    "[.html ], [.Rmd]"
+     "[.html], [.Rmd]",
+    "[.html], [.Rmd]",
+    "[.html], [.Rmd]",
+    "[.html], [.Rmd]"
   )
  , check.names = FALSE ) %>%
 knitr::kable("html", escape = FALSE, 
@@ -120,7 +120,7 @@ data.frame(
   "Exercises" = c(
     "[Exercises](TBD), Video",
     "[Exercises](TBD), Video",
-    "[Exercises](TBD), Video",
+    "[Exercises](Session07_practical.html), Video",
     "[Exercises](TBD), Video"
   ),
   "Key" = c(
