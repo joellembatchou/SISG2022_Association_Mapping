@@ -11,11 +11,11 @@ navbar:
     menu:
     - text: Day 1
     - text: Session 1
-      href: page-a.html
+      href: Session01_practical.html
     - text: Session 2
-      href: page-b.html
+      href: Session02_practical.html
     - text: Session 3
-      href: page-a.html
+      href: Session04_practical.html
     - text: Session 4
       href: page-b.html
     - text: '---------'
@@ -25,7 +25,7 @@ navbar:
     - text: Session 6
       href: page-d.html
     - text: Session 7
-      href: page-c.html
+      href: Session07_practical.html
     - text: Session 8
       href: page-d.html
     - text: '---------'
