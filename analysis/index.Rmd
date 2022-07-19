@@ -168,9 +168,7 @@ kableExtra::kable_styling(bootstrap_options = c("hover", "condensed","striped"))
 
 ## Datasets
 
-All individual data files below can be downloaded from a zipped folder in Dropbox.
-
-`r #Alternatively, you can download the files from the Github repository (the largest file "Transferrin.bed" can be downloaded from the Dropbox folder above).`
+All the data sets used can be downloaded from the [Github repository](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data).
 
 ## Additional resources
 
