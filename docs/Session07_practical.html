@@ -431,7 +431,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-07-18
+<strong>Last updated:</strong> 2022-07-19
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -563,15 +563,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree01d32b1d935ef4770ee1e583dcf1b7d1d7f1ff9btargetblank01d32b1a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree729353be299f83ef468da0af72c12574f622798ctargetblank729353ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/01d32b1d935ef4770ee1e583dcf1b7d1d7f1ff9b" target="_blank">01d32b1</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/729353be299f83ef468da0af72c12574f622798c" target="_blank">729353b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree01d32b1d935ef4770ee1e583dcf1b7d1d7f1ff9btargetblank01d32b1a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree729353be299f83ef468da0af72c12574f622798ctargetblank729353ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -581,7 +581,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/01d32b1d935ef4770ee1e583dcf1b7d1d7f1ff9b" target="_blank">01d32b1</a>.
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/729353be299f83ef468da0af72c12574f622798c" target="_blank">729353b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -603,6 +603,10 @@ Ignored files:
 
 Untracked files:
     Untracked:  data/Transferrin_height.bed
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+    Modified:   code/Session07_exercises.R
 
 </code></pre>
 <p>
@@ -648,6 +652,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/729353be299f83ef468da0af72c12574f622798c/analysis/Session07_practical.Rmd" target="_blank">729353b</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-19
+</td>
+<td>
+use sim data in session 7 exercises
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/655cc83b55c64bbe35ea3ef82ed3c628a59cace1/docs/Session07_practical.html" target="_blank">655cc83</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -758,40 +796,33 @@ href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master
 <h2>Rare Variant Analysis</h2>
 <div id="introduction" class="section level3">
 <h3>Introduction</h3>
-<p>We will look further into the serum transferrin dataset focusing on
-the chromosome 3 signal that was detected in our GWAS to determine if
-the signal is coming from rare variation at the locus. In our analyses,
-<em>we will define rare variants as those with</em> <span
-class="math inline">\(MAF \leq 5\%\)</span>.</p>
+<p>We will look into a dataset collected on a quantitative phenotype
+which was first analyzed through GWAS and a signal was detected in
+chromosome 1. Let’s determine whether the signal is present when we
+focus on rare variation at the locus. In our analyses, <em>we will
+define rare variants as those with</em> <span class="math inline">\(MAF
+\leq 5\%\)</span>.</p>
 <p>The file <a
-href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data">“Transferrin_pheno.txt”</a>”
-contains the transferrin levels for a set of individuals and the file
-“Transferrin_height.bed” is a binary file in PLINK BED format with
-accompanying BIM and FAM files which contain the genotype data.</p>
+href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data">“rv_pheno.txt”</a>”
+contains the phenotype measurements for a set of individuals and the
+file “rv_geno_chr1.bed” is a binary file in PLINK BED format with
+accompanying BIM and FAM files which contains the genotype data.</p>
 </div>
 <div id="exercises" class="section level3">
 <h3>Exercises</h3>
 <p>Here are some things to try:</p>
 <ol style="list-style-type: decimal">
-<li><p>Using PLINK, extract <strong>rare variants</strong> that are
-within <span class="math inline">\(\sim\)</span> 10Mb of the <span
-class="math inline">\(TF\)</span> gene in a new PLINK BED file. From
-figure 2 of <a
-href="https://faculty.washington.edu/tathornt/sisg/AJHG_Transferrin_2009.pdf">Benyamin
-et al. (2009)</a>, the coordinates for the region of interest is on
-chromosome 3 from 124Mb to 145Mb. (Hint: use options
-<code>--chr/--from-mb/--to-mb</code> for specifying gene region,
-<code>--max-maf</code> to select rare variants and
-<code>--maj-ref force</code> so that the minor allele is the effect
-allele)</p></li>
+<li><p>Using PLINK, extract <strong>rare variants</strong> in a new
+PLINK BED file. (Hint: use options <code>--max-maf</code> to select rare
+variants and <code>--maj-ref force</code> so that the minor allele is
+the effect allele)</p></li>
 <li><p>Load the data in R:</p></li>
 </ol>
 <ul>
-<li>Read in the SNPs in the TF gene using R function
-<code>BEDMatrix()</code> (hint: use option
-<code>simple_names = TRUE</code> to easily filter by sample IID
-later)</li>
-<li>Load the phenotype data from <code>Transferrin_pheno.txt</code></li>
+<li>Read in the SNPs using R function <code>BEDMatrix()</code> (hint:
+use option <code>simple_names = TRUE</code> to easily filter by sample
+IID later)</li>
+<li>Load the phenotype data from <code>rv_pheno.txt</code></li>
 <li>Keep only samples who are present both in the genotype as well as
 phenotype data and who don’t have missing values for the phenotype</li>
 </ul>
@@ -799,12 +830,11 @@ phenotype data and who don’t have missing values for the phenotype</li>
 <li>Examine the genotype data:</li>
 </ol>
 <ul>
-<li>Compute and store the minor allele frequency for each SNP. (hint:
-use <code>na.rm=TRUE</code> when calling <code>mean()</code>)</li>
-<li>Impute missing values using the sample average. Use
-<code>Impute()</code> from SKAT R package as</li>
+<li>Compute the minor allele frequency (MAF) for each SNP and plot
+histogram. (hint: use <code>na.rm=TRUE</code> when calling
+<code>mean()</code>)</li>
+<li>Check for missing values</li>
 </ul>
-<pre class="r"><code>SKAT:::Impute( &lt;genotype_matrix&gt;, impute.method = &quot;fixed&quot;)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Run the single variant association tests in PLINK (only for the
 extracted variants).</li>
@@ -819,7 +849,7 @@ significant after adjusting for multiple testing?</li>
 <li>Make a volcano plot (i.e. log10 p-values vs effect sizes).</li>
 </ul>
 <p>Reminder: The PLINK2 command would look like</p>
-<pre class="bash"><code>plink2 --bfile &lt;BED_file_with_extracted_SNPs&gt; --pheno Transferrin_pheno.txt --pheno-name &lt;pheno_name&gt; --glm allow-no-covars --out &lt;output_prefix&gt;</code></pre>
+<pre class="bash"><code>plink2 --bfile &lt;BED_file_with_extracted_SNPs&gt; --pheno rv_pheno.txt --pheno-name &lt;pheno_name&gt; --glm allow-no-covars --out &lt;output_prefix&gt;</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>We will first compare three collapsing/burden approaches:</li>
 </ol>
@@ -887,7 +917,7 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 3.6.1 (2019-07-05)
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
-Running under: macOS Catalina 10.15.7
+Running under: macOS  10.16
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
