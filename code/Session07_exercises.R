@@ -9,28 +9,26 @@ require(ggplot2)
 ###########################
 ## Rare Variant Analysis ##
 ###########################
-# Question 1. Using PLINK, extract rare variants that are within  10Mb of the TF gene in a new PLINK BED file
-## The coordinates for the region of interest is on chromosome 3 from 124Mb to 145Mb.
-system("plink2 --bfile <plink_bed_prefix> --chr .. --from-mb .. --to-mb .. --max-maf .. --maj-ref force --out <output_prefix>")
+# Question 1. Using PLINK, extract **rare variants** in a new PLINK BED file.
+system("plink2 --bfile <plink_bed_prefix> --max-maf .. --maj-ref force --out <output_prefix>")
 
 
 # Question 2. Load the data in R
-## Read in the SNPs in the TF gene using R function "BEDMatrix()"  (hint: use option `simple_names = TRUE` to easily filter by sample IID later)
+## Read in the SNPs using R function `BEDMatrix()` (hint: use option `simple_names = TRUE` to easily filter by sample IID later)
 
-## Load the phenotype data from `Transferrin_pheno.txt`
+## Load the phenotype data from `rv_pheno.txt`
 
 ## Keep only samples who are present both in the genotype as well as phenotype data and who don't have missing values for the phenotype
 
 
 # Question 3: Examine the genotype data:
-## Compute and store the minor allele frequency for each SNP. (hint: use `na.rm=TRUE` when calling `mean()`)
+## Compute the minor allele frequency (MAF) for each SNP and plot histogram. (hint: use `na.rm=TRUE` when calling `mean()`)
 
-## Impute missing values using the sample average.
-SKAT:::Impute( .. , impute.method = "fixed")
+## Check for missing values
 
 
 # Question 4: Run the single variant association tests in PLINK (only for the extracted variants).
-system("plink2 --bfile <BED_file_with_extracted_SNPs> --pheno Transferrin_pheno.txt --pheno-name <pheno_name> --glm allow-no-covars --out <output_prefix>")
+system("plink2 --bfile <BED_file_with_extracted_SNPs> --pheno rv_pheno.txt --pheno-name <pheno_name> --glm allow-no-covars --out <output_prefix>")
 ## Compute the minimum p-value across SNPs and apply Bonferroni correction for the multiple testing
 
 ## Make a volcano plot (i.e. log10 p-values vs effect sizes).
@@ -46,7 +44,7 @@ burden.mz <- ..
 lm( <y> ~ burden.mz) %>% summary
 
 ## Weighted burden test: for each individual, take a weighted count of the rare alleles across sites
-weights <- dbeta(<MAF_vector>, 1, 25)
+weights <- dbeta( <MAF_vector> , 1, 25)
 burden.weighted <- ..
 lm( <y> ~ burden.weighted) %>% summary
 
