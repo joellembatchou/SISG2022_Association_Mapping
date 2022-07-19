@@ -25,29 +25,26 @@ The R template to do the exercises is [here](https://github.com/joellembatchou/S
 ## Rare Variant Analysis
 
 ### Introduction
-We will look further into the serum transferrin dataset focusing on the chromosome 3 signal that was detected in our GWAS to determine if the signal is coming from rare variation at the locus. In our analyses, *we will define rare variants as those with* $MAF \leq 5\%$.
+We will look into a dataset collected on a quantitative phenotype which was first analyzed through GWAS and a signal was detected in chromosome 1. Let's determine whether the signal is present when we focus on rare variation at the locus. In our analyses, *we will define rare variants as those with* $MAF \leq 5\%$.
 
-The file ["Transferrin_pheno.txt"](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data)” contains the transferrin levels for a set of individuals and the file "Transferrin_height.bed" is a binary file in PLINK BED format with accompanying BIM and FAM files which contain the genotype data.
+The file ["rv_pheno.txt"](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data)” contains the phenotype measurements for a set of individuals and the file "rv_geno_chr1.bed" is a binary file in PLINK BED format with accompanying BIM and FAM files which contains the genotype data.
 
 ### Exercises
 Here are some things to try:
 
-1.  Using PLINK, extract **rare variants** that are within  $\sim$ 10Mb of the $TF$ gene in a new PLINK BED file. From figure 2 of [Benyamin et al. (2009)](https://faculty.washington.edu/tathornt/sisg/AJHG_Transferrin_2009.pdf), the coordinates for the region of interest is on chromosome 3 from 124Mb to 145Mb.
-(Hint: use options `--chr/--from-mb/--to-mb` for specifying gene region, `--max-maf` to select rare variants and `--maj-ref force` so that the minor allele is the effect allele)
+1.  Using PLINK, extract **rare variants** in a new PLINK BED file.
+(Hint: use options `--max-maf` to select rare variants and `--maj-ref force` so that the minor allele is the effect allele)
   
 
 2. Load the data in R: 
 
-  * Read in the SNPs in the TF gene using R function `BEDMatrix()` (hint: use option `simple_names = TRUE` to easily filter by sample IID later)
-  * Load the phenotype data from `Transferrin_pheno.txt`
+  * Read in the SNPs using R function `BEDMatrix()` (hint: use option `simple_names = TRUE` to easily filter by sample IID later)
+  * Load the phenotype data from `rv_pheno.txt`
   * Keep only samples who are present both in the genotype as well as phenotype data and who don't have missing values for the phenotype
 
 3. Examine the genotype data:
-  * Compute and store the minor allele frequency for each SNP. (hint: use `na.rm=TRUE` when calling `mean()`)
-  * Impute missing values using the sample average. Use `Impute()` from SKAT R package as
-```{r, eval=FALSE}
-SKAT:::Impute( <genotype_matrix>, impute.method = "fixed")
-```
+  * Compute the minor allele frequency (MAF) for each SNP and plot histogram. (hint: use `na.rm=TRUE` when calling `mean()`)
+  * Check for missing values
   
 4. Run the single variant association tests in PLINK (only for the extracted variants).
   * Compute the minimum p-value across SNPs and apply Bonferroni correction for the multiple testing (hint: take $\min(1, p\cdot K)$, where $p$ is the minimum p-value and $K$ is the number of tests). Is anything significant after adjusting for multiple testing?
@@ -55,7 +52,7 @@ SKAT:::Impute( <genotype_matrix>, impute.method = "fixed")
 
 Reminder: The PLINK2 command would look like
 ```{bash, eval = FALSE}
-plink2 --bfile <BED_file_with_extracted_SNPs> --pheno Transferrin_pheno.txt --pheno-name <pheno_name> --glm allow-no-covars --out <output_prefix>
+plink2 --bfile <BED_file_with_extracted_SNPs> --pheno rv_pheno.txt --pheno-name <pheno_name> --glm allow-no-covars --out <output_prefix>
 ```
 
 5. We will first compare three collapsing/burden approaches:
