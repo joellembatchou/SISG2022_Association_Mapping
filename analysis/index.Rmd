@@ -67,7 +67,7 @@ BiocManager::install("GWASTools")
 
 ## Schedule
 
-All times listed below for the schedule are Pacific Standard Time (PST, Seattle time).
+All times listed below for the schedule are Pacific Standard Time (PDT, Seattle time).
 
 ```{r mon-sched, echo = FALSE, results = "asis"}
 data.frame(
@@ -152,11 +152,11 @@ data.frame(
       ),
   "Exercises" = c(
     "Exercises, Video",
-    "Exercises, Video"
+    " "
   ),
   "Key" = c(
     ".html, .Rmd",
-    ".html, .Rmd"
+    " "
   )
   , check.names = FALSE) %>%
 knitr::kable("html", escape = FALSE, 
