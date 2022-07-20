@@ -67,7 +67,7 @@ BiocManager::install("GWASTools")
 
 ## Schedule
 
-All times listed below for the schedule are Pacific Standard Time (PDT, Seattle time).
+All times listed below for the schedule are Pacific Daylight Time (PDT, Seattle time).
 
 ```{r mon-sched, echo = FALSE, results = "asis"}
 data.frame(
