@@ -1,0 +1,79 @@
+---
+title: "Using the online server"
+author: ""
+date: ""
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## First time login
+
+We will be using an online server to run the module exercises.
+
+To get setup:
+
+1. Login to the server using the email name you used to register for the course (i.e. the part before the @). On your terminal, run:
+`ssh <username>@<server_address>`
+2. Enter password : `<default_password>`
+3. Change the password using `passwd` after you login
+
+*(Note: the server adress and default password were posted on the Slack channel)*
+
+**Please make sure you are able to access the server prior to us starting the class on Monday July 25th**. 
+Let us know on Slack if you have any issues with the above steps. 
+
+## Data sets
+
+We have loaded data sets needed for the class exercises onto the server at `/data/SISG2022M15/data/`.
+We recommend to create a symbolic link in your home directory (i.e. default directory when you ssh into the server) to this folder for easier use during the module.
+To do that, run the following command in the terminal from your home directory:
+```{bash, eval = FALSE}
+ln -s /data/SISG2022M15/data/ data
+```
+
+You should now see the class datasets by just using `ls data/` (note that you only have read access to these files).
+
+## Template R code
+
+Template R code is available for some of the exercises to get your started; these are available in `/data/SISG2022M15/code/`.
+We recommend you copy this folder over to your home directory so you will be able to modify the files when you try out the exercises.
+
+To do that, run the following command in the terminal from your home directory:
+```{bash, eval = FALSE}
+cp -r /data/SISG2022M15/code/ code/
+```
+
+You should now see the R files using `ls code/` (note that you have read/write access to these files).
+
+## Using RStudio Server
+
+We have started a RStudio server so you can start a Rstudio session from your web browser which will run on the online server.
+To connect your browser to the online server:
+
+1. Enter the following command *from your local terminal* (i.e. you should be logged out of the server):
+```{bash, eval = FALSE}
+ssh -fNL 1235:localhost:8787 <username>@<server_address>
+```
+After you have entered your password, the ssh session should close. 
+
+2. Go to your web browser and enter `localhost:1235`.
+You should be re-directed to the RStudio login page where you can enter your username/password (same credentials you use when ssh-ing into the server).
+
+Once logged in, the working directory will be your home directory so you can easily access the template R scripts in `code/` as well as the class datasets in `data/`.
+
+You can use `pkill ssh` to terminate the ssh session (so you won't be able to access RStudio server from your browser anymore); until then it will remain accessible unless you restart your computer.
+
+**We strongly encourage you to use this** when doing the class exercises so it will be easier to run scripts from R terminal as well as see plots. 
+
+## Notes
+
+1. If you cannot setup Rstudio server on your browser, you can use X11 forwarding (if installed on your system) when ssh'ing into the server. 
+This will enable for plots to be displayed on your screen during the ssh session.  
+To do that, run the following command when ssh'ing into the server:
+```{bash, eval = FALSE}
+ssh -XY <username>@<server_address>
+```
+
+2. Datasets and R template code are all available [in the Github repository](https://github.com/joellembatchou/SISG2022_Association_Mapping) 
+(under the `data/` and `code/` subdirectories, respectively).
