@@ -62,7 +62,8 @@ You should be re-directed to the RStudio login page where you can enter your use
 
 Once logged in, the working directory will be your home directory so you can easily access the template R scripts in `code/` as well as the class datasets in `data/`.
 
-You can use `pkill ssh` to terminate the ssh session (so you won't be able to access RStudio server from your browser anymore); until then it will remain accessible unless you restart your computer.
+You can use `pkill ssh` to terminate the ssh session (so you won't be able to access RStudio server from your browser anymore); 
+until then it will remain accessible unless you restart your computer (or log out).
 
 **We strongly encourage you to use this** when doing the class exercises so it will be easier to run scripts from R terminal as well as see plots. 
 
