@@ -34,6 +34,9 @@ The course schedule is below.
 
 ## Pre-requisites
 
+We will use an online server during the module to run exercises (see instructions [here](using_server.html) for setup). 
+If you decide to run analyses from your local machine instead, follow the instructions below.
+
 **Prior to the module**, please install working and latest versions of:
 
 * R (Version 4.1+): 
@@ -169,6 +172,7 @@ kableExtra::kable_styling(bootstrap_options = c("hover", "condensed","striped"))
 ## Datasets
 
 All the data sets used can be downloaded from the [Github repository](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data).
+These have all been loaded on the online server for the class.
 
 ## Additional resources
 
