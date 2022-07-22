@@ -167,7 +167,7 @@
 \begin{itemize}
 \item Inclusion/Exclusion criteria options
 \begin{itemize}
-\item   \begin{verbatim} --keep mylist.txt, --remove mylist.txt  \end{verbatim}
+\item   \begin{verbatim} --keep msamples.txt, --remove msamples.txt  \end{verbatim}
 \item \begin{verbatim} --extract mysnps.txt, --exclude mysnps.txt \end{verbatim}
 \item \begin{verbatim}  --chr 2,6 --from rs273744 --to rs89883 \end{verbatim}
 \end{itemize}
@@ -195,8 +195,8 @@
 \end{itemize}
 \item Inclusion/Exclusion filters
 \begin{itemize}
-\item MAF:   \verb+--maf +
-\item MAC:   \verb+--mac+
+\item MAF:   \verb+--maf , --max-maf+
+\item minor allele count (MAC):   \verb+--mac,--max-mac+
 \item  SNP missing rate: \verb+--geno +
 \item Individual missing rate:  \verb+--mind +
 \item  Hardy-Weinberg:   \verb+--hwe +
@@ -231,18 +231,18 @@ With PLINK2
 \begin{itemize}
 \item PLINK input files:
 \begin{itemize}
-\item {\tt Transferrin.bed}
-\item {\tt Transferrin.fam}
-\item {\tt Transferrin.bim}
+\item \verb+ Transferrin_height.bed+
+\item \verb+ Transferrin_height.fam+
+\item \verb+ Transferrin_height.bim+
 \end{itemize}
-\item  Rmd script file for Transferrin: available on course website
+\item Phenotype file:
 \begin{itemize}
-\item \begin{verbatim} assoc_ex03.Rmd \end{verbatim}
- \end{itemize}
+	\item \verb+ Transferrin_pheno.txt+
+\end{itemize}
 \item HELP: check the PLINK website documentation (very useful!)
 
-\vspace{.3em}
-\centering\url{https://www.cog-genomics.org/plink/}
+\vspace{.5em}
+\centering\url{https://www.cog-genomics.org/plink/2.0/}
 \end{itemize}
 \end{frame}
 
@@ -449,8 +449,8 @@ snp_plinkQC(plink.path, prefix.in, file.type="--bfile",
 	\item Prune variants in linkage disequilibrium (LD) (e.g. $r^2 \geq 0.2$)
 	\item Removes long-range LD regions
 \end{itemize}
-\verb| bed_autoSVD(obj.bed, thr.r2 = 0.2, k = 20)|
-\verb| predict(object.svd)|
+\verb| pca <- bed_autoSVD(obj.bed, thr.r2 = 0.2, k = 20)|
+\verb| predict(pca)|
 \item Project to remaining samples
 \verb| bed_projectSelfPCA(object.svd, obj.bed, ind.row)|
 	\end{itemize}

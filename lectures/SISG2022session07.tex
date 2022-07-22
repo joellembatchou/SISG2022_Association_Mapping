@@ -192,7 +192,7 @@ $\rightarrow$ How many subjects are needed to achieve $80\%$ of power ($\alpha =
 	\item { SNPs in a region} ${\bf G_i}= (g_{i1}, g_{i2}, \ldots, g_{ip})'$, $(g_{ij} = 0,1, 2)$
 	\item { Covariates} $\bX_i$ : age, gender, PC scores (for population stratification).
 	\item Continuous/binary traits: 
-	$$ \mu_i/\log\left(\frac{\mu_i}{1-\mu_i}\right)=\alpha_0  + \bX_i' \balpha + \bf G_i' \bbeta    $$
+	$$ g(\mu_i)=\alpha_0  + \bX_i' \balpha + \bf G_i' \bbeta    $$
 	\item Joint test of no genetic  effect in region:
 	$$H_0: \bbeta =(\beta_1,\ldots, \beta_p)= 0$$
 \end{itemize}
@@ -218,7 +218,7 @@ $\rightarrow$ How many subjects are needed to achieve $80\%$ of power ($\alpha =
   \item  If $p$ is large, multivariate test $\bbeta = 0$ is not powerful (df=$p$). 
   \item  {Collapsing}: Suppose $\beta_1 = \cdots= \beta_p = \beta$
   \begin{align*}
-  	\mu_i/\log\left(\frac{\mu_i}{1-\mu_i}\right)&=\alpha_0  + \bX_i' \balpha + \bf G_i' \bbeta \\
+  	g(\mu_i)&=\alpha_0  + \bX_i' \balpha + \bf G_i' \bbeta \\
   	&=\alpha_0  + \bX_i^T \balpha + C_i \beta 
   \end{align*}
  
@@ -327,7 +327,7 @@ $$ C_i =  \sum\limits_{j=1}^{p} I(g_{ij} > 0)$$
 		% \item {\bf Variance component test} under the regression model
 		\item Recall the original  regression models:
 		\begin{align}
-			& \mu_i/\log\left(\frac{\mu_i}{1-\mu_i}\right)= \alpha_0  + \bX_i^T \balpha + {\bf G}_i^T \bbeta \notag 
+			& g(\mu_i)= \alpha_0  + \bX_i^T \balpha + {\bf G}_i^T \bbeta \notag 
 		\end{align}
 		%\item LR test of $\bbeta = 0$ has little power with a large $p$.
 			\item Assume $\beta_j \sim dist. (0, w_j^2 \tau)$.
@@ -360,7 +360,7 @@ $$ C_i =  \sum\limits_{j=1}^{p} I(g_{ij} > 0)$$
 		\end{align}
 %		where $U_j = \sum_{i=1}^n g_{ij} (y_i - \muhat_{0i}) $.
 		\item $S_j$ is a score test statistic in the SNP $j$ only model:
-		{  $$\mu_i/\log\left(\frac{\mu_i}{1-\mu_i}\right)= \alpha_0  + \bX_i^T \balpha + g_{ij} \beta_j   $$}
+		{  $$g(\mu_i)= \alpha_0  + \bX_i^T \balpha + g_{ij} \beta_j   $$}
 			\item Under $H_0$, $Q_{SKAT}$ (asymptotically) follows a {\bf mixture of $\chi^2$ distribution} $ \sum_{j=1}^p \lambda_j \chi^2_{1,j}$
 	\end{itemize}
 }
@@ -395,10 +395,10 @@ $$ C_i =  \sum\limits_{j=1}^{p} I(g_{ij} > 0)$$
 		\begin{center}
 			$\rightarrow$ Difficult to choose which test to use in practice.
 		\end{center}
-	\end{itemize}
 	\vspace{0.4cm}
-	\pause
-	{\Red We want to develop a unified test that works well in both situations} $\rightarrow$ Omnibus tests
+\pause
+{\bf We want to develop a unified test that works well in both situations $\rightarrow$ Omnibus tests}
+	\end{itemize}
 }
 
 
@@ -424,10 +424,10 @@ $$ C_i =  \sum\limits_{j=1}^{p} I(g_{ij} > 0)$$
 	
 	
 }
-\frame{\frametitle{SKATO} 
+\frame{\frametitle{SKAT-O} 
 	\begin{itemize}
 		\item { Model}:
-		$$	\mu_i/\log\left(\frac{\mu_i}{1-\mu_i}\right)= \alpha_0  + \bX_i^T \balpha + {\bf G}_i^T \bbeta \notag $$
+		$$	g(\mu_i)= \alpha_0  + \bX_i^T \balpha + {\bf G}_i^T \bbeta \notag $$
 		where  $\beta_j / w_j$ follows any arbitrary distribution  with mean 0 and variance $\tau$
 		and {\blue the correlation among $\beta_j$'s is $\rho$}.
 		\item Special cases:
@@ -437,14 +437,14 @@ $$ C_i =  \sum\limits_{j=1}^{p} I(g_{ij} > 0)$$
 		\end{itemize}
 		% \item $\rho$ is  a correlation among $\beta$
 		\item Set a grid of values for $\rho$  in $[0,1]$ and pick $\rho$ which maximizes power
-		\item SKATO p-value is obtained through numerical integration
+		\item SKAT-O p-value is obtained through numerical integration
 	\end{itemize}
 }
 
-\frame{\frametitle{SKATO vs Burden/SKAT}
+\frame{\frametitle{SKAT-O vs Burden/SKAT}
 	
 	\begin{itemize}
-		\item SKATO remains powerful across all scenarios
+		\item SKAT-O remains powerful across all scenarios
 		\begin{figure}
 			\includegraphics[scale=.35]{./Figures/burden_skat_skato}
 		\end{figure}
@@ -464,17 +464,17 @@ $$ C_i =  \sum\limits_{j=1}^{p} I(g_{ij} > 0)$$
 }
 
 
-\frame{\frametitle{Aggregated Cauchy Association Tests: ACATV \& ACATO} 
+\frame{\frametitle{Aggregated Cauchy Association Tests} 
 	\begin{itemize}
-		\item ACATV
+		\item ACAT-V
 				\begin{itemize}
 			\item Apply ACAT to single variant p-values from rare variants
 	\item More powerful when fewer variants are associated (i.e. sparse alternative)
 	\item SKAT \& Burden can loose substantial power under this scenario
 		\end{itemize}
-	\item ACATO
+	\item ACAT-O
 				\begin{itemize}
-\item Apply ACAT to combine the p-values of SKAT, Burden and ACATV
+\item Apply ACAT to combine the p-values of SKAT, Burden and ACAT-V
 		\item Omnibus test which should work well whether 
 		\begin{itemize}
 			\item Effects are in same direction \& many variants are associated
@@ -489,7 +489,7 @@ $$ C_i =  \sum\limits_{j=1}^{p} I(g_{ij} > 0)$$
 \frame{\frametitle{ACAT/SKAT/Burden }
 	
 	\begin{itemize}
-		\item ACATO remains powerful across all scenarios
+		\item ACAT-O remains powerful across all scenarios
 		\begin{figure}
 			\includegraphics[scale=.33]{./Figures/acat_skat_burden}
 		\end{figure}
@@ -500,12 +500,28 @@ $$ C_i =  \sum\limits_{j=1}^{p} I(g_{ij} > 0)$$
 
 
 %\subsection{Summary}
-\frame{\frametitle{Summary} 
+\frame{\frametitle{Takeaways} 
 	
 	\begin{itemize}
-		\item Region based tests can increase the power of rare variants analysis.
+		\item Region based tests can increase the power of rare variants analysis compared to single variant tests.
 		\item Relative performance of rare variant tests depends on underlying disease models 
-		\item  Combined tests (omnibus tests), e.g, SKATO/ACATO, are more robust and powerful in different scenarios 
+		\item  Combined tests (omnibus tests), e.g, SKAT-O/ACAT-O, are more robust and powerful across different scenarios 
+	\end{itemize}
+	
+	
+}
+
+
+\section{References}
+\frame{\frametitle{References} 
+	
+	\begin{itemize}
+		\item Taliun, D. et al. Sequencing of 53,831 diverse genomes from the NHLBI TOPMed Program. \textit{Nature} \textbf{590}, 290-299 (2021).
+		\item Madsen, B.E. \& Browning, S.R. A Groupwise Association Test for Rare Mutations Using a Weighted Sum Statistic. \textit{PLoS Genetics} \textbf{5}, e1000384 (2009).
+	\item 	Wu, M.C. et al. Rare-variant association testing for sequencing data with the sequence kernel association test. \textit{Am J Hum Genet} \textbf{89}, 82-93 (2011).
+		\item Lee, S., Wu, M.C. \& Lin, X. Optimal tests for rare variant effects in sequencing association studies. \textit{Biostatistics} \textbf{13}, 762-75 (2012).
+	\item 	Liu, Y. et al. ACAT: A Fast and Powerful p Value Combination Method for Rare-Variant Analysis in Sequencing Studies. \textit{Am J Hum Genet} \textbf{104}, 410-421 (2019).
+		
 	\end{itemize}
 	
 	

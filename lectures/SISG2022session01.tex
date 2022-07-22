@@ -180,7 +180,7 @@ Total& 106&550& 656 \\
 \begin{itemize}
 \item the expected number of case alleles that are of type C is:
 \begin{align*}
-n^{ca}_T &= \{\#cases\} \times P(\mbox{Allelic type is C  \(|\)  Allele is from a Case}) \\
+n^{ca}_C &= \{\#cases\} \times P(\mbox{Allelic type is C  \(|\)  Allele is from a Case}) \\
 &=  \{\#cases\}  \times P(\mbox{Allelic type is C}) \quad \textbf{(independence)}\\
 &=178\times \left(\frac{106}{656}\right)=28.7622
 \end{align*}
@@ -337,14 +337,14 @@ Similarly, $OR_{TT}=exp(\hat{\beta}_{TT}) $
 	\begin{itemize}
 		\item Quantitative trait loci (QTL) mapping involves identifying genetic loci that influence the phenotypic variation of a quantitative trait.
 		\item QTL mapping is commonly conducted with GWAS, often involving directly genotyped variants along with imputation through reference panels to result in millions of genetic variants
-		\item	Some quantitative traits can be largely influenced by a single gene as well as by environmental factors (e.g. monogenic or Mendelian traits)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{\bf Introduction to Quantitative Trait Mapping}
 	\begin{itemize}
-		\item  Influences on a quantitative trait can also be due to a number of genes  (polygenicity)
+		\item	Some quantitative traits can be largely influenced by a single gene as well as by environmental factors (e.g. monogenic or Mendelian traits)
+		\item  Influences on a quantitative trait can also be due to a number of genes  $\rightarrow$ polygenicity
 		\item Many quantitative traits of interest are complex where phenotypic variation is due to a combination of both multiple genes and environmental factors
 		\item Examples: Blood pressure, cholesterol levels, IQ, height, weight, etc.
 	\end{itemize}
@@ -354,9 +354,11 @@ Similarly, $OR_{TT}=exp(\hat{\beta}_{TT}) $
 \begin{frame}
 	\frametitle{\bf Quantitative Genetic Model}
 	\begin{itemize}
-		\item The classical quantitative genetics model introduced by Ronald Fisher (1918) is $Y=G+E $, where $Y$ is the phenotypic value, $G$ is the genetic value, and $E$ is the environmental deviation.
+		\item The classical quantitative genetics model introduced by Ronald Fisher (1918) is 
+		$$Y=G+E $$
+		 where $Y$ is the phenotypic value, $G$ is the genetic value, and $E$ is the environmental deviation.
 		\item $G$ is the combination of all genetic loci that influence the phenotypic value  and $E$ consists of all non-genetic factors that influence the phenotype
-		\item The mean environmental deviation $E$ is generally taken to be 0 so that the mean genotypic value is equal to the mean phenotypic value, i.e., $E(Y)=E(G)$
+%		\item The mean environmental deviation $E$ is generally taken to be 0 so that the mean genotypic value is equal to the mean phenotypic value, i.e., $E(Y)=E(G)$
 	\end{itemize}
 \end{frame}
 
@@ -406,7 +408,7 @@ Similarly, $OR_{TT}=exp(\hat{\beta}_{TT}) $
 \begin{frame}
 	\frametitle{\bf  QTL Mapping}
 	\begin{itemize}
-		\item For traits that are heritable, i.e., traits with a non-negligible genetic component that contributes to phenotypic variability, identifying (or mapping) QLT  that influence the trait is often of interest.
+		\item For traits that are heritable, i.e., traits with a non-negligible genetic component that contributes to phenotypic variability, identifying (or mapping) QTLs  that influence the trait is often of interest.
 		\item Linear regression models are commonly used for QTL mapping
 
 		\begin{itemize}
@@ -475,7 +477,7 @@ Similarly, $OR_{TT}=exp(\hat{\beta}_{TT}) $
 \begin{frame}
 	\frametitle{\bf Additive Genetic Model}
 	\begin{itemize}
-				\item  Most GWAS perform single SNP association testing with linear regression assuming an additive model. 
+				\item {\bf Most GWAS perform single SNP association testing with linear regression assuming an additive model. }
 		\item The coefficient of determination $(r^2)$ of an additive linear regression model  gives an estimate of the proportion of phenotypic variation that is explained by the SNP (or SNPs) in the model, e.g., the "SNP heritability" 
 	\end{itemize}
 \end{frame}
@@ -487,7 +489,7 @@ Similarly, $OR_{TT}=exp(\hat{\beta}_{TT}) $
 		\item Consider the following additive model for  association testing with a quantitative trait and a SNP with alleles $C$ and $T$: 
 		\[ Y=\beta_{0} + \beta_{1}G + \epsilon \]
 		where $G$ is the number of copies of the allele $T$.
-		\item What would your interpretation of $\epsilon$ be for this particular model?
+		\item How would you interpret $\epsilon$ in this  model?
 	\end{itemize}
 \end{frame}
 
@@ -518,6 +520,15 @@ Similarly, $OR_{TT}=exp(\hat{\beta}_{TT}) $
 	\end{itemize}
 \end{frame}
 
+\section{References}
+
+\begin{frame}
+	\frametitle{\bf References}	
+	\begin{itemize}
+		\item Phasukkijwatana, N., Kunhapan, B., Stankovich, J., Chuenkongkaew, W. L., Thomson, R., Thornton, T., Bahlo, M., Mushiroda, T., Nakamura, Y., Mahasirimongkol, S., et al. (2010). Genome-wide linkage scan and association study of PARL to the expression of LHON families in Thailand. \textit{Human genetics}, \textbf{128}(1), 39–49.
+		\item Visscher, P.M. et al.  (2017) 10 Years of GWAS Discovery: Biology, Function, and Translation. \textit{The American Journal of Human Genetics }\textbf{101}, 5-22.
+	\end{itemize}
+\end{frame}
 
 
 \end{document}
