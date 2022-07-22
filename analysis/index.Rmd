@@ -176,7 +176,6 @@ These have all been loaded on the online server for the class.
 
 ## Additional resources
 
-* [2009 AJHG article](https://faculty.washington.edu/tathornt/sisg/AJHG_Transferrin_2009.pdf) by Benyamin et al. for a GWAS of Transferrin
 * [2016 TPB Paper](https://faculty.washington.edu/tathornt/sisg/Zheng_Weir_Eigenanalysis_TPB_2016.pdf) on PCA for Population Structure Inference and Admixture Estimation
 * [HapMap MXL Individual Ancestry Figure](https://faculty.washington.edu/tathornt/sisg/HapMapMXL_Ancestry_Supervised.pdf) (Supervised Learning)
 * If you are new to R, you may find the following material helpful:
