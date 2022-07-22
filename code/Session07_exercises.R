@@ -29,7 +29,7 @@ system("plink2 --bfile <plink_bed_prefix> --max-maf .. --maj-ref force --out <ou
 
 # Question 4: Run the single variant association tests in PLINK (only for the extracted variants).
 system("plink2 --bfile <BED_file_with_extracted_SNPs> --pheno rv_pheno.txt --pheno-name <pheno_name> --glm allow-no-covars --out <output_prefix>")
-## Compute the minimum p-value across SNPs and apply Bonferroni correction for the multiple testing
+## What would be your significance threshold after applying Bonferroni correction for the multiple tests (assume the significance level is 0.05)? Is anything significant after this correction?
 
 ## Make a volcano plot (i.e. log10 p-values vs effect sizes).
 

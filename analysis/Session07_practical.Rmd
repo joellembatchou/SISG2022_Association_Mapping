@@ -47,7 +47,7 @@ Here are some things to try:
   * Check for missing values
   
 4. Run the single variant association tests in PLINK (only for the extracted variants).
-  * Compute the minimum p-value across SNPs and apply Bonferroni correction for the multiple testing (hint: take $\min(1, p\cdot K)$, where $p$ is the minimum p-value and $K$ is the number of tests). Is anything significant after adjusting for multiple testing?
+  * What would be your significance threshold after applying Bonferroni correction for the multiple tests (assume the significance level is 0.05)? Is anything significant after this correction?
   * Make a volcano plot (i.e. log10 p-values vs effect sizes). Which of the Burden/SKAT/ACAT tests do you expect will give us most power? 
 
 Reminder: The PLINK2 command would look like
