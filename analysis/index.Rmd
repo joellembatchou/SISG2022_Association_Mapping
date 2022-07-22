@@ -111,8 +111,8 @@ kableExtra::kable_styling(bootstrap_options = c("hover", "condensed","striped"))
 data.frame(
   Time = c("8:00am-9:30am", "10am-11:30am", "12pm-1:30pm", "1:45pm-2:30pm"),
   Session = 4 + 1:4,
-  Topic = c("Downstream analyses: conditional analyses, colocalization & fine-mapping",
-    "Downstream analyses: gene-based and pathways analysis & polygenic risk scores",
+  Topic = c("Downstream analyses: Conditional Analyses, Colocalization, Fine-mapping, Gene-based & Pathways Analysis",
+    "Downstream analyses: Polygenic Risk Scores",
     "Rare Variant Analysis: Collapsing Tests, Kernel (Variance Component) Tests and Omnibus Tests",
     "Emerging issues showcasing ongoing research"
     ),
