@@ -21,7 +21,15 @@ To get setup:
 *(Note: the server adress and default password were posted on the Slack channel)*
 
 **Please make sure you are able to access the server prior to us starting the class on Monday July 25th**. 
-Let us know on Slack if you have any issues with the above steps. 
+Let us know on Slack if you have any issues with the above steps.
+
+#### Note for Windows users
+
+If you run into issues accessing the server, we recommend 
+[Mobaxterm with X11 forwarding](https://mobaxterm.mobatek.net/)
+or 
+[Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install) 
+as an SSH client to access the server.
 
 ## Data sets
 
@@ -65,7 +73,7 @@ Once logged in, the working directory will be your home directory so you can eas
 You can use `pkill ssh` to terminate the ssh session (so you won't be able to access RStudio server from your browser anymore); 
 until then it will remain accessible unless you restart your computer (or log out).
 
-**We strongly encourage you to use this** when doing the class exercises so it will be easier to run scripts from R terminal as well as see plots. 
+**We strongly encourage you to use this** when doing the class exercises so it will be easier to run scripts from RStudio, load datasets as well as visualize plots. 
 
 ## Notes
 
