@@ -89,7 +89,7 @@ SKAT( <genotype_matrix>, skat.null, method="optimal.adj")
 9. Run ACATV on the single variant p-values.
 The basic command would look like
 ```{r, eval = FALSE}
-# `weights` vector is from Qesution 5
+# `weights` vector is from Question 5
 acat.weights <- weights * weights * MAF * (1 - MAF)
 ACAT( <pvalues>, weights = acat.weights)
 ```
