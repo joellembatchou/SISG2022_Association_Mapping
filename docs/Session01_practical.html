@@ -563,15 +563,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree4191df2fe7aa34109e601d7e5574798f1d7bd2e7targetblank4191df2a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree58ce82c7d54d57ea1c2e1f19cac28068d56c2231targetblank58ce82ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/4191df2fe7aa34109e601d7e5574798f1d7bd2e7" target="_blank">4191df2</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/58ce82c7d54d57ea1c2e1f19cac28068d56c2231" target="_blank">58ce82c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree4191df2fe7aa34109e601d7e5574798f1d7bd2e7targetblank4191df2a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree58ce82c7d54d57ea1c2e1f19cac28068d56c2231targetblank58ce82ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -581,7 +581,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/4191df2fe7aa34109e601d7e5574798f1d7bd2e7" target="_blank">4191df2</a>.
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/58ce82c7d54d57ea1c2e1f19cac28068d56c2231" target="_blank">58ce82c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -647,6 +647,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/58ce82c7d54d57ea1c2e1f19cac28068d56c2231/analysis/Session01_practical.Rmd" target="_blank">58ce82c</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-22
+</td>
+<td>
+cleanup
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/86903792ee8842a5322fdfd2432e79a7942994db/docs/Session01_practical.html" target="_blank">8690379</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -835,8 +869,8 @@ the following command:</p>
 into R from the directory where the file is located:</p>
 <pre class="r"><code>LHON.df &lt;- fread(&quot;LHON.txt&quot;, header=TRUE)</code></pre>
 </div>
-<div id="r-hints" class="section level3">
-<h3>R hints</h3>
+<div id="helpful-suggestions-for-r" class="section level3">
+<h3>Helpful suggestions for R</h3>
 <p>There are many ways to obtain summary information for a dataset. Here
 are some short examples:</p>
 <ul>
@@ -855,6 +889,9 @@ df %&gt;% group_by(Variable1) %&gt;% count(Variable2)</code></pre>
 # cross tabulation for two variables
 df %&gt;% select(Variable1, Variable2) %&gt;% table</code></pre>
 <ul>
+<li>Functions like <code>as.numeric()</code> and <code>factor()</code>
+will be useful to convert between numeric and categorical
+variables.</li>
 <li>For any R function you don’t know the input syntax, you can get that
 information using <code>?&lt;function_name&gt;</code></li>
 </ul>
