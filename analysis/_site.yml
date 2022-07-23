@@ -17,23 +17,19 @@ navbar:
     - text: Session 3
       href: Session03_practical.html
     - text: Session 4
-      href: page-b.html
+      href: SISGM15_prac4.html
     - text: '---------'
     - text: Day 2
     - text: Session 5
-      href: page-c.html
+      href: SISGM15_prac5.html
     - text: Session 6
-      href: page-d.html
+      href: SISGM15_prac6.html
     - text: Session 7
       href: Session07_practical.html
-    - text: Session 8
-      href: page-d.html
     - text: '---------'
     - text: Day 3
     - text: Session 9
-      href: page-c.html
-    - text: Session 10
-      href: page-c.html
+      href: SISGM15_prac9.html
   - text: License
     href: license.html
   right:
