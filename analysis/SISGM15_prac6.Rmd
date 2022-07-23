@@ -1,0 +1,400 @@
+---
+title: 'Practical 6: Prediction using GWAS summary statistics'
+author: "Summer Institute of Statical Genetics (Module  15)"
+date: '2022-07-20'
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<span style="color:red;">**This practical runs on the SISG2022 server.**</span>
+
+
+## Preparation
+
+First login
+
+```{bash, eval=FALSE}
+ssh yourlogincredentials@si2022-m15.biostat.washington.edu
+```
+
+This practical proposes a detailed tutorial for running three popular polygenic score (PGS) methods using GWAS summary statistics as introduced in **Lecture 6**. 
+
+**Method 1: C+PT**
+
+The first method is classically denoted as "Clumping + P-value Thresholding (C+PT)". This method is also abbreviated as P+T or C+T in certain publications. In brief, the principle of this method is compare various sets of uncorrelated SNPs (e.g., maximum squared pairwise correlation between allele counts at SNPs in the selected set is $r^2 \leq 0.1$) that are associated with the trait / disease as certain p-value threshold (e.g., p<0.01). We then select the set of SNPs that yields the largest prediction accuracy with the trait / disease of interest in a validation set. This method is broadly used because of it simplicity but may not often yield the largest accuracy. In this practical, we will use `PLINK` and `R` to determine these optimal sets of SNPs. PGS will be calculated using marginal/GWAS SNP effects as weights.
+
+
+**Method 2: SBLUP**
+
+The second method, the Summary-data based BLUP, is an approximation of the BLUP prediction method introduced in **Lecture 5**. In brief, SBLUP calculates PGS weights $\mathbf{b}$ using the following equation
+
+$$ \mathbf{b} = \left( \mathbf{R} + \frac{M_{SNP}(1-h_{SNP}^2)}{N_{GWAS}h_{SNP}^2}\mathbf{I}_M \right)^{-1} \boldsymbol{\beta} $$
+where $\boldsymbol{\beta}$ is the vector of GWAS SNP effects and $\mathbf{R}$ a LD correlation matrix between SNPs estimated from a reference sample. Note that the SBLUP method is equivalent to the `LDpred-Inf` method. A detailed tutorial for LDpred2 is available at <https://privefl.github.io/bigsnpr/articles/LDpred2.html>. In this practical, we will calculate the SBLUP PGS weights "manually" in R.
+
+
+**Method 3: SBayes C**
+
+The Summary-data based BayesC (SBayesC) method is an approximation of the Bayes C method. This method is built upon a more flexible assumption regarding the distribution of SNP effects that only allows a subset of all $M$ SNPs to affect the trait/disease of interest. We denote $\pi$ the proportion of SNPs with a non-zero effect on the trait / disease. (S)BayesC implements a prior mixture distribution for the joint SNP effects $\mathbf{b} = \left(b_1,\ldots,b_M\right)$ defined as
+
+$$ b_j \sim \pi \mathcal{N}\left(0,\sigma^2_b\right)  + (1-\pi) \delta_0$$
+
+
+
+Note that the SBayesC method is equivalent to the `LDpred` (non-infinitesimal) method. In this practical, we will use the GCTB software to fit SBayes C.
+
+\newpage
+**Overview of the data**
+
+We provide GWAS summary statistics for two (simulated) traits hereafter denoted `Trait1` and `Trait2`. For simplicity, we will focus summary statistics of $M=32,260$ SNPs located on chromosome 20. These two GWAS were conducted in $N=348,501$ unrelated European ancestry participants from the UK Biobank (data accessed under project 12505) using the `fastGWA` module of the `GCTA` software (Yang et al. 2011).
+
+We will assess prediction $n=2504$ samples from the 1000 Genomes Project (1KG) with different ancestries. Ancestries groups are European (EUR; N=503), East-Asian (EAS; N=504), South-Asian (SAS; N=489), Admixed individuals from the Americas (AMR; N=347) and African (AFR; N=661). We provide genotypes under binary PLINK format (three files: `1kg_hm3.bed`, `1kg_hm3.bim` and `1kg_hm3.fam`) for these 2504 samples and phenotypes (files named: `1kg.Trait1.phen` and `1kg.Trait2.phen`). For more details about this format please visit PLINK website (<https://www.cog-genomics.org/plink/1.9/formats#bed>).
+
+Create a folder for the practical and move in that folder
+```{bash, eval=FALSE}
+mkdir Practical6
+cd Practical6
+```
+
+Copy the data needed for the practical.
+
+1) Copy the genotype files (data from 1000 Genomes Project; 1KG)
+```{bash, eval=FALSE}
+cp /data/SISG2022M15/data/1kg_hm3.* .
+```
+
+2) Copy GWAS summary statistics generated using `fastGWA`
+```{bash, eval=FALSE}
+cp /data/SISG2022M15/data/*.fastGWA .
+```
+
+3) Copy phenotype data for the validation sample used to assess prediction accuracy
+```{bash, eval=FALSE}
+cp /data/SISG2022M15/data/*.phen .
+```
+
+4) Copy ancestry information for the validation sample
+```{bash, eval=FALSE}
+cp /data/SISG2022M15/data/1kg-sample-2504-phased.txt .
+```
+
+5) Copy list of 1KG samples with European ancestries
+```{bash, eval=FALSE}
+cp /data/SISG2022M15/data/EUR.id .
+```
+
+
+## Part 1. Prediction using C+PT.
+
+Create a sub-folder to store all intermediate files generated for this method.
+
+```{bash, eval=FALSE}
+mkdir C+PT
+```
+
+We can run a first example using `Trait1` with following clumping parameters for PLINK: p-value below 5e-8 and squared correlation below  `r2_thres=0.1` to determine independence between SNPs located within a window `window_kb=1000` kb (=1,000,000 base pairs). The command lines below allow you to that
+
+```{bash, eval=FALSE}
+window_kb=1000 # 1000 kb = 1 Mb window
+r2_thresh=0.1  # LD threshold for clumping
+trait=Trait1
+pv_thresh=5e-8
+
+PLINK=/data/SISG2022M15/exe/plink
+${PLINK} --bfile 1kg_hm3 \
+      --keep EUR.id \
+      --clump ${trait}.fastGWA \
+      --clump-kb ${window_kb} \
+      --clump-p1 ${pv_thresh} \
+      --clump-p2 ${pv_thresh} \
+      --clump-r2 ${r2_thresh} \
+      --out C+PT/${trait}_rsq_${r2_thresh}_p_below_${pv_thresh}
+```
+
+**Question 1. How many SNPs were selected using the command above?**
+
+We will now consider multiple significance thresholds and also analyse the two traits. You could use the code below
+
+```{bash, eval=FALSE}
+for pv_thresh in 5e-8 5e-7 5e-6 5e-5 5e-4 5e-3 5e-2
+do
+  for trait in Trait1 Trait2
+    do
+    ${PLINK} --bfile 1kg_hm3 \
+      --keep EUR.id \
+      --clump ${trait}.fastGWA \
+      --clump-kb ${window_kb} \
+      --clump-p1 ${pv_thresh} \
+      --clump-p2 ${pv_thresh} \
+      --clump-r2 ${r2_thresh} \
+      --out C+PT/${trait}_rsq_${r2_thresh}_p_below_${pv_thresh} --silent
+  done
+done
+```
+
+Now we can calculate the PGS with PLINK using the `--score` command (help: https://www.cog-genomics.org/plink/1.9/score).
+
+```{bash, eval=FALSE}
+## Calculate PGS for each predictor
+for pv_thresh in 5e-8 5e-7 5e-6 5e-5 5e-4 5e-3 5e-2
+  do
+  for trait in Trait1 Trait2
+    do
+    ${PLINK} --bfile 1kg_hm3 \
+      --score ${trait}.fastGWA 2 4 8 sum center \
+      --extract C+PT/${trait}_rsq_${r2_thresh}_p_below_${pv_thresh}.clumped \
+      --out C+PT/${trait}_rsq_${r2_thresh}_p_below_${pv_thresh}.pred --silent
+  done
+done
+```
+
+PGS calculated using the command above are stored in the `*.profile` files (last column named `SCORESUM`). We can now load them in `R` and calculate prediction accuracy in each population.
+
+```{R, eval=FALSE}
+options(stringsAsFactors = FALSE)
+r2_thr <- 0.1
+pops   <- read.table("1kg-sample-2504-phased.txt",h=T) ## This contains ancestry information
+trait  <- "Trait1"
+phen   <- read.table(paste0("1kg.",trait,".phen"),h=T)[,-1] ## Read phenotype
+colnames(phen) <- c("IID",trait)
+
+## Merge with all PGS
+Threshs <- 8:2
+for(thresh in Threshs){
+  filename <- paste0("C+PT/",trait,"_rsq_",r2_thr,"_p_below_5e-",thresh,".pred.profile")
+  tmp <- read.table(filename,h=T)[,c(2,6)]
+  colnames(tmp)[2] <- paste0("P",thresh)
+  phen <- merge(phen,tmp,by="IID")
+}
+
+## This is the merged data containing all PGS
+## P8 denotes the PGS calculated using SNPs with p-value <5e-8
+phen <- merge(phen,pops,by.x="IID",by.y="sample")
+
+## Look at prediction accuracy
+# across the sample
+summary(lm(paste0(trait,"~P8"),phen)) 
+
+## within European ancestry individuals
+summary(lm(paste0(trait,"~P8"),phen[which(phen$super_pop=="EUR"),])) 
+
+## within African  ancestry individuals
+summary(lm(paste0(trait,"~P8"),phen[which(phen$super_pop=="AFR"),])) 
+
+## Select best threshold
+## Across all samples
+RsqOverall <- rep(NA,length(Threshs))
+names(RsqOverall) <- paste0("P",Threshs)
+for(thresh in Threshs){
+  idThresh <- paste0("P",thresh)
+  RsqOverall[idThresh] <- cor(phen[,trait],phen[,idThresh])^2
+}
+
+## Within each ancestry group
+ancestries <- c("EUR","SAS","EAS","AMR","AFR")
+RsqPerAnc  <- matrix(NA,nrow=length(ancestries),ncol=length(Threshs))
+colnames(RsqPerAnc) <- paste0("P",Threshs)
+rownames(RsqPerAnc) <- ancestries
+for(thresh in Threshs){
+  idThresh <- paste0("P",thresh)
+  for(ancestry in ancestries){
+    idAnc <- which(phen[,"super_pop"]==ancestry)
+    RsqPerAnc[ancestry,idThresh] <- cor(phen[idAnc,trait],phen[idAnc,idThresh])^2
+  }
+}
+```
+
+**Question 2. What is the best prediction accuracy in EUR individuals across all significance thresholds? Is the best accuracy reached using the same significance threshold consistently across all ancestry groups? In which ancestry group is the prediction higher? Do you see any difference between `Trait1` and `Trait2`?**
+
+If you have time and answered the question above then you could split the EUR sample in 2 (random) subsets, select the threshold that yields the larger accuracy in subset1, then re-evaluate the prediction accuracy of the corresponding PGS in subset 2. Compare the resulting prediction accuracy with your answer to the first part of **Question 2** above. This process is called cross-validation. 
+
+
+## Part 2. Prediction using SBLUP.
+
+Create a folder to store all intermediate files generated for this method.
+
+```{bash, eval=FALSE}
+mkdir SBLUP
+```
+
+
+The SNP-based heritability of `Trait1` and `Trait2` is $h^2_{SNP} = 0.2$. As shown above, the SBLUP uses a LD reference. Here we provide LD data calculated with PLINK in $N=348,501$ unrelated European ancestry participants from the UK Biobank using the following command.  
+
+```{bash, eval=FALSE}
+## Calculate PGS for each predictor
+${PLINK} \
+  --bfile UKBu_chrom20 \
+  --chr 20 \
+  --ld-window 999999999 \
+  --ld-window-kb 1000 \
+  --ld-window-r2 0.00 \
+  --r 'yes-really' 'gz' \
+  --out plinkLDMat_chrom20
+```
+
+<span style="color:red;">**We only show this command out of general interest. For the sake of time, we do not advise running this command during the practical but you could try it later at home. Note that the data named `UKBu_chrom20` has not been provided but you could replace it another dataset, e.g., with `1kg_hm3`.**</span>
+
+You will see below an R script to run SBLUP. This code is provided in an external `R` script named `sblup.R`. You can run it using the following command
+
+```{bash, eval=FALSE}
+## Calculate PGS for each predictor
+Rscript /data/SISG2022M15/data/sblup.R Trait1
+```
+
+The command above will generate a file named `SBLUP/Trait1.sblupInR.res`.
+
+**Question 3. Using the examples above, 1) calculate the PGS using SNP effects from SBLUP (for `Trait1` and `Trait2`) 2) assess prediction accuracy in the test sample 3) compare your results with the prediction accuracy in EUR and non-EUR individuals obtained using the C+PT method**.
+
+```{bash, eval=FALSE}
+## Solution
+${PLINK} --bfile 1kg_hm3 --score SBLUP/Trait1.sblubInR.res 1 2 3 sum center --out SBLUP/Trait1.pred.R
+```
+
+
+
+It is expected that you try to answer these questions using the R functions introduced above. The below
+code is a partial solution to the above questions and uses some key functions that you may want to use to
+answer the above questions.
+
+```{R, eval=FALSE}
+options(stringsAsFactors = FALSE)
+pops   <- read.table("1kg-sample-2504-phased.txt",h=T)
+trait  <- "Trait1"
+phen   <- read.table(paste0("1kg.",trait,".phen"),h=T)[,-1] ## Read phenotype
+colnames(phen) <- c("IID",trait)
+sblup  <- read.table(paste0("SBLUP/",trait,".pred.R.profile"),h=T)[,c(2,6)]
+
+colnames(sblup)[2] <- "SBLUP"
+phen <- merge(phen,sblup,by="IID")
+phen <- merge(phen,pops,by.x="IID",by.y="sample")
+
+## Look at prediction accuracy
+# across the entire sample
+summary(lm(paste0(trait,"~SBLUP"),phen)) 
+
+## within European ancestry individuals
+summary(lm(paste0(trait,"~SBLUP"),phen[which(phen$super_pop=="EUR"),])) 
+
+## within African  ancestry individuals
+summary(lm(paste0(trait,"~SBLUP"),phen[which(phen$super_pop=="AFR"),])) 
+
+## Within each ancestry group
+ancestries <- c("EUR","SAS","EAS","AMR","AFR")
+RsqPerAnc  <- rep(NA,length(ancestries))
+names(RsqPerAnc) <- ancestries
+for(ancestry in ancestries){
+  idAnc <- which(phen[,"super_pop"]==ancestry)
+  RsqPerAnc[ancestry] <- cor(phen[idAnc,trait],phen[idAnc,"SBLUP"])^2
+}
+```
+
+It is also possible to run SBLUP using `GCTA`. This will require a different formatting of GWAS summary statistics, which we provide (files named `Trait1.ma` and `Trait2.ma`). Note that the same format can also be used with `GCTB` to run SBayesC (see **Part 3** below). The implementation of SBLUP in `GCTA` requires genotype data as input (and not a pre-calculated LD correlation matrix) as well as shrinkage parameter $\lambda = M_{SNPs}\left(\frac{1}{h^2_{SNP}}-1\right)$. An example command is given below
+
+```{bash, eval=FALSE}
+GCTA=/data/SISG2022M15/exe/gcta64_v1.94
+lambda=135628
+for trait in Trait1 Trait2
+  do
+  ${GCTA} \
+  --bfile 1kg_hm3 \
+  --chr 20 \
+  --cojo-file /data/SISG2022M15/data/${trait}.ma \
+  --cojo-sblup ${lambda} \
+  --cojo-wind 1000 \
+  --thread-num 20 \
+  --out SBLUP/${trait}
+done
+```
+
+This command will take approximately 5 min to run. In the interest of time, we recommend not running it and moving to **Part 3** instead. More details can be found here: https://yanglab.westlake.edu.cn/software/gcta/#SBLUP.
+
+## Part 3. Prediction using SBayes C
+
+Create a folder to store all intermediate files generated for this method.
+
+```{bash, eval=FALSE}
+mkdir SBC
+```
+
+SBayesC requires a different format for the LD matrix. We provide a LD matrix directly calculated with GCTB using a command like this
+
+```{bash, eval=FALSE}
+${GCTB}/gctb --bfile sampleForLD --make-full-ldm --snp 1-5000 --out SBC/BLOCK1618.CHROM20
+```
+
+`sampleForLD` is a subset of 348,501 unrelated EUR participants of the UKB. LD correlations on chromosome 20 were calculated within 38 non-overlapping LD blocks identified in an EUR sample (see: http://bitbucket.org/nygcresearch/ldetect-data). Pre-calculated LD matrices can be downloaded from the `GCTB` website. We provide these 38 LD submatrices in the folder named `ldm` and paths for each file are listed in `mldm.txt` (note the similarity with `GCTA`: in `GCTB` `--mldm` indicates that multiple LD matrices will be used, while in `GCTA` `--mgrm` indicates that multiple GRMs will be used).
+
+Set the path to GCTB
+```{bash, eval=FALSE}
+GCTB=/data/SISG2022M15/exe/gctb
+```
+
+
+Now, to run SBayes C, you could run the following command.
+
+```{bash, eval=FALSE}
+mldm=/data/SISG2022M15/data/mldm.txt
+trait=Trait1
+
+${GCTB} --sbayes C --mldm ${mldm} \
+--gwas-summary /data/SISG2022M15/data/${trait}.ma \
+--pi 0.0001 --hsq 0.001 \
+--chain-length 10000 \
+--burn-in 5000 \
+--no-mcmc-bin \
+--robust \
+--out-freq 100 \
+--thin 10 \
+--out SBC/${trait}
+```
+
+This command will run 10,000 MCMC iterations (`--chain-length`) and output results every 100 iterations (`--out-freq`). Final statistics for parameters and prediction accuracy will be calculated using 1/10 iterations (`--thin`) after a burn-in of 5000 iterations (`--burn-in`). 
+
+**Question 4. What is the heritability of `Trait1`? What is the proportion/expected number of SNPs with a non-zero effect on the trait? What s the genetic and residual variances?**.
+
+The command above will generate a file named `SBC/Trait1.snpRes`. We can use that file to calculated a PGS using the following command
+
+```{bash, eval=FALSE}
+trait=Trait1
+${PLINK} --bfile 1kg_hm3 \
+--score SBC/${trait}.snpRes 2 5 8 sum center \
+--out SBC/${trait}.pred
+```
+
+Assess the prediction accuracy of the SBayesC PGS in `R` as done previously
+
+```{bash, eval=FALSE}
+options(stringsAsFactors = FALSE)
+pops   <- read.table("1kg-sample-2504-phased.txt",h=T)
+trait  <- "Trait1"
+phen   <- read.table(paste0("1kg.",trait,".phen"),h=T)[,-1] ## Read phenotype
+colnames(phen) <- c("IID",trait)
+sblup  <- read.table(paste0("SBC/",trait,".pred.profile"),h=T)[,c(2,6)]
+colnames(sblup)[2] <- "SBC"
+phen <- merge(phen,sblup,by="IID")
+phen <- merge(phen,pops,by.x="IID",by.y="sample")
+
+## Look at prediction accuracy
+# across the sample
+summary(lm(paste0(trait,"~SBC"),phen)) 
+
+## within European ancestry individuals
+summary(lm(paste0(trait,"~SBC"),phen[which(phen$super_pop=="EUR"),])) 
+
+## within African  ancestry individuals
+summary(lm(paste0(trait,"~SBC"),phen[which(phen$super_pop=="AFR"),])) 
+
+## Within each ancestry group
+ancestries <- c("EUR","SAS","EAS","AMR","AFR")
+RsqPerAnc  <- rep(NA,length(ancestries))
+names(RsqPerAnc) <- ancestries
+for(ancestry in ancestries){
+  idAnc <- which(phen[,"super_pop"]==ancestry)
+  RsqPerAnc[ancestry] <- cor(phen[idAnc,trait],phen[idAnc,"SBC"])^2
+}
+```
+
