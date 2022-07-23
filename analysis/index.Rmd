@@ -85,13 +85,13 @@ data.frame(
     "[Intro](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session00.pdf), [Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session01.pdf), Video",
     "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session02.pdf), Video",
     "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session03.pdf), Video",
-    "Lecture, Video" 
+    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/L4_Power-Design_M15.pdf), Video"
       ),
   "Exercises" = c(
     "[Exercises](Session01_practical.html), Video",
     "[Exercises](Session02_practical.html), Video",
     "[Exercises](Session03_practical.html), Video",
-    "Exercises, Video"
+    "[Exercises](SISGM15_prac4.html), Video"
   ),
   "Key" = c(
      ".html, .Rmd",
@@ -117,22 +117,22 @@ data.frame(
     "Emerging issues showcasing ongoing research"
     ),
   Lecture = c(
-    "Lecture, Video",
-    "Lecture, Video",
+    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/L5_Downstream-Analyses_M15.pdf), Video",
+    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/L6_Polygenic_Scores_Lectures_M15.pdf), Video",
     "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session07.pdf), Video",
     "Lecture, Video" 
       ),
   "Exercises" = c(
-    "Exercises, Video",
-    "Exercises, Video",
+    "[Exercises](SISGM15_prac5.html), Video",
+    "[Exercises](SISGM15_prac6.html), Video",
     "[Exercises](Session07_practical.html), Video",
-    "Exercises, Video"
+    " "
   ),
   "Key" = c(
     ".html, .Rmd",
     ".html, .Rmd",
     ".html, .Rmd",
-    ".html, .Rmd"
+    " "
   )
   , check.names = FALSE) %>%
 knitr::kable("html", escape = FALSE, 
@@ -150,11 +150,11 @@ data.frame(
     "Emerging issues showcasing ongoing research"
     ),
   Lecture = c(
-    "Lecture, Video",
+    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/L9_Beyond_Standard_GWAS_M15.pdf), Video",
     "Lecture, Video" 
       ),
   "Exercises" = c(
-    "Exercises, Video",
+    "[Exercises](SISGM15_prac9.html), Video",
     " "
   ),
   "Key" = c(
