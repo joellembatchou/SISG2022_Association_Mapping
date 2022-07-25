@@ -1,6 +1,6 @@
 name: SISG2022_Association_Mapping
 output_dir: ../docs
-exclude: ["../data/*","../code/*","../lectures/*"]
+exclude: ["../data/*","../code/*","../lectures/*", "../key/*"]
 navbar:
   title: SISG 2022 Module 15
   left:
@@ -26,6 +26,8 @@ navbar:
       href: SISGM15_prac6.html
     - text: Session 7
       href: Session07_practical.html
+    - text: Session 8
+      href: Session08_practical.html
     - text: '---------'
     - text: Day 3
     - text: Session 9

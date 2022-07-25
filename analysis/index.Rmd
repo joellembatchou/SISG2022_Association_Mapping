@@ -96,7 +96,7 @@ data.frame(
     "[Exercises](SISGM15_prac4.html), Video"
   ),
   "Key" = c(
-     ".html, .Rmd",
+     "[html](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/key/Session01_practical_Key.html), [Rmd](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/key/Session01_practical_Key.Rmd)",
     ".html, .Rmd",
     ".html, .Rmd",
     ".html, .Rmd"
