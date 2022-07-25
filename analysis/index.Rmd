@@ -91,10 +91,10 @@ data.frame(
     paste0(print.link("Lecture", "https://www.dropbox.com/s/g3r8gf96dx9o7o1/L4_Power-Design_M15.pdf?dl=0"), ", ", "Video")
       ),
   "Exercises" = c(
-    "[Exercises](Session01_practical.html), Video",
-    "[Exercises](Session02_practical.html), Video",
-    "[Exercises](Session03_practical.html), Video",
-    "[Exercises](SISGM15_prac4.html), Video"
+    paste0(print.link("Exercises", "Session01_practical.html"), ", ", "Video"),
+    paste0(print.link("Exercises", "Session02_practical.html"), ", ", "Video"),
+    paste0(print.link("Exercises", "Session03_practical.html"), ", ", "Video"),
+    paste0(print.link("Exercises", "SISGM15_prac4"), ", ", "Video")
   ),
   "Key" = c(
      "[html](Session01_practical_Key.html), [Rmd](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/analysis/Session01_practical_Key.Rmd)",
