@@ -97,7 +97,7 @@ data.frame(
   ),
   "Key" = c(
      "[html](Session01_practical_Key.html), [Rmd](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/analysis/Session01_practical_Key.Rmd)",
-    ".html, .Rmd",
+     "[html](Session02_practical_Key.html), [Rmd](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/analysis/Session02_practical_Key.Rmd)",
     ".html, .Rmd",
     ".html, .Rmd"
   )
