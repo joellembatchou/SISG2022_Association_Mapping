@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Summer Institute of Statical Genetics (Module 15)" />
+
+<meta name="date" content="2022-07-25" />
+
+<title>Solution for Practical 4: Power Calculation and Designs of GWAS studies</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SISG 2022 Module 15</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sessions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Day 1</li>
+    <li>
+      <a href="Session01_practical.html">Session 1</a>
+    </li>
+    <li>
+      <a href="Session02_practical.html">Session 2</a>
+    </li>
+    <li>
+      <a href="Session03_practical.html">Session 3</a>
+    </li>
+    <li>
+      <a href="SISGM15_prac4.html">Session 4</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Day 2</li>
+    <li>
+      <a href="SISGM15_prac5.html">Session 5</a>
+    </li>
+    <li>
+      <a href="SISGM15_prac6.html">Session 6</a>
+    </li>
+    <li>
+      <a href="Session07_practical.html">Session 7</a>
+    </li>
+    <li>
+      <a href="Session08_practical.html">Session 8</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Day 3</li>
+    <li>
+      <a href="SISGM15_prac9.html">Session 9</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Solution for Practical 4: Power Calculation
+and Designs of GWAS studies</h1>
+<h4 class="author">Summer Institute of Statical Genetics (Module
+15)</h4>
+<h4 class="date">2022-07-25</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-07-25
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong>
+<code>SISG2022_Association_Mapping/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20220530code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20220530)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20220530code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20220530)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreeece1d55660fa7f197c5b22c1f161e99c8e59aedftargetblankece1d55a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/ece1d55660fa7f197c5b22c1f161e99c8e59aedf" target="_blank">ece1d55</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreeece1d55660fa7f197c5b22c1f161e99c8e59aedftargetblankece1d55a"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/ece1d55660fa7f197c5b22c1f161e99c8e59aedf" target="_blank">ece1d55</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/.Rhistory
+    Ignored:    code/.Rhistory
+    Ignored:    data/.DS_Store
+    Ignored:    lectures/.DS_Store
+
+Untracked files:
+    Untracked:  analysis/.index.Rmd.swp
+    Untracked:  analysis/SISGM15_prac5Solution.Rmd
+    Untracked:  analysis/SISGM15_prac6Solution.Rmd
+    Untracked:  analysis/SISGM15_prac9Solution.Rmd
+    Untracked:  analysis/Session07_practical_Key.Rmd
+    Untracked:  analysis/Session08_practical_Key.Rmd
+    Untracked:  data/sim_rels_geno.bed
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/SISGM15_prac4Solution.Rmd</code>)
+and HTML (<code>docs/SISGM15_prac4Solution.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/ece1d55660fa7f197c5b22c1f161e99c8e59aedf/analysis/SISGM15_prac4Solution.Rmd" target="_blank">ece1d55</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+<td>
+add key
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<p><span style="color:red;"><strong>This practical can be run in
+<code>R</code> on your own computer.</strong></span></p>
+<div id="part-1-power-of-gwas-under-single-locus-model"
+class="section level2">
+<h2>Part 1: Power of GWAS under single locus model</h2>
+<p>In <strong>Lecture 4</strong>, we saw proposed closed-form formula
+for the non-centrality parameter (and so the power) of an association
+test aiming at detecting allele frequency differences between cases and
+controls. We recall this formula below</p>
+<p><span class="math display">\[\begin{equation}
+\text{NCP} = \frac{ 2N \pi (1-\pi)\left(p_1 - p_0 \right)^2 }{
+\bar{p}(1-\bar{p}) }
+\end{equation}\]</span></p>
+<p>where, <span class="math inline">\(N\)</span> is the total sample
+size, <span class="math inline">\(\pi\)</span> the proportion of cases
+in the sample, <span class="math inline">\(p_1\)</span> and <span
+class="math inline">\(p_0\)</span> the (expected) risk allele frequency
+in cases and controls, respectively; and <span
+class="math inline">\(\bar{p} = \pi p_1 + (1-\pi)p_0\)</span>.</p>
+<p>Under the single locus disease model, <span
+class="math inline">\(p_1\)</span> and <span
+class="math inline">\(p_0\)</span> can be expressed</p>
+<p><span class="math display">\[\begin{equation}
+  p_1 = \frac{pR}{pR + 1 - p}\text{ and }p_0 = \frac{p}{1-K}\left[ 1 -
+\frac{KR}{1 + p(R-1)} \right],
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(R\)</span> is the relative risk for
+heterozygotes for the risk allele, <span
+class="math inline">\(K\)</span> is the disease prevalence in the
+population and <span class="math inline">\(p\)</span> the risk allele
+frequency in the population.</p>
+<p>The <code>R</code> code below defines a function to calculate the
+expected statistical power using the set of equations written above.
+<strong>Copy this code into your <code>R</code> session to load the
+function.</strong></p>
+<pre class="r"><code>PowerCC &lt;- function(N=10000,p=0.2,pi=0.5,alpha=5e-8,R=1.2,K=0.01){
+  p1  &lt;- p * R  / (p * R + 1 - p)
+  p0  &lt;- ( p/(1-K) ) * (1 - K*R/(1 + p*(R-1) ))
+  pb  &lt;- p1*pi + (1-pi)*p0
+  NCP &lt;- 2*N*pi*(1-pi)*((p1-p0)^2) / (pb*(1-pb))
+  Theshold &lt;- qchisq(p=alpha,df=1,lower.tail = FALSE)
+  Power    &lt;- pchisq(q=Theshold,df=1,ncp=NCP,lower.tail = FALSE)
+  c(p0=p0,p1=p1,NCP=NCP,Power=Power)
+} </code></pre>
+<p><strong>Question 1. Use the online power calculator (<a
+href="https://zzz.bwh.harvard.edu/gpc/cc2.html"
+class="uri">https://zzz.bwh.harvard.edu/gpc/cc2.html</a>) and verify
+that you get the same power calculations as when using the
+<code>R</code> function above. Try different input
+parameters.</strong></p>
+<p><span style="color:red;">As shown in class, we focus on the last
+block in the result page entitled “Case-control statistics: allelic 1 df
+test (B versus b)”. You can try multiple values and verify that both the
+R function above and the online power calculator are
+consistent.</span></p>
+<p><strong>Question 2. The online power calculator does not necessarily
+assume a multiplicative model. Now consider a dominant model, where the
+relative risk of heterozygotes (field named: “Genotype relative risk
+Aa”) is exactly the same as that of homozygotes (field named “Genotype
+relative risk AA”) for the risk allele. How does it impact your power
+calculations as compared to that predicted from using the function
+<code>PowerCC</code> defined above?</strong></p>
+<p><span style="color:red;">We could, for example, set both the relative
+risk for heterozygotes (field named: “Genotype relative risk Aa”) and
+homozygotes (field named “Genotype relative risk AA”) to 1.2 (instead of
+1.44 = 1.2 x 1.2 used in class). Everything else being the same, we can
+observe that using a multiplicative model for power calculation when the
+inheritance model is in fact dominant leads to an under estimation of
+statistical power.</span></p>
+<p>So, we’re back to using a simple multiplicative model and we want to
+verify empirically if our power calculations are correct. For that, we
+will</p>
+<ol style="list-style-type: decimal">
+<li><p>define a statistical test, here a simple t-test comparing mean
+allele count between cases and controls</p></li>
+<li><p>simulate data under using various input parameters and count how
+many times does the p-value from our test is lower than the expected
+significance threshold.</p></li>
+</ol>
+<p>The <code>R</code> function below (i) simulates data under a single
+locus disease model (i.e., uses expectations of <span
+class="math inline">\(p_0\)</span> and <span
+class="math inline">\(p_1\)</span> defined from knowing <span
+class="math inline">\(R\)</span> and <span
+class="math inline">\(K\)</span>), (ii) run a t-test and (iii) returns
+the p-value from the t-test.</p>
+<p><strong>Copy this code into your <code>R</code> session to load the
+function.</strong></p>
+<pre class="r"><code>SimBasedPower &lt;- function(N=10000,p=0.2,pi=0.5,R=1.2,K=0.01){
+  ## Expected allele frequencies under single locus disease model
+  p1  &lt;- p * R  / (p * R + 1 - p)
+  p0  &lt;- ( p/(1-K) ) * (1 - K*R/(1 + p*(R-1) ))
+  
+  ## Expected counts
+  n1 &lt;- N*pi     # number of cases
+  n0 &lt;- N*(1-pi) # number of controls
+
+  ## Phenotypes -- not used here but might be handy for the bonus question
+  y1 &lt;- rep(1,n1)  # vector of 1&#39;s - case status
+  y0 &lt;- rep(0,n0)  # vector of 0&#39;s - control status
+  y  &lt;- c(y1,y0)   # vector phenotypes (y=1: cases; y=0: controls)
+  
+  ## Simulate genotypes
+  x1 &lt;- rbinom(n=n1,size=2,prob=p1) # genotypes of cases
+  x0 &lt;- rbinom(n=n0,size=2,prob=p0) # genotypes of controls
+  x  &lt;- c(x1,x0)
+  
+  ## T-test
+  tt &lt;- t.test(x1,x0)
+  return(tt$p.value)
+} </code></pre>
+<p><strong>Question 3. Use the function above to simulate 10,000
+replicates and count how many times p-values are below the input
+significance threshold. Is this consistent with our expectations? Bonus:
+modify the code above to replace the t-test with the p-value from a
+regression model of the phenotype on the allele counts
+(<code>glm(y~x,family="binomial)</code>). Is the empirical power still
+consistent with the expected statistical power?</strong></p>
+<p><span style="color:red;">We use the code below to simulate 10,000
+replicates and assess the proportion of p-values that are below the
+desired significance threshold.</span></p>
+<pre class="r"><code>B &lt;- 10000
+Pvals &lt;- sapply(1:B, function(k) SimBasedPower(N=10000,p=0.2,pi=0.5,R=1.2,K=0.01) )
+EmpiricalPower &lt;- mean(Pvals&lt;5e-8)
+EmpiricalPower</code></pre>
+<pre><code>[1] 0.4565</code></pre>
+<p><span style="color:red;">For the bonus question, we can rewrite the
+<code>SimBasedPower</code> function and replace the test with from a
+logistic regression (LR). As LR takes a bit more time to run, we can set
+the number of replicates to 1000 to speed up calculations.</span></p>
+<pre class="r"><code>SimBasedPowerLR &lt;- function(N=10000,p=0.2,pi=0.5,R=1.2,K=0.01){
+  p1  &lt;- p * R  / (p * R + 1 - p)
+  p0  &lt;- ( p/(1-K) ) * (1 - K*R/(1 + p*(R-1) ))
+  n1 &lt;- N*pi       # number of cases
+  n0 &lt;- N*(1-pi)   # number of controls
+  y1 &lt;- rep(1,n1)  # vector of 1&#39;s - case status
+  y0 &lt;- rep(0,n0)  # vector of 0&#39;s - control status
+  y  &lt;- c(y1,y0)   # vector phenotypes (y=1: cases; y=0: controls)
+  x1 &lt;- rbinom(n=n1,size=2,prob=p1) # genotypes of cases
+  x0 &lt;- rbinom(n=n0,size=2,prob=p0) # genotypes of controls
+  x  &lt;- c(x1,x0)
+  pv &lt;- summary(glm(y~x,family=&quot;binomial&quot;))$coefficient[2,4]
+  return(pv)
+} 
+B &lt;- 1000
+PvalsLR &lt;- sapply(1:B, function(k) SimBasedPowerLR(N=10000,p=0.2,pi=0.5,R=1.2,K=0.01) )
+EmpiricalPowerLR &lt;- mean(PvalsLR&lt;5e-8)
+EmpiricalPowerLR</code></pre>
+<pre><code>[1] 0.437</code></pre>
+</div>
+<div id="part-2.-power-of-a-two-stage-gwas-approach."
+class="section level2">
+<h2>Part 2. Power of a two-stage GWAS approach.</h2>
+<p>This part of the practical aims at evaluating the statistical power
+of a two-stage GWAS strategy. In the old days of GWAS, investigators
+would first run a GWAS on a relatively small number of individuals
+(<span class="math inline">\(N_d\)</span>, for discovery), select a
+fraction of the most associated SNPs (e.g., with a p-value lower than
+0.05), genotype those top SNPs in a larger number of individuals (<span
+class="math inline">\(N_r\)</span>, for replication) and re-test those
+for association.</p>
+<p>Deriving a closed-form formula for the statistical power of this
+approach is not straightforward. Therefore, we will use simulations. The
+following <code>R</code> code simulates such a strategy. In the first
+stage, <code>M=500</code> SNPs are tested for association in
+<code>Nd=2000</code> individuals in the discovery sample. Only one of
+those SNPs is actually associated with the trait and explains <span
+class="math inline">\(q^2=0.3\%\)</span> of trait variance. The first
+stage consists of selecting SNPs with a p-value lower than 0.005.</p>
+<p>Given that the trait of interest is quantitative, we can calculate
+the statistical power the first stage using the NCP formula for
+quantitative traits given in the <span class="math display">\[
+\text{NCP}({q^2},N) = \frac{Nq^2}{1-q^2} \]</span> Using this formula
+and a significance threshold <span
+class="math inline">\(\alpha_1=0.005\)</span> for the first stage, we
+can estimate the statistical power of the first stage to be about 36%.
+The second stage involves genotyping <span
+class="math inline">\(N_r=5,000\)</span> individuals. If we could
+genotype all individuals in the discovery and replication samples for
+all SNPs, then the statistical power for a GWAS in <span
+class="math inline">\(N=N_d + N_r\)</span>, would have been about 71%
+(calculated using <span
+class="math inline">\(NCP(q^2=0.003,N=N_d+N_r)\)</span>).</p>
+<p>The <code>R</code> code below simulates the two-stage strategy
+described above and returns the smallest p-value obtained. <strong>Copy
+this code into your <code>R</code> session to load the
+function.</strong></p>
+<pre class="r"><code>PowerTwoStages &lt;- function(Nd=2000,
+                           Nr=5000,
+                           q2=0.003,
+                           Md=500,
+                           alpha1=5e-3,
+                           alpha2=5e-8,
+                           verbose=FALSE){
+  ## Power stage 1
+  NCP = Nd * q2 / (1 - q2)
+  Theshold &lt;- qchisq(p=alpha1,df=1,lower.tail = FALSE)
+  Power1   &lt;- pchisq(q=Theshold,df=1,ncp=NCP,lower.tail = FALSE)
+  
+  if(verbose){
+    cat(paste0(&quot;Statistical Power of Stage 1 = &quot;,round(100*Power1),&quot;%.\n&quot;))
+  }
+  
+  ## Stage 1
+  Xd &lt;- matrix(rbinom(n=Nd*Md,size=2,prob=0.5),nrow=Nd,ncol=Md)
+  colnames(Xd) &lt;- paste0(&quot;SNP&quot;,1:Md)
+  b  &lt;- sqrt(2 * q2)
+  Yd &lt;- rnorm(n=Nd,mean=b * Xd[,&quot;SNP1&quot;],sd=sqrt(1-q2))
+  
+  GWAS1 &lt;- do.call(&quot;rbind&quot;,lapply(1:Md, function(j){
+    summary(lm(Yd~Xd[,j]))$coefficients[2,]
+  }))
+  rownames(GWAS1) &lt;- colnames(Xd)
+  topSNPs &lt;- rownames(GWAS1[which(GWAS1[,4]&lt;alpha1),])
+
+  ## Power stage 1+2
+  NCP = (Nr + Nd) * q2 / (1 - q2)
+  Theshold &lt;- qchisq(p=alpha2,df=1,lower.tail = FALSE)
+  Power2   &lt;- pchisq(q=Theshold,df=1,ncp=NCP,lower.tail = FALSE)
+  Power2
+  if(verbose){
+    cat(paste0(&quot;Expected Statistical Power of Stage 1+2 = &quot;,round(100*Power2),&quot;%.\n&quot;))
+  }
+  
+  ## Stage 2
+  Mr &lt;- length(topSNPs)
+  if(Mr&gt;1){
+    Xr &lt;- matrix(rbinom(n=Nr*Mr,size=2,prob=0.5),nrow=Nr,ncol=Mr)
+    colnames(Xr) &lt;- topSNPs
+    if(&quot;SNP1&quot;%in%topSNPs){
+      Yr &lt;- rnorm(n=Nr,mean=b * Xr[,&quot;SNP1&quot;],sd=sqrt(1-q2))
+    }else{
+      Yr &lt;- rnorm(n=Nr)
+    }
+    
+    GWAS2 &lt;- do.call(&quot;rbind&quot;,lapply(1:Mr, function(j){
+      summary(lm(Yr~Xr[,j]))$coefficients[2,]
+    }))
+    rownames(GWAS2) &lt;- colnames(Xr)
+    
+    ## Meta-analysis
+    gwas1 &lt;- GWAS1[topSNPs,]
+    gwas2 &lt;- GWAS2[topSNPs,]
+    
+    bm    &lt;- (gwas1[,1] * Nd + gwas2[,1] * Nr) / (Nd + Nr)
+    sm    &lt;- sqrt( (gwas1[,2]^2 * Nd^2 + gwas2[,2]^2 * Nr^2) /( (Nd + Nr)^2 ) )
+    pval  &lt;- pchisq(q=(bm/sm)^2,df=1,lower.tail = F)
+    return(min(pval))
+  }else{
+    return(NULL)
+  }
+}
+
+## Example
+PowerTwoStages(Nd=2000,Nr=5000,q2=0.003,Md=1000,alpha1=5e-3,alpha2=5e-8,verbose = TRUE)</code></pre>
+<pre><code>Statistical Power of Stage 1 = 36%.
+Expected Statistical Power of Stage 1+2 = 19%.</code></pre>
+<pre><code>[1] 5.003325e-07</code></pre>
+<p><strong>Question 4. Run at least 100 replicates and quantify the
+empirical statistical power, i.e., proportion of p-values lower than
+<span class="math inline">\(\alpha_2=5\times 10^{-8}\)</span>. Can you
+improve power by varying <span class="math inline">\(N_d\)</span> and
+<span class="math inline">\(N_r\)</span> (try a few more
+combinations)?</strong></p>
+<p>To answer these questions, you could use the following <code>R</code>
+commands</p>
+<pre class="r"><code>nRep &lt;- 100 ## Number of replicates
+Pvals &lt;- sapply(1:nRep,function(k){
+  PowerTwoStages(Nd=2000,Nr=5000,q2=0.003,Md=500,alpha1=5e-3,alpha2=5e-8,verbose=FALSE)
+})
+PowerEmpirical &lt;- mean(unlist(Pvals)&lt;5e-8)
+print(PowerEmpirical)</code></pre>
+<pre><code>[1] 0.1578947</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS  10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.8.3     bslib_0.3.1      jquerylib_0.1.4  compiler_3.6.1  
+ [5] pillar_1.7.0     later_1.3.0      git2r_0.30.1     tools_3.6.1     
+ [9] getPass_0.2-2    digest_0.6.25    jsonlite_1.7.2   evaluate_0.15   
+[13] tibble_3.1.6     lifecycle_1.0.1  pkgconfig_2.0.3  rlang_1.0.4     
+[17] cli_3.1.1        rstudioapi_0.13  yaml_2.2.1       xfun_0.31       
+[21] fastmap_1.1.0    httr_1.4.3       stringr_1.4.0    knitr_1.39      
+[25] sass_0.4.0       fs_1.5.2         vctrs_0.3.8      rprojroot_2.0.3 
+[29] glue_1.6.1       R6_2.4.1         processx_3.5.3   fansi_0.4.1     
+[33] rmarkdown_2.14   callr_3.7.0      magrittr_1.5     whisker_0.4     
+[37] ps_1.7.0         promises_1.2.0.1 htmltools_0.5.2  ellipsis_0.3.2  
+[41] httpuv_1.6.5     utf8_1.1.4       stringi_1.4.6    crayon_1.3.4    </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
