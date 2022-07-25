@@ -122,14 +122,14 @@ data.frame(
   Lecture = c(
     paste0(print.link("Lecture", "https://www.dropbox.com/s/ocn6w6nau9lhuu6/L5_Downstream-Analyses_M15.pdf?dl=0"), ", ", "Video"),
     paste0(print.link("Lecture", "https://www.dropbox.com/s/6kzse5qe0ffokjm/L6_Polygenic_Scores_Lectures_M15.pdf?dl=0"), ", ", "Video"),
-    paste0(print.link("Lecture", "https://www.dropbox.com/s/6kzse5qe0ffokjm/L6_Polygenic_Scores_Lectures_M15.pdf?dl=0"), ", ", "Video"),
-    paste0(print.link("Lecture", "https://www.dropbox.com/s/6kzse5qe0ffokjm/L6_Polygenic_Scores_Lectures_M15.pdf?dl=0"), ", ", "Video")
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/bowur0rymsha5tq/SISG2022session07.pdf?dl=0"), ", ", "Video"),
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/cxjwaft49uk2jv0/SISG2022session08.pdf?dl=0"), ", ", "Video")
       ),
   "Exercises" = c(
     paste0(print.link("Exercises", "SISGM15_prac5.html"), ", ", "Video"),
     paste0(print.link("Exercises", "SISGM15_prac6.html"), ", ", "Video"),
-    paste0(print.link("Exercises", "Session05_practical.html"), ", ", "Video"),
-    paste0(print.link("Exercises", "Session05_practical.html"), ", ", "Video")
+    paste0(print.link("Exercises", "Session07_practical.html"), ", ", "Video"),
+    paste0(print.link("Exercises", "Session08_practical.html"), ", ", "Video")
   ),
   "Key" = c(
     ".html, .Rmd",
