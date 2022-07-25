@@ -11,7 +11,7 @@
 
 
 
-<title>Session 02 - Exercises</title>
+<title>Session 02 - Exercises Key</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -398,7 +398,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Session 02 - Exercises</h1>
+<h1 class="title toc-ignore">Session 02 - Exercises Key</h1>
 <h4 class="author"></h4>
 
 </div>
@@ -407,7 +407,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -418,8 +418,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -432,9 +432,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong>
@@ -545,15 +545,41 @@ run.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr
-project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it
+difficult for you and others to run your code on a different machine.
+Change the absolute path(s) below to the suggested relative path(s) to
+make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/Users/joelle.mbatchou/software/github/SISG2022_Association_Mapping/
+</td>
+<td style="text-align:left;">
+.
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -600,6 +626,7 @@ Ignored files:
     Ignored:    lectures/.DS_Store
 
 Untracked files:
+    Untracked:  analysis/.index.Rmd.swp
     Untracked:  analysis/Session03_practical_Key.Rmd
     Untracked:  analysis/Session07_practical_Key.Rmd
     Untracked:  analysis/Session08_practical_Key.Rmd
@@ -620,8 +647,9 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/Session02_practical.Rmd</code>)
-and HTML (<code>docs/Session02_practical.html</code>) files. If you’ve
+made to the R Markdown
+(<code>analysis/Session02_practical_Key.Rmd</code>) and HTML
+(<code>docs/Session02_practical_Key.html</code>) files. If you’ve
 configured a remote Git repository (see <code>?wflow_git_remote</code>),
 click on the hyperlinks in the table below to view the files as they
 were in that past version.
@@ -653,7 +681,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/8b17e8c31ab2f626c3eab118ff7f6f833b4346eb/analysis/Session02_practical.Rmd" target="_blank">8b17e8c</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/8b17e8c31ab2f626c3eab118ff7f6f833b4346eb/analysis/Session02_practical_Key.Rmd" target="_blank">8b17e8c</a>
 </td>
 <td>
 Joelle Mbatchou
@@ -663,176 +691,6 @@ Joelle Mbatchou
 </td>
 <td>
 add key
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/088662f4186884e6eacd9f56444c72ab333f016f/docs/Session02_practical.html" target="_blank">088662f</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-25
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/e54c1bf01e6e5ae100f5b8f35bb10c2783f76820/docs/Session02_practical.html" target="_blank">e54c1bf</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/660617ee946fde78b5c9f5f1ef6983d9c73d8848/docs/Session02_practical.html" target="_blank">660617e</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-22
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/7453eb76487ea52235e27f82e22a53d5529544cd/docs/Session02_practical.html" target="_blank">7453eb7</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-22
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/d1d05e7e4a19628d344e3b1b7f8ed0f6bea70ebc/docs/Session02_practical.html" target="_blank">d1d05e7</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/c2458e16729c564c0c7656a071497eeb2fffb083/analysis/Session02_practical.Rmd" target="_blank">c2458e1</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-18
-</td>
-<td>
-add template R script
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/f847fa23f7d7b3efa721a89975a06469af4db6e8/docs/Session02_practical.html" target="_blank">f847fa2</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-17
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/ddfa68385eddcebb796685899fcb62c8a585e168/analysis/Session02_practical.Rmd" target="_blank">ddfa683</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-17
-</td>
-<td>
-fix plink version
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/68b8d58825a6c86675d0952185c26289b089e1d6/docs/Session02_practical.html" target="_blank">68b8d58</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-17
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/4b95c5ba32753085ac5814e1926728dec400a241/analysis/Session02_practical.Rmd" target="_blank">4b95c5b</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-17
-</td>
-<td>
-session 1-2 praticals
 </td>
 </tr>
 </tbody>
@@ -852,8 +710,6 @@ require(dplyr)
 require(tidyr)
 require(bigsnpr)
 require(ggplot2)</code></pre>
-<p>The R template to do the exercises is <a
-href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/code">here</a>.</p>
 <div id="population-structure-inference" class="section level2">
 <h2>Population Structure Inference</h2>
 <div id="introduction" class="section level3">
@@ -865,7 +721,7 @@ href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master
 is a binary file in PLINK BED format with accompanying BIM and FAM
 files. It contains genotype data at autosomal SNPs for:</p>
 <ul>
-<li>Native American samples from HGDP</li>
+<li>Native American samples from HGDP (NAM)</li>
 <li>Four population samples from HapMap:
 <ul>
 <li>Yoruba in Ibadan, Nigeria (YRI)</li>
@@ -875,9 +731,6 @@ files. It contains genotype data at autosomal SNPs for:</p>
 <li>African Americans from the south-western United States (ASW)</li>
 </ul></li>
 </ul>
-<p><strong>File with ancestry labels assignment for each
-sample</strong>: <a
-href="https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/Population_Sample_Info.txt">Population_Sample_Info.txt</a></p>
 </div>
 <div id="exercises" class="section level3">
 <h3>Exercises</h3>
@@ -887,83 +740,245 @@ href="https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapp
 </ol>
 <ul>
 <li>How many samples are present?</li>
+</ul>
+<pre class="r"><code>famfile &lt;- fread(&quot;data/YRI_CEU_ASW_MEX_NAM.fam&quot;, header = FALSE)
+famfile %&gt;% head</code></pre>
+<pre><code>     V1        V2 V3 V4 V5 V6
+1: 1432 HGDP00702  0  0  2 -9
+2: 1433 HGDP00703  0  0  1 -9
+3: 1434 HGDP00704  0  0  2 -9
+4: 1436 HGDP00706  0  0  2 -9
+5: 1438 HGDP00708  0  0  2 -9
+6: 1440 HGDP00710  0  0  1 -9</code></pre>
+<pre class="r"><code>famfile %&gt;% nrow</code></pre>
+<pre><code>[1] 604</code></pre>
+<ul>
 <li>How many SNPs?</li>
+</ul>
+<pre class="r"><code>bimfile &lt;- fread(&quot;data/YRI_CEU_ASW_MEX_NAM.bim&quot;, header = FALSE)
+bimfile %&gt;% head</code></pre>
+<pre><code>   V1        V2 V3      V4 V5 V6
+1:  1 rs9442372  0 1008567  1  2
+2:  1 rs2887286  0 1145994  1  2
+3:  1 rs3813199  0 1148140  1  2
+4:  1 rs6685064  0 1201155  1  2
+5:  1 rs9439462  0 1452629  1  2
+6:  1 rs3820011  0 1878053  1  2</code></pre>
+<pre class="r"><code>bimfile %&gt;% nrow</code></pre>
+<pre><code>[1] 150872</code></pre>
+<ul>
 <li>What is the number of samples in each population?</li>
 </ul>
+<pre class="r"><code>pop_info &lt;- fread(&quot;data/Population_Sample_Info.txt&quot;, header = TRUE)
+head(pop_info)</code></pre>
+<pre><code>    FID       IID Population
+1: 1432 HGDP00702        NAM
+2: 1433 HGDP00703        NAM
+3: 1434 HGDP00704        NAM
+4: 1436 HGDP00706        NAM
+5: 1438 HGDP00708        NAM
+6: 1440 HGDP00710        NAM</code></pre>
+<pre class="r"><code># join with fam file
+fam_pop_info &lt;- left_join(famfile, pop_info, by = c(&quot;V1&quot; = &quot;FID&quot;, &quot;V2&quot; = &quot;IID&quot;))
+fam_pop_info %&gt;% select(Population) %&gt;% table</code></pre>
+<pre><code>.
+ASW CEU MXL NAM YRI 
+ 87 165  86  63 203 </code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Get the first 10 principal components (PCs) in PLINK using all SNPs.
-The basic command would look like</li>
+<li>Get the first 10 principal components (PCs) in PLINK using all
+SNPs.</li>
 </ol>
-<pre class="bash"><code>plink2 --bfile &lt;plink_bed_prefix&gt; --pca 10 --out &lt;output_prefix&gt;</code></pre>
-<p>This generates a file <code>&lt;output_prefix&gt;.eigenvec</code>
-containing the PCs (eigenvectors) as well as another file
-<code>&lt;output_prefix&gt;.eigenval</code> containing the top
-eigenvalues.</p>
+<pre class="bash"><code>~/software/bins/plink2 --bfile data/YRI_CEU_ASW_MEX_NAM --pca 10 --out /tmp/pca_out</code></pre>
+<pre><code>PLINK v2.00a3 AVX2 (12 Dec 2020)               www.cog-genomics.org/plink/2.0/
+(C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to /tmp/pca_out.log.
+Options in effect:
+  --bfile data/YRI_CEU_ASW_MEX_NAM
+  --out /tmp/pca_out
+  --pca 10
+
+Start time: Mon Jul 25 14:45:25 2022
+16384 MiB RAM detected; reserving 8192 MiB for main workspace.
+Using up to 12 threads (change this with --threads).
+604 samples (316 females, 288 males; 433 founders) loaded from
+data/YRI_CEU_ASW_MEX_NAM.fam.
+150872 variants loaded from data/YRI_CEU_ASW_MEX_NAM.bim.
+Note: No phenotype data present.
+Calculating allele frequencies... 0%43%86%done.
+Constructing GRM: 0%1%2%3%4%5%6%7%8%9%10%11%12%13%14%15%16%17%18%19%20%21%22%23%24%25%26%27%28%29%30%31%32%33%34%35%36%37%38%39%40%41%42%43%44%45%46%47%48%49%50%51%52%53%54%55%56%57%58%59%60%61%62%63%64%65%66%67%68%69%70%71%72%73%74%75%76%77%78%79%80%81%82%83%84%85%86%87%88%89%90%91%92%93%94%95%96%97%98%99%done.
+Correcting for missingness... 0%1%2%3%4%5%6%7%8%9%10%11%12%13%14%15%16%17%18%19%20%21%22%23%24%25%26%27%28%29%30%31%32%33%34%35%36%37%38%39%40%41%42%43%44%45%46%47%48%49%50%51%52%53%54%55%56%57%58%59%60%61%62%63%64%65%66%67%68%69%70%71%72%73%74%75%76%77%78%79%80%81%82%83%84%85%86%87%88%89%90%91%92%93%94%95%96%97%98%99%done.
+Extracting eigenvalues and eigenvectors... done.
+--pca: Eigenvectors written to /tmp/pca_out.eigenvec , and eigenvalues written
+to /tmp/pca_out.eigenval .
+End time: Mon Jul 25 14:45:25 2022</code></pre>
 <ul>
 <li>Make a scatterplot of the first two PCs with each point colored by
 population membership.</li>
+</ul>
+<pre class="r"><code>pcs &lt;- left_join(fam_pop_info, fread(&quot;/tmp/pca_out.eigenvec&quot;), by = c(&quot;V1&quot; = &quot;#FID&quot;, &quot;V2&quot; = &quot;IID&quot;))
+pcs %&gt;%
+  ggplot(aes(x=PC1, y=PC2, color = Population)) +
+  geom_point()</code></pre>
+<p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
 <li>Interpret the first two PCs, what ancestries are they
 reflecting?</li>
 <li>Make a scree plot of the eigenvalues for the first 10 PCs.
 Approximate the proportion of variance explained by the first two
 PCs.</li>
 </ul>
+<pre class="r"><code>evals.pca &lt;- fread(&quot;/tmp/pca_out.eigenval&quot;, header = FALSE)
+evals.pca %&gt;%
+  ggplot(aes(x = 1:10, y = V1)) +
+  geom_point() +
+  geom_line() +
+  scale_x_continuous(breaks = 1:10) +
+  labs(x = &quot;PC&quot;, y = &quot;Eigenvalue&quot;)</code></pre>
+<p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>sum(evals.pca$V1[1:2]) / sum(evals.pca$V1)</code></pre>
+<pre><code>[1] 0.8308752</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Now redo Question 2 above using the <a
 href="https://privefl.github.io/bigsnpr/reference/index.html"><code>bigsnpr</code>
 R package</a> specifying a <span class="math inline">\(r^2\)</span>
 threshold of 0.2 (i.e. LD pruning) as well as a minimum minor allele
-count (MAC) of 20. The basic command would look like</li>
+count (MAC) of 20.</li>
 </ol>
-<pre class="r"><code># run PCA
-obj.bed &lt;- bed(bedfile = &lt;plink_bed_file&gt;)
-pc.out &lt;- bed_autoSVD(
-  obj.bed, 
-  thr.r2 = &lt;r2_threshold&gt;, 
-  k = &lt;number_of_PCs&gt;, 
-  min.mac = &lt;min_MAC&gt;
-)
-# plot PC2 vs PC1
-plot(pc.out, type = &quot;scores&quot;, scores = 1:2)
-# scree plot
-plot(pc.out) 
-# plot SNP loadings (should be centered at 0)
-plot(pc.out, type = &quot;loadings&quot;, scores = 1:&lt;number_of_PCs&gt;, coeff = 0.4)</code></pre>
 <ul>
 <li>Run PCA and make a scatter plot of the first two principal
 components (PCs) with each point colored according to population
 membership.</li>
+</ul>
+<pre class="r"><code>obj.bed &lt;- bed(bedfile = &quot;data/YRI_CEU_ASW_MEX_NAM.bed&quot;)
+pca.bigsnpr &lt;- bed_autoSVD(
+  obj.bed, 
+  thr.r2 = 0.2, 
+  k = 10, 
+  min.mac = 20
+)</code></pre>
+<pre><code>
+Phase of clumping (on MAC) at r^2 &gt; 0.2.. keep 87127 variants.
+Discarding 48 variants with MAC &lt; 20.
+
+Iteration 1:
+Computing SVD..</code></pre>
+<pre><code>The default of &#39;doScale&#39; is FALSE now for stability;
+  set options(mc_doScale_quiet=TRUE) to suppress this (once per session) message</code></pre>
+<pre><code>0 outlier variant detected..
+
+Converged!</code></pre>
+<pre class="r"><code>plot(pca.bigsnpr, type = &quot;scores&quot;, scores = 1:2) +
+  aes(color = fam_pop_info$Population) +
+  labs(color = &quot;Population&quot;)</code></pre>
+<p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
 <li>Does the plot change from the one in Question 2?</li>
 <li>Check the SNP loadings for the first 10 PCs.</li>
 </ul>
-<p><em>(Hint: This <a
-href="https://privefl.github.io/bigsnpr/articles/bedpca.html">tutorial
-document</a> from <code>bigsnpr</code> might be helpful)</em></p>
+<pre class="r"><code>plot(pca.bigsnpr, type = &quot;loadings&quot;, loadings = 1:10, coeff = 0.4)</code></pre>
+<p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol start="4" style="list-style-type: decimal">
-<li><p>Predict the proportional Native American and European Ancestry
-for the HapMap MXL from the PCA output in Question 3 <em>using one of
-the principal components</em>. (Which PC is most appropriate for this
+<li>Predict proportional Native American and European Ancestry for the
+HapMap MXL from the PCA output in Question 3 <em>using one of the
+principal components</em>. (Which PC is most appropriate for this
 analysis?) Assume that the HapMap MXL have negligible African
-Ancestry.</p></li>
-<li><p>Make a barplot of the proportional ancestry estimates from
-question 4.</p></li>
+Ancestry.</li>
 </ol>
-<p><em>Extra: 6. Check if there are samples related 2nd degree or
-closer. If so, run PCA as in Question 3 removing these samples then
-project the remaining samples onto the PC space. The basic command would
-look like</em></p>
-<pre class="r"><code># check for 3rd degree relateds or closer
-snp_plinkKINGQC(
-  plink2.path = &quot;/usr/bin/plink2&quot;, 
-  bedfile.in = &lt;plink_bed_prefix&gt;, 
+<pre class="r"><code>pca.bigsnpr %&gt;% str</code></pre>
+<pre><code>List of 7
+ $ d     : num [1:10] 2262 1434 553 495 474 ...
+ $ u     : num [1:604, 1:10] 0.0488 0.043 0.0489 0.0489 0.0492 ...
+ $ v     : num [1:87079, 1:10] -0.00229 -0.00165 -0.00315 -0.00888 0.00177 ...
+ $ niter : num 7
+ $ nops  : num 128
+ $ center: num [1:87079] 0.818 0.914 0.233 0.827 0.432 ...
+ $ scale : num [1:87079] 0.695 0.704 0.454 0.696 0.582 ...
+ - attr(*, &quot;class&quot;)= chr &quot;big_SVD&quot;
+ - attr(*, &quot;subset&quot;)= int [1:87079] 1 2 3 5 6 8 10 11 12 13 ...
+ - attr(*, &quot;lrldr&quot;)=&#39;data.frame&#39;:   0 obs. of  3 variables:
+  ..$ Chr  : int(0) 
+  ..$ Start: int(0) 
+  ..$ Stop : int(0) </code></pre>
+<pre class="r"><code>ceu.mean &lt;- pca.bigsnpr$u[fam_pop_info$Population == &quot;CEU&quot;,2] %&gt;% mean
+nam.mean &lt;- pca.bigsnpr$u[fam_pop_info$Population == &quot;NAM&quot;,2] %&gt;% mean
+c(ceu.mean, nam.mean)</code></pre>
+<pre><code>[1] -0.04885356  0.09084845</code></pre>
+<pre class="r"><code>mxl.prop.nam &lt;- (pca.bigsnpr$u[fam_pop_info$Population == &quot;MXL&quot;,2] - ceu.mean) / abs(nam.mean - ceu.mean)
+mxl.prop.nam %&gt;% summary</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.05262 0.37780 0.48238 0.47152 0.58381 0.81709 </code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Make a barplot of the proportional ancestry estimates from question
+4.</li>
+</ol>
+<pre class="r"><code>data.frame(
+  ind = 1:length(mxl.prop.nam), 
+  NAM = sort(mxl.prop.nam, decreasing = TRUE)
+  ) %&gt;%
+  mutate(CEU = 1 - NAM) %&gt;%
+  gather(Pop, Prop, NAM, CEU) %&gt;%
+  ggplot(aes(x = ind, y = Prop, fill = factor(Pop, levels = c(&quot;NAM&quot;, &quot;CEU&quot;)))) +
+  geom_bar(position=&quot;stack&quot;, stat=&quot;identity&quot;) +
+  labs(x=&quot;Sample&quot;, y = &quot;Ancestry Proportion&quot;, fill = &quot;Population&quot;)</code></pre>
+<p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Check if there are samples related 2nd degree or closer. If so, run
+PCA as in Question 3 removing these samples then project the remaining
+samples onto the PC space.</li>
+</ol>
+<pre class="r"><code># check for 2nd degree relateds or closer
+rel.df &lt;- snp_plinkKINGQC(
+  plink2.path = &quot;~/software/bins/plink2&quot;, 
+  bedfile.in = &quot;data/YRI_CEU_ASW_MEX_NAM.bed&quot;, 
   thr.king = 2^-3.5,
   make.bed = FALSE
+)
+rel.df %&gt;% str</code></pre>
+<pre><code>&#39;data.frame&#39;:   362 obs. of  8 variables:
+ $ FID1   : chr  &quot;1563&quot; &quot;1567&quot; &quot;1567&quot; &quot;1570&quot; ...
+ $ IID1   : chr  &quot;HGDP00845&quot; &quot;HGDP00849&quot; &quot;HGDP00849&quot; &quot;HGDP00852&quot; ...
+ $ FID2   : chr  &quot;1556&quot; &quot;1556&quot; &quot;1561&quot; &quot;1551&quot; ...
+ $ IID2   : chr  &quot;HGDP00838&quot; &quot;HGDP00838&quot; &quot;HGDP00843&quot; &quot;HGDP00832&quot; ...
+ $ NSNP   : int  150801 150802 150832 150816 150822 150814 150819 150815 150674 150796 ...
+ $ HETHET : num  0.0976 0.1069 0.1059 0.099 0.1022 ...
+ $ IBS0   : num  0.0221 0.0219 0.0223 0.0219 0.0227 ...
+ $ KINSHIP: num  0.104 0.126 0.13 0.118 0.118 ...</code></pre>
+<pre class="r"><code># Gets indices of samples not related (match by fid/iid)
+rel.ids &lt;- c(paste(rel.df$FID1, rel.df$IID1), paste(rel.df$FID2, rel.df$IID2))
+indices.unrel &lt;- which(!(paste(famfile$V1,famfile$V2) %in% rel.ids))
+indices.unrel %&gt;% str</code></pre>
+<pre><code> int [1:116] 1 2 3 4 5 6 8 12 15 16 ...</code></pre>
+<pre class="r"><code># Run PCA excluding relateds
+pca.bigsnpr.norels &lt;- bed_autoSVD(
+  obj.bed, 
+  ind.row = indices.unrel,
+  thr.r2 = 0.2, 
+  k = 10, 
+  min.mac = 20
 )</code></pre>
-<p><em>(Hint: This returns a data frame which contains all pairs of
-individuals related 3rd degree or closer. We can then remove them when
-calling <code>bed_autoSVD()</code> using the <code>ind.row</code>
-argument. Finally, you can use <code>bed_projectSelfPCA()</code> to
-project related samples on the PC space.)</em></p>
+<pre><code>
+Phase of clumping (on MAC) at r^2 &gt; 0.2.. keep 77173 variants.
+Discarding 12226 variants with MAC &lt; 20.
+
+Iteration 1:
+Computing SVD..
+0 outlier variant detected..
+
+Converged!</code></pre>
+<pre class="r"><code># Project related samples
+PCs &lt;- matrix(NA, nrow(obj.bed), ncol(pca.bigsnpr.norels$u))
+PCs[indices.unrel, ] &lt;- predict(pca.bigsnpr.norels) # pc from model (unrels)
+proj.rels &lt;- bed_projectSelfPCA(
+  pca.bigsnpr.norels, 
+  obj.bed,
+  ind.row = (1:nrow(famfile))[-indices.unrel]
+  )
+PCs[-indices.unrel, ] &lt;- proj.rels$OADP_proj # pc from projection (rels)
+data.frame(PC1 = PCs[,1], PC2 = PCs[,2], pop = fam_pop_info$Population, Type = c(&quot;Projected&quot;, &quot;Model&quot;)[1 + (1:nrow(famfile)) %in% indices.unrel]) %&gt;%
+  ggplot(aes(x = PC1, y = PC2, color = pop, shape = Type)) +
+  geom_point() +
+  labs(color = &quot;Population&quot;)</code></pre>
+<p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -988,20 +1003,29 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] workflowr_1.7.0
+[1] ggplot2_3.3.3     bigsnpr_1.8.1     bigstatsr_1.5.6   tidyr_1.0.2      
+[5] dplyr_1.0.8       data.table_1.13.2 workflowr_1.7.0  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8.3     bslib_0.3.1      jquerylib_0.1.4  compiler_3.6.1  
- [5] pillar_1.7.0     later_1.3.0      git2r_0.30.1     tools_3.6.1     
- [9] getPass_0.2-2    digest_0.6.25    jsonlite_1.7.2   evaluate_0.15   
-[13] tibble_3.1.6     lifecycle_1.0.1  pkgconfig_2.0.3  rlang_1.0.4     
-[17] cli_3.1.1        rstudioapi_0.13  yaml_2.2.1       xfun_0.31       
-[21] fastmap_1.1.0    httr_1.4.3       stringr_1.4.0    knitr_1.39      
-[25] sass_0.4.0       fs_1.5.2         vctrs_0.3.8      rprojroot_2.0.3 
-[29] glue_1.6.1       R6_2.4.1         processx_3.5.3   fansi_0.4.1     
-[33] rmarkdown_2.14   callr_3.7.0      magrittr_1.5     whisker_0.4     
-[37] ps_1.7.0         promises_1.2.0.1 htmltools_0.5.2  ellipsis_0.3.2  
-[41] httpuv_1.6.5     utf8_1.1.4       stringi_1.4.6    crayon_1.3.4    </code></pre>
+ [1] Rcpp_1.0.8.3       lattice_0.20-38    getPass_0.2-2      ps_1.7.0          
+ [5] rprojroot_2.0.3    digest_0.6.25      foreach_1.4.8      utf8_1.1.4        
+ [9] RSpectra_0.16-1    parallelly_1.32.0  R6_2.4.1           bigsparser_0.6.1  
+[13] evaluate_0.15      bigutilsr_0.3.4    httr_1.4.3         highr_0.8         
+[17] pillar_1.7.0       flock_0.7          rlang_1.0.4        rstudioapi_0.13   
+[21] hexbin_1.28.2      whisker_0.4        callr_3.7.0        jquerylib_0.1.4   
+[25] Matrix_1.2-17      rmarkdown_2.14     labeling_0.4.2     bigparallelr_0.3.2
+[29] stringr_1.4.0      munsell_0.5.0      compiler_3.6.1     httpuv_1.6.5      
+[33] xfun_0.31          pkgconfig_2.0.3    htmltools_0.5.2    tidyselect_1.1.1  
+[37] tibble_3.1.6       codetools_0.2-16   viridisLite_0.3.0  fansi_0.4.1       
+[41] withr_2.5.0        crayon_1.3.4       later_1.3.0        grid_3.6.1        
+[45] jsonlite_1.7.2     gtable_0.3.0       lifecycle_1.0.1    git2r_0.30.1      
+[49] magrittr_1.5       scales_1.1.1       cli_3.1.1          stringi_1.4.6     
+[53] farver_2.0.3       fs_1.5.2           promises_1.2.0.1   doParallel_1.0.17 
+[57] robustbase_0.95-0  bslib_0.3.1        ellipsis_0.3.2     generics_0.0.2    
+[61] vctrs_0.3.8        cowplot_1.1.1      iterators_1.0.12   tools_3.6.1       
+[65] glue_1.6.1         DEoptimR_1.0-11    purrr_0.3.3        processx_3.5.3    
+[69] parallel_3.6.1     fastmap_1.1.0      yaml_2.2.1         colorspace_2.0-0  
+[73] bigassertr_0.1.5   bigreadr_0.2.4     knitr_1.39         sass_0.4.0        </code></pre>
 </div>
 </div>
 </div>
