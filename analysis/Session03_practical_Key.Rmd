@@ -70,12 +70,12 @@ Only perform association test on SNPs that pass the following quality control th
 * HWE p-values greater than 0.001
 
 ```{r}
-system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/sim_rels_geno --pheno /data/SISG2022M15/data/sim_rels_pheno.txt --pheno-name Pheno --maf 0.01 --geno 0.01 --hwe 0.001 --autosome --glm allow-no-covars --out /tmp/gwas_plink")
+system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/sim_rels_geno --pheno /data/SISG2022M15/data/sim_rels_pheno.txt --pheno-name Pheno --maf 0.01 --geno 0.01 --hwe 0.001 --autosome --glm allow-no-covars --out tmp/gwas_plink")
 ```
 
 4. Make a Manhattan plot of the association results using the `manhattanPlot()` R function.
 ```{r}
-plink.gwas <- fread("/tmp/gwas_plink.Pheno.glm.linear", header = TRUE)
+plink.gwas <- fread("tmp/gwas_plink.Pheno.glm.linear", header = TRUE)
 plink.gwas %>% str
 manhattanPlot(
   p = plink.gwas$P,
@@ -106,33 +106,33 @@ median(chisq.stats) / qchisq(0.5,1)
   * We want to use high quality variants in the Step 1 null model fitting.
   Using PLINK, apply QC filters to remove variants with MAF below 5%, missingness above 1%, HWE p-value below 0.001, minor allele count (MAC) below 20. 
 ```{r}
-system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/sim_rels_geno --maf 0.05 --geno 0.01 --hwe 0.001 --mac 20 --write-snplist --out /tmp/qc_pass")
+system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/sim_rels_geno --maf 0.05 --geno 0.01 --hwe 0.001 --mac 20 --write-snplist --out tmp/qc_pass")
 ```
 
   * Run REGENIE Step 1 to fit the null model and obtain polygenic predictions using a leave-one-chromosome-out (LOCO) scheme
 ```{r, echo = TRUE, results='hide'}
-system("/data/SISG2022M15/exe/regenie --bed /data/SISG2022M15/data/sim_rels_geno --phenoFile /data/SISG2022M15/data/sim_rels_pheno.txt --step 1 --loocv --bsize 1000 --qt --extract /tmp/qc_pass.snplist --out /tmp/regenie_step1")
+system("/data/SISG2022M15/exe/regenie --bed /data/SISG2022M15/data/sim_rels_geno --phenoFile /data/SISG2022M15/data/sim_rels_pheno.txt --step 1 --loocv --bsize 1000 --qt --extract tmp/qc_pass.snplist --out tmp/regenie_step1")
 ```
 
 The prediction list file output from Step 1 contains the path to the LOCO polygenic predictions:
 ```{r}
-fread("/tmp/regenie_step1_pred.list", header = FALSE)
+fread("tmp/regenie_step1_pred.list", header = FALSE)
 ```
 
   * Run REGENIE Step 2 to perform association testing **at the same set of SNPs tested in PLINK**.
 ```{r}
 plink.gwas %>%
   select(ID) %>%
-  fwrite("/tmp/plink_gwas.snplist", col.names = FALSE, quote = FALSE)
+  fwrite("tmp/plink_gwas.snplist", col.names = FALSE, quote = FALSE)
 ```
 
 ```{r, echo = TRUE, results='hide'}
-system("/data/SISG2022M15/exe/regenie --bed /data/SISG2022M15/data/sim_rels_geno --phenoFile /data/SISG2022M15/data/sim_rels_pheno.txt --step 2 --bsize 400 --qt --pred /tmp/regenie_step1_pred.list --extract /tmp/plink_gwas.snplist --out /tmp/regenie_step2")
+system("/data/SISG2022M15/exe/regenie --bed /data/SISG2022M15/data/sim_rels_geno --phenoFile /data/SISG2022M15/data/sim_rels_pheno.txt --step 2 --bsize 400 --qt --pred tmp/regenie_step1_pred.list --extract tmp/plink_gwas.snplist --out tmp/regenie_step2")
 ```  
 
   * Generate Manhatthan and Q-Q plots based on the association results and compute $\lambda_{GC}$. Compare with output from Questions 4-6.
 ```{r}
-regenie.gwas <- fread("/tmp/regenie_step2_Pheno.regenie", header = TRUE)
+regenie.gwas <- fread("tmp/regenie_step2_Pheno.regenie", header = TRUE)
 regenie.gwas %>% str
 manhattanPlot(
   p = 10^-regenie.gwas$LOG10P,
