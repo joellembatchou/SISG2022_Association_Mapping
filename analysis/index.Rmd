@@ -121,7 +121,7 @@ data.frame(
     "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/L5_Downstream-Analyses_M15.pdf), Video",
     "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/L6_Polygenic_Scores_Lectures_M15.pdf), Video",
     "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session07.pdf), Video",
-    "Lecture, Video" 
+    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session08.pdf), Video"
       ),
   "Exercises" = c(
     "[Exercises](SISGM15_prac5.html), Video",
