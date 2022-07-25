@@ -1,0 +1,158 @@
+---
+title: "Session 07 - Exercises Key"
+author: ""
+date: ""
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+```{r echo = FALSE}
+knitr::opts_knit$set(root.dir = "~/")
+```
+Before you begin:
+
+* Make sure that R is installed on your computer
+* For this lab, we will use the following R libraries:
+```{r load-libs, message=FALSE, warning=FALSE}
+require(data.table)
+require(dplyr)
+require(tidyr)
+require(BEDMatrix)
+require(SKAT)
+require(ACAT)
+require(ggplot2)
+```
+
+## Rare Variant Analysis
+
+### Introduction
+We will look into a dataset collected on a quantitative phenotype which was first analyzed through GWAS and a signal was detected in chromosome 1. Let's determine whether the signal is present when we focus on rare variation at the locus. In our analyses, *we will define rare variants as those with* $MAF \leq 5\%$.
+
+The file ["rv_pheno.txt"](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data)” contains the phenotype measurements for a set of individuals and the file "rv_geno_chr1.bed" is a binary file in PLINK BED format with accompanying BIM and FAM files which contains the genotype data.
+
+### Exercises
+Here are some things to try:
+
+1.  Using PLINK, extract **rare variants** in a new PLINK BED file.
+```{r}
+system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/rv_geno_chr1 --max-maf 0.05 --maj-ref force --make-bed --out tmp/chr1_region_rv")
+```
+  
+
+2. Load the data in R: 
+
+  * Read in the SNPs using R function `BEDMatrix()`
+```{r}
+G <- BEDMatrix("tmp/chr1_region_rv", simple_names = TRUE)
+```
+
+  * Load the phenotype data from `rv_pheno.txt`
+```{r}
+y <- fread("/data/SISG2022M15/data/rv_pheno.txt", header = TRUE)
+```
+
+  * Keep only samples who are present both in the genotype as well as phenotype data and who don't have missing values for the phenotype
+```{r}
+ids.keep <- y %>% drop_na(Pheno) %>% pull(IID)
+length(ids.keep)
+G <- G[match(ids.keep, rownames(G)), ]
+y <- y %>% drop_na(Pheno)
+dim(G)
+```
+
+3. Examine the genotype data:
+  * Compute the minor allele frequency (MAF) for each SNP and plot histogram.
+```{r}
+maf <- apply(G, 2, function(x) mean(x, na.rm=TRUE))/2
+maf %>% hist(xlab = "Minor allele frequencies", main = "Distribution of MAF")
+```
+
+
+  * Check for missing values.
+```{r}
+sum(is.na(G))
+```
+  
+4. Run the single variant association tests in PLINK (only for the extracted variants).
+```{r}
+system("/data/SISG2022M15/exe/plink2 --bfile tmp/chr1_region_rv --pheno /data/SISG2022M15/data/rv_pheno.txt --pheno-name Pheno --glm allow-no-covars --out tmp/sv_test")
+```
+
+  * What would be your significance threshold after applying Bonferroni correction for the multiple tests (assume the significance level is 0.05)? Is anything significant after this correction?
+```{r}
+sv_pvals <- fread("tmp/sv_test.Pheno.glm.linear")
+bonf.p <- 0.05 / length(sv_pvals$P)
+bonf.p
+sv_pvals[P <= bonf.p, ] %>% 
+  arrange(P)
+```
+  
+  * Make a volcano plot (i.e. log10 p-values vs effect sizes).
+```{r}
+sv_pvals %>%
+  ggplot(aes(x = sv_pvals$BETA, y = -log10(sv_pvals$P))) +
+  geom_point() +
+  labs(x = "Effect size", y = "-log10P")
+```
+
+
+5. We will first compare three collapsing/burden approaches:
+  * CAST (Binary collapsing approach): for each individual, count where they have a rare allele at any of the sites
+  * MZ Test/GRANVIL (Count based collapsing): for each individual, count the total number of sites where a rare allele is present
+  * Weighted burden test: for each individual, take a weighted count of the rare alleles across sites (for the weights, use `weights <- dbeta(MAF, 1, 25)`)
+
+For each approach, first generate the burden scores vector then test it for association with the phenotype using `lm()` R function. 
+
+```{r}
+# CAST
+# count number of rare alleles for each person and determine if it is > 0
+burden.cast <- as.numeric( apply(G, 1, sum) > 0 )
+lm(y$Pheno ~ burden.cast) %>% summary
+
+# MZ
+# count number of sites with rare alleles for each person
+burden.mz <- apply( G > 0 , 1, sum)
+lm(y$Pheno ~ burden.mz) %>% summary
+
+# Weighted burden
+# weighted sum of genotype counts across sites
+weights <- dbeta(maf, 1, 25) 
+burden.weighted <- G %*% weights
+lm(y$Pheno ~ burden.weighted) %>% summary
+```
+
+6. Now use SKAT to test for an association. 
+```{r}
+# fit null model (no covariates)
+skat.null <- SKAT_Null_Model(y$Pheno ~ 1 , out_type = "C")
+# Run SKAT association test
+SKAT(G, skat.null )$p.value
+```
+
+7. Run the omnibus SKAT, but consider setting $\rho$ (i.e.`r.corr`) to 0 and then 1. 
+  * Compare the results to using the CAST,MZ/GRANVIL and Weighted burden collapsing approaches in Question 5 as well as SKAT in Question 6. What tests do these $\rho$ values correspond to?
+```{r}
+# Run SKATO association test specifying rho
+p.skato.r0 <- SKAT(G, skat.null, r.corr = 0)$p.value
+p.skato.r1 <- SKAT(G, skat.null, r.corr = 1)$p.value
+c(rho0 = p.skato.r0, rho1 = p.skato.r1)
+```
+
+8. Now the omnibus version of SKAT, but use the “optimal.adj” approach which searches across a range of rho values.
+```{r}
+# Run SKATO association test using grid of rho values
+SKAT(G, skat.null, method="optimal.adj")$p.value
+```
+
+9. Run ACATV on the single variant p-values.
+```{r}
+# `weights` vector is from Qesution 5
+acat.weights <- weights^2 * maf * (1 - maf)
+p.acatv <- ACAT(sv_pvals$P, weights = acat.weights)
+p.acatv
+```
+
+10. Run ACATO combining the SKAT and BURDEN p-values (from Question 7) with the ACATV p-value.
+```{r}
+ACAT( c(p.skato.r0, p.skato.r1, p.acatv) )
+```
