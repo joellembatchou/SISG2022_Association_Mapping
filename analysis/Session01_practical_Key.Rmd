@@ -1,0 +1,230 @@
+---
+title: "Session 01 - Exercises Key"
+author: ""
+date: ""
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
+## Case-Control Association Testing
+
+Before you begin:
+
+* Make sure that R is installed on your computer
+* For this lab, we will use the `data.table` and `dplyr` library
+```{r load-libs, message=FALSE, warning=FALSE}
+require(data.table)
+require(dplyr)
+require(tidyr)
+require(ggplot2)
+```
+
+### Introduction
+We will be using the [LHON dataset](https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt) covered in the lecture notes for this portion of the exercises.
+The LHON dataset is from a case-control study and includes both phenotype and genotype data for a candidate gene.
+
+Let's first load the LHON data file into the R session. You can read the file directly from the web (if you are connected to the web) using the following command:
+```{r load-lhon-data}
+LHON.df <- fread("https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt", header=TRUE)
+```
+
+Alternatively, you can save the file to your computer and read it into R from the directory where the file is located:
+```{r load-lhon-data-direct, eval=FALSE}
+LHON.df <- fread("LHON.txt", header=TRUE)
+```
+
+### Exercises
+Here are some things to look at:
+
+1. Examine the variables in the dataset:
+```{r}
+# Each row is a sample
+LHON.df %>% 
+  head
+# Character variables
+LHON.df %>% 
+  str
+```
+  * How many observations? 
+```{r}
+LHON.df %>% 
+  nrow
+```
+  * How many cases/controls?
+  ```{r}
+LHON.df %>% select(PHENO) %>% table
+```
+  * What is the distribution of the genotypes across cases/controls?
+```{r}
+LHON.df %>% 
+      select(PHENO, GENO) %>% 
+      table
+```
+  * What about for allele types?
+```{r, warning=FALSE}
+LHON.df %>% 
+      group_by(PHENO) %>% 
+      summarize(
+        n.C = 2 * sum(GENO == "CC") + 1 * sum(GENO == "CT"),
+        n.T = 2 * sum(GENO == "TT") + 1 * sum(GENO == "CT")
+      )
+```  
+
+2. Perform a logistic regression analysis for this data with `CC` as the reference genotype using the `glm()` function. 
+(Hint: make sure to convert the phenotype to a binary 0/1 variable)
+```{r}
+LHON.df <- LHON.df %>% 
+  mutate(
+    PHENO.bin = as.numeric(PHENO == "CASE"),
+    GENO.factor = factor(GENO, levels = c("CC", "CT", "TT"))
+    )
+log.model <- glm(PHENO.bin ~ GENO.factor, data = LHON.df, family = binomial(link = "logit")) 
+```
+View summary information from the fitted model, including coefficient estimates, standard errors and p-values.
+```{r}
+log.model %>% summary
+```
+3. Obtain odds ratios and confidence intervals for the `CT` and `TT` genotypes relative to the `CC` reference genotype. Interpret.
+
+* By hand
+```{r}
+# OR for CT and TT
+log.model %>% coef %>% exp
+# CI for CT
+exp( -1.5994 + c(-1,1) * 1.96 * 0.6378)
+# CI for TT
+exp( -0.2654 + c(-1,1) * 1.96 * 0.5349)
+```
+* Using R function `confint.default()`
+```{r}
+confint.default(log.model) %>% exp
+```
+
+
+4. Is there evidence of differences in odds of being a case for the `CT` and `TT` genotypes (compared to `CC`)?
+
+Check the p-values.
+
+*Extra*: 5. Perform the logistic regression analysis with the additive genotype coding. Obtain odds ratios and confidence intervals. Is there evidence of an association? How does it compare with the 2-parameter model?
+
+```{r}
+LHON.df <- LHON.df %>% 
+  mutate(
+    GENO.num = 0 + 1 * (GENO == "CT") + 2 * (GENO == "TT")
+    )
+log.model.add <- glm(PHENO.bin ~ GENO.num, data = LHON.df, family = binomial(link = "logit")) 
+log.model.add %>% summary
+log.model.add %>% coef %>% exp
+confint.default(log.model.add) %>% exp
+```
+
+## Association Testing with Quantitative Traits
+
+### Introduction
+We will be using the [Blood Pressure dataset](https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt) for this portion of the exercises.
+This dataset contains diastolic and systolic blood pressure measurements for 1000 individuals, and genotype data at 11 SNPs in a candidate gene for blood pressure. Covariates such as gender (sex) and body mass index (bmi) are included as well.
+
+Let's first load the file into R. You can read the file directly from the web (if you are connected to the web) using the following command:
+```{r load-bp-data}
+BP.df <- fread("https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/bpdata.csv", header=TRUE)
+```
+
+Alternatively, you can save the file to your computer and read it into R from the directory where the file is located:
+```{r load-bp-data-direct, eval=FALSE}
+BP.df <- fread("bpdata.csv", header=TRUE)
+```
+
+### Exercises
+Let's take a look at the dataset:
+```{r}
+BP.df %>% head
+BP.df %>% str
+```
+
+1. Perform a linear regression of systolic blood pressure (`sbp`) on `SNP3` using the `lm()` function.
+Compare the estimates, confidence intervals and p-values you get.
+
+* Additive (linear) model:
+let's count the number of `T` allele
+```{r}
+BP.df %>% select(snp3) %>% table
+BP.df <- BP.df %>%
+  mutate(snp3.add = 1 * (snp3 == "TC") + 2 * (snp3 == "TT"))
+lm.add <- lm(sbp ~ snp3.add, data = BP.df) 
+lm.add %>% summary
+lm.add %>% confint.default
+```
+Let's check how it compares when we count the number of `C` alleles.
+```{r}
+BP.df <- BP.df %>%
+  mutate(snp3.add.C = 1 * (snp3 == "TC") + 2 * (snp3 == "CC"))
+lm.add.C <- lm(sbp ~ snp3.add.C, data = BP.df) 
+lm.add.C %>% summary
+```
+* dominant model (for `T` allele)
+```{r}
+BP.df <- BP.df %>%
+  mutate(snp3.dom = 1 * (snp3 == "TC" | snp3 == "TT"))
+BP.df %>% select(snp3.dom, snp3) %>% table
+lm.dom <- lm(sbp ~ snp3.dom, data = BP.df) 
+lm.dom %>% summary
+lm.dom %>% confint.default
+```
+
+* recessive model (for `T` allele)
+```{r}
+BP.df <- BP.df %>%
+  mutate(snp3.rec = 1 * (snp3 == "TT"))
+BP.df %>% select(snp3.rec, snp3) %>% table
+lm.rec <- lm(sbp ~ snp3.rec, data = BP.df) 
+lm.rec %>% summary
+lm.rec %>% confint.default
+```
+* 2 parameter model
+```{r}
+lm.rec <- lm(sbp ~ snp3, data = BP.df) 
+lm.rec %>% summary
+lm.rec %>% confint.default
+```
+
+
+2. Provide a plot illustrating the relationship between sbp and the three genotypes at SNP3.
+```{r}
+BP.df %>%
+  drop_na(snp3) %>%
+  ggplot(aes(x = snp3, y = sbp, fill = snp3)) +
+  geom_boxplot()
+```
+
+
+For question 3 and 4 below, R also has a 'formula' syntax, frequently used when specifying regression models with many predictors. To regress an outcome `y` on several covariates, the syntax is:
+
+```{r lm-ex, eval=FALSE}
+outcome ~ covariate1 + covariate2 + covariate3
+```
+
+3. Now redo the linear regression analysis of `sbp` from question 1 for the additive model, but this time adjust for `sex` and `bmi`. Do the results change?
+```{r}
+lm(sbp ~ snp3.add + sex + bmi, data = BP.df) %>% summary
+```
+
+4. What proportion of the heritability of `sbp` is explained by all of the 11 SNPs together?
+```{r}
+ lm(sbp ~ snp1+snp2+snp3+snp4+snp5+snp6+snp7+snp8+snp9+snp10+snp11, data = BP.df) %>% summary
+```
+Let's check the model if we had used additive coding for all SNPs.
+```{r}
+# all allele combinations: C/T, A/T, A/G
+BP.df %>% select(snp1:snp11) %>% unlist %>% table
+```
+
+```{r}
+BP.df %>%
+  mutate(across(
+    snp1:snp11, 
+    function(snp) { 1 * (snp == "TC" | snp == "CT" | snp == "AT" | snp == "AG") + 2 * (snp == "TT" | snp == "GG")}
+    )) %>%
+  lm(sbp ~ snp1+snp2+snp3+snp4+snp5+snp6+snp7+snp8+snp9+snp10+snp11, data = .) %>% 
+  summary
+```
