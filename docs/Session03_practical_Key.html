@@ -11,7 +11,7 @@
 
 
 
-<title>Session 03 - Exercises</title>
+<title>Session 03 - Exercises Key</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -398,7 +398,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Session 03 - Exercises</h1>
+<h1 class="title toc-ignore">Session 03 - Exercises Key</h1>
 <h4 class="author"></h4>
 
 </div>
@@ -407,7 +407,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -418,8 +418,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -432,9 +432,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong>
@@ -545,15 +545,41 @@ run.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr
-project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it
+difficult for you and others to run your code on a different machine.
+Change the absolute path(s) below to the suggested relative path(s) to
+make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/Users/joelle.mbatchou/software/github/SISG2022_Association_Mapping/
+</td>
+<td style="text-align:left;">
+.
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -595,7 +621,6 @@ were generated:
 Ignored files:
     Ignored:    .DS_Store
     Ignored:    analysis/.Rhistory
-    Ignored:    analysis/figure/
     Ignored:    code/.Rhistory
     Ignored:    data/.DS_Store
     Ignored:    lectures/.DS_Store
@@ -622,8 +647,9 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/Session03_practical.Rmd</code>)
-and HTML (<code>docs/Session03_practical.html</code>) files. If you’ve
+made to the R Markdown
+(<code>analysis/Session03_practical_Key.Rmd</code>) and HTML
+(<code>docs/Session03_practical_Key.html</code>) files. If you’ve
 configured a remote Git repository (see <code>?wflow_git_remote</code>),
 click on the hyperlinks in the table below to view the files as they
 were in that past version.
@@ -652,10 +678,10 @@ Message
 <tbody>
 <tr>
 <td>
-html
+Rmd
 </td>
 <td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/89595a912025213dbdfb545938979cace127a8a8/docs/Session03_practical.html" target="_blank">89595a9</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/cb3e60480f3b684a3cc48e202d90ce2f14e9d7e2/analysis/Session03_practical_Key.Rmd" target="_blank">cb3e604</a>
 </td>
 <td>
 Joelle Mbatchou
@@ -664,228 +690,7 @@ Joelle Mbatchou
 2022-07-25
 </td>
 <td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/6d1244141e9ad76f03b412005d462e41179b4325/analysis/Session03_practical.Rmd" target="_blank">6d12441</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-25
-</td>
-<td>
-add path info
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/088662f4186884e6eacd9f56444c72ab333f016f/docs/Session03_practical.html" target="_blank">088662f</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-25
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/e54c1bf01e6e5ae100f5b8f35bb10c2783f76820/docs/Session03_practical.html" target="_blank">e54c1bf</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/660617ee946fde78b5c9f5f1ef6983d9c73d8848/docs/Session03_practical.html" target="_blank">660617e</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-22
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/7453eb76487ea52235e27f82e22a53d5529544cd/docs/Session03_practical.html" target="_blank">7453eb7</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-22
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/4a6191aae23d74246315868c441433b412a514d9/docs/Session03_practical.html" target="_blank">4a6191a</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-22
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/b0e0fb4d994f55ce17c40cc1b536ba7d028b67cc/analysis/Session03_practical.Rmd" target="_blank">b0e0fb4</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-22
-</td>
-<td>
-update session 3 data set
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/d1d05e7e4a19628d344e3b1b7f8ed0f6bea70ebc/docs/Session03_practical.html" target="_blank">d1d05e7</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/c2458e16729c564c0c7656a071497eeb2fffb083/analysis/Session03_practical.Rmd" target="_blank">c2458e1</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-18
-</td>
-<td>
-add template R script
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/c4a1ad59fba38039400298aea2817dc7e781b6af/docs/Session03_practical.html" target="_blank">c4a1ad5</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/56518408a080959f644562365ce27b2d99c7acbf/analysis/Session03_practical.Rmd" target="_blank">5651840</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-18
-</td>
-<td>
-session 3 practical
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/301fa2814ceea7978db2ca8babca4cb5770c57cd/docs/Session03_practical.html" target="_blank">301fa28</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/e1f90925ac5e6c96211bc55f63c934e0c994c892/analysis/Session03_practical.Rmd" target="_blank">e1f9092</a>
-</td>
-<td>
-Joelle Mbatchou
-</td>
-<td>
-2022-07-18
-</td>
-<td>
-session 3 practicals
+add key
 </td>
 </tr>
 </tbody>
@@ -905,16 +710,8 @@ require(dplyr)
 require(tidyr)
 require(GWASTools)
 require(ggplot2)</code></pre>
-<p>The R template to do the exercises is <a
-href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/code">here</a>.</p>
-<p><em>Note: if on the online server, set your working directory to your
-home directory using in R</em></p>
-<pre class="r"><code>setwd(&quot;home/&lt;username&gt;/&quot;)</code></pre>
-<p>The data files are in the folder
-<code>/data/SISG2022M15/data/</code>.</p>
-<div id="gwas-in-samples-with-structure-using-regenie"
-class="section level2">
-<h2>GWAS in Samples with Structure &amp; Using REGENIE</h2>
+<div id="gwas-in-samples-with-structure" class="section level2">
+<h2>GWAS in Samples with Structure</h2>
 <div id="introduction" class="section level3">
 <h3>Introduction</h3>
 <p>We will be analyzing a simulated data set which contains sample
@@ -940,15 +737,61 @@ scenario?</em></p>
 </ol>
 <ul>
 <li>How many samples are present?</li>
+</ul>
+<pre class="r"><code>famfile &lt;- fread(&quot;data/sim_rels_geno.fam&quot;, header = FALSE)
+famfile %&gt;% str</code></pre>
+<pre><code>Classes &#39;data.table&#39; and &#39;data.frame&#39;:  2400 obs. of  6 variables:
+ $ V1: int  2307 379 478 1545 990 1907 369 1694 2137 2314 ...
+ $ V2: int  2307 379 478 1545 990 1907 369 1694 2137 2314 ...
+ $ V3: int  0 0 0 0 0 0 0 0 0 0 ...
+ $ V4: int  0 0 0 0 0 0 0 0 0 0 ...
+ $ V5: int  1 2 1 1 1 2 2 1 2 1 ...
+ $ V6: int  -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 ...
+ - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; </code></pre>
+<ul>
 <li>How many SNPs? In how many chromosomes?</li>
 </ul>
+<pre class="r"><code>bimfile &lt;- fread(&quot;data/sim_rels_geno.bim&quot;, header = FALSE)
+bimfile %&gt;% str</code></pre>
+<pre><code>Classes &#39;data.table&#39; and &#39;data.frame&#39;:  106134 obs. of  6 variables:
+ $ V1: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ V2: chr  &quot;1:12000011:A:C&quot; &quot;1:12000012:A:C&quot; &quot;1:12000019:T:C&quot; &quot;1:12000027:C:T&quot; ...
+ $ V3: int  0 0 0 0 0 0 0 0 0 0 ...
+ $ V4: int  12000011 12000012 12000019 12000027 12000036 12000061 12000073 12000074 12000117 12000136 ...
+ $ V5: chr  &quot;A&quot; &quot;A&quot; &quot;T&quot; &quot;C&quot; ...
+ $ V6: chr  &quot;C&quot; &quot;C&quot; &quot;C&quot; &quot;T&quot; ...
+ - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; </code></pre>
+<pre class="r"><code>bimfile %&gt;% select(V1) %&gt;% table</code></pre>
+<pre><code>.
+   1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16 
+4918 4857 4813 4772 4810 4914 4840 4696 4790 4906 4782 4756 4803 4671 4814 4869 
+  17   18   19   20   21   22 
+4632 4834 4908 4942 4947 4860 </code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Examine the phenotype data:</li>
 </ol>
 <ul>
 <li>How many individuals in the study have measurements?</li>
-<li>Make a visual of the distribution of the phenotype.</li>
 </ul>
+<pre class="r"><code>yfile &lt;- fread(&quot;data/sim_rels_pheno.txt&quot;, header = TRUE)
+yfile %&gt;% str</code></pre>
+<pre><code>Classes &#39;data.table&#39; and &#39;data.frame&#39;:  2400 obs. of  3 variables:
+ $ FID  : int  2307 379 478 1545 990 1907 369 1694 2137 2314 ...
+ $ IID  : int  2307 379 478 1545 990 1907 369 1694 2137 2314 ...
+ $ Pheno: num  0.00999 -1.45253 0.11097 1.11363 -0.20993 ...
+ - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; </code></pre>
+<pre class="r"><code>yfile %&gt;% pull(Pheno) %&gt;% is.na %&gt;% table</code></pre>
+<pre><code>.
+FALSE 
+ 2400 </code></pre>
+<ul>
+<li>Make a visual of the distribution of the phenotype?</li>
+</ul>
+<pre class="r"><code>yfile %&gt;%
+  ggplot(aes(x = Pheno)) +
+  geom_histogram(colour=&quot;black&quot;, fill=&quot;white&quot;)</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/Session03_practical_Key.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Using PLINK, perform a GWAS using the phenotype file
 <code>sim_rels_pheno.txt</code> and the
@@ -961,59 +804,176 @@ threshold filters:</li>
 <li>at least a 99% genotyping call rate (less than 1% missing)</li>
 <li>HWE p-values greater than 0.001</li>
 </ul>
-<p>The basic command would look like</p>
-<pre class="bash"><code>plink2 --bfile sim_rels_geno --pheno sim_rels_pheno.txt --pheno-name &lt;pheno_name&gt; --maf &lt;min_MAF&gt; --geno &lt;max_miss&gt; --hwe &lt;hwe_p_thresh&gt; --glm allow-no-covars --out &lt;output_prefix&gt;</code></pre>
+<pre class="bash"><code>~/software/bins/plink2 --bfile data/sim_rels_geno --pheno data/sim_rels_pheno.txt --pheno-name Pheno --maf 0.01 --geno 0.01 --hwe 0.001 --autosome --glm allow-no-covars --out /tmp/gwas_plink</code></pre>
+<pre><code>PLINK v2.00a3 AVX2 (12 Dec 2020)               www.cog-genomics.org/plink/2.0/
+(C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to /tmp/gwas_plink.log.
+Options in effect:
+  --autosome
+  --bfile data/sim_rels_geno
+  --geno 0.01
+  --glm allow-no-covars
+  --hwe 0.001
+  --maf 0.01
+  --out /tmp/gwas_plink
+  --pheno data/sim_rels_pheno.txt
+  --pheno-name Pheno
+
+Start time: Mon Jul 25 16:18:13 2022
+16384 MiB RAM detected; reserving 8192 MiB for main workspace.
+Using up to 12 threads (change this with --threads).
+2400 samples (1179 females, 1221 males; 2400 founders) loaded from
+data/sim_rels_geno.fam.
+106134 variants loaded from data/sim_rels_geno.bim.
+1 quantitative phenotype loaded (2400 values).
+Calculating allele frequencies... 0%61%done.
+--geno: 0 variants removed due to missing genotype data.
+--hwe: 123 variants removed due to Hardy-Weinberg exact test (founders only).
+125 variants removed due to allele frequency threshold(s)
+(--maf/--max-maf/--mac/--max-mac).
+105886 variants remaining after main filters.
+--glm linear regression on phenotype &#39;Pheno&#39;: 0%61%done.
+Results written to /tmp/gwas_plink.Pheno.glm.linear .
+End time: Mon Jul 25 16:18:13 2022</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Make a Manhattan plot of the association results using the
-<code>manhattanPlot()</code> R function. The basic command would look
-like</li>
+<code>manhattanPlot()</code> R function.</li>
 </ol>
+<pre class="r"><code>plink.gwas &lt;- fread(&quot;/tmp/gwas_plink.Pheno.glm.linear&quot;, header = TRUE)
+plink.gwas %&gt;% str</code></pre>
+<pre><code>Classes &#39;data.table&#39; and &#39;data.frame&#39;:  105886 obs. of  13 variables:
+ $ #CHROM : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ POS    : int  12000011 12000012 12000019 12000027 12000036 12000061 12000073 12000074 12000117 12000136 ...
+ $ ID     : chr  &quot;1:12000011:A:C&quot; &quot;1:12000012:A:C&quot; &quot;1:12000019:T:C&quot; &quot;1:12000027:C:T&quot; ...
+ $ REF    : chr  &quot;C&quot; &quot;C&quot; &quot;C&quot; &quot;T&quot; ...
+ $ ALT    : chr  &quot;A&quot; &quot;A&quot; &quot;T&quot; &quot;C&quot; ...
+ $ A1     : chr  &quot;A&quot; &quot;A&quot; &quot;T&quot; &quot;C&quot; ...
+ $ TEST   : chr  &quot;ADD&quot; &quot;ADD&quot; &quot;ADD&quot; &quot;ADD&quot; ...
+ $ OBS_CT : int  2400 2400 2400 2400 2400 2400 2400 2400 2400 2400 ...
+ $ BETA   : num  0.0122 -0.018 -0.0849 0.0125 0.0111 ...
+ $ SE     : num  0.0438 0.0362 0.0284 0.0435 0.0288 ...
+ $ T_STAT : num  0.279 -0.497 -2.992 0.288 0.387 ...
+ $ P      : num  0.78 0.6192 0.0028 0.7731 0.6991 ...
+ $ ERRCODE: chr  &quot;.&quot; &quot;.&quot; &quot;.&quot; &quot;.&quot; ...
+ - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; </code></pre>
 <pre class="r"><code>manhattanPlot(
-  p = &lt;pvalues&gt;,
-  chromosome = &lt;chromosomes&gt;, 
+  p = plink.gwas$P,
+  chromosome = plink.gwas$`#CHROM`, 
   thinThreshold = 1e-4,
-  main= &lt;title&gt;
+  main= &quot;Manhattan plot of GWAS with PLINK&quot;
 )</code></pre>
+<p><img src="figure/Session03_practical_Key.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Make a Q-Q plot of the association results using the
-<code>qqPlot()</code> R function. The basic command would look like</li>
+<code>qqPlot()</code> R function.</li>
 </ol>
 <pre class="r"><code>qqPlot(
-  pval = &lt;pvalues&gt;,
+  pval = plink.gwas$P,
   thinThreshold = 1e-4,
-  main= &lt;title&gt;
+  main= &quot;Q-Q plot of GWAS with PLINK&quot;
  )</code></pre>
+<p><img src="figure/Session03_practical_Key.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol start="6" style="list-style-type: decimal">
-<li><p>Compute the genomic control inflation factor <span
-class="math inline">\(\lambda_{GC}\)</span> based on the p-values.
-(Hint: convert p-values to <span class="math inline">\(\chi^2_1\)</span>
-test statistics using the R function <code>qchisq()</code>). Is there
-evidence of possible inflation due to confounding?</p></li>
-<li><p>Now use REGENIE to perform a GWAS of the phenotype using a whole
-genome regression model.</p></li>
+<li>Compute the genomic control inflation factor <span
+class="math inline">\(\lambda_{GC}\)</span> based on the p-values. Is
+there evidence of possible inflation due to confounding?</li>
+</ol>
+<pre class="r"><code>chisq.stats &lt;- qchisq(plink.gwas$P, df = 1, lower.tail = FALSE)
+median(chisq.stats) / qchisq(0.5,1)</code></pre>
+<pre><code>[1] 1.148451</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Now use REGENIE to perform a GWAS of the phenotype using a whole
+genome regression model.</li>
 </ol>
 <ul>
-<li><p>We want to use high quality variants in the Step 1 null model
+<li>We want to use high quality variants in the Step 1 null model
 fitting. Using PLINK, apply QC filters to remove variants with MAF below
 5%, missingness above 1%, HWE p-value below 0.001, minor allele count
-(MAC) below 20. (hint: use <code>--write-snplist</code> to store list of
-variants passing QC without making a new BED file)</p></li>
-<li><p>Run REGENIE Step 1 to fit the null model and obtain polygenic
-predictions using a leave-one-chromosome-out (LOCO) scheme. The basic
-command would look like</p></li>
+(MAC) below 20.</li>
 </ul>
-<pre class="bash"><code>regenie --bed sim_rels_geno --phenoFile sim_rels_pheno.txt --step 1 --loocv --bsize 1000 --qt --extract &lt;plink_QC_pass_snplist&gt; --out &lt;output_prefix_step1&gt;</code></pre>
+<pre class="bash"><code>~/software/bins/plink2 --bfile data/sim_rels_geno --maf 0.05 --geno 0.01 --hwe 0.001 --mac 20 --write-snplist --out /tmp/qc_pass</code></pre>
+<pre><code>PLINK v2.00a3 AVX2 (12 Dec 2020)               www.cog-genomics.org/plink/2.0/
+(C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to /tmp/qc_pass.log.
+Options in effect:
+  --bfile data/sim_rels_geno
+  --geno 0.01
+  --hwe 0.001
+  --mac 20
+  --maf 0.05
+  --out /tmp/qc_pass
+  --write-snplist
+
+Start time: Mon Jul 25 16:18:28 2022
+16384 MiB RAM detected; reserving 8192 MiB for main workspace.
+Using up to 12 threads (change this with --threads).
+2400 samples (1179 females, 1221 males; 2400 founders) loaded from
+data/sim_rels_geno.fam.
+106134 variants loaded from data/sim_rels_geno.bim.
+Note: No phenotype data present.
+Calculating allele frequencies... 0%61%done.
+--geno: 0 variants removed due to missing genotype data.
+--hwe: 123 variants removed due to Hardy-Weinberg exact test (founders only).
+8624 variants removed due to allele frequency threshold(s)
+(--maf/--max-maf/--mac/--max-mac).
+97387 variants remaining after main filters.
+--write-snplist: Variant IDs written to /tmp/qc_pass.snplist .
+End time: Mon Jul 25 16:18:28 2022</code></pre>
+<ul>
+<li>Run REGENIE Step 1 to fit the null model and obtain polygenic
+predictions using a leave-one-chromosome-out (LOCO) scheme</li>
+</ul>
+<pre class="bash"><code>regenie --bed data/sim_rels_geno --phenoFile data/sim_rels_pheno.txt --step 1 --loocv --bsize 1000 --qt --extract /tmp/qc_pass.snplist --out /tmp/regenie_step1</code></pre>
+<p>The prediction list file output from Step 1 contains the path to the
+LOCO polygenic predictions:</p>
+<pre class="bash"><code>cat /tmp/regenie_step1_pred.list</code></pre>
+<pre><code>Pheno /tmp/regenie_step1_1.loco</code></pre>
 <ul>
 <li>Run REGENIE Step 2 to perform association testing <strong>at the
-same set of SNPs tested in PLINK</strong>. The basic command would look
-like</li>
+same set of SNPs tested in PLINK</strong>.</li>
 </ul>
-<pre class="bash"><code>regenie --bed sim_rels_geno --phenoFile sim_rels_pheno.txt --step 2 --bsize 400 --qt  --pred &lt;output_prefix_step1&gt;_pred.list --extract &lt;plink_GWAS_snplist&gt; --out &lt;output_prefix_step2&gt;</code></pre>
+<pre class="r"><code>plink.gwas %&gt;%
+  select(ID) %&gt;%
+  fwrite(&quot;/tmp/plink_gwas.snplist&quot;, col.names = FALSE, quote = FALSE)</code></pre>
+<pre class="bash"><code>regenie --bed data/sim_rels_geno --phenoFile data/sim_rels_pheno.txt --step 2 --bsize 400 --qt --pred /tmp/regenie_step1_pred.list --extract /tmp/plink_gwas.snplist --out /tmp/regenie_step2</code></pre>
 <ul>
 <li>Generate Manhatthan and Q-Q plots based on the association results
 and compute <span class="math inline">\(\lambda_{GC}\)</span>. Compare
 with output from Questions 4-6.</li>
 </ul>
+<pre class="r"><code>regenie.gwas &lt;- fread(&quot;/tmp/regenie_step2_Pheno.regenie&quot;, header = TRUE)
+regenie.gwas %&gt;% str</code></pre>
+<pre><code>Classes &#39;data.table&#39; and &#39;data.frame&#39;:  105886 obs. of  13 variables:
+ $ CHROM  : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ GENPOS : int  12000011 12000012 12000019 12000027 12000036 12000061 12000073 12000074 12000117 12000136 ...
+ $ ID     : chr  &quot;1:12000011:A:C&quot; &quot;1:12000012:A:C&quot; &quot;1:12000019:T:C&quot; &quot;1:12000027:C:T&quot; ...
+ $ ALLELE0: chr  &quot;C&quot; &quot;C&quot; &quot;C&quot; &quot;T&quot; ...
+ $ ALLELE1: chr  &quot;A&quot; &quot;A&quot; &quot;T&quot; &quot;C&quot; ...
+ $ A1FREQ : num  0.12 0.187 0.402 0.12 0.415 ...
+ $ N      : int  2400 2400 2400 2400 2400 2400 2400 2400 2400 2400 ...
+ $ TEST   : chr  &quot;ADD&quot; &quot;ADD&quot; &quot;ADD&quot; &quot;ADD&quot; ...
+ $ BETA   : num  0.00851 -0.01943 -0.0747 -0.023 0.01463 ...
+ $ SE     : num  0.0419 0.0346 0.0272 0.0416 0.0275 ...
+ $ CHISQ  : num  0.0413 0.3153 7.5548 0.3058 0.2823 ...
+ $ LOG10P : num  0.0762 0.2407 2.2229 0.2364 0.2254 ...
+ $ EXTRA  : logi  NA NA NA NA NA NA ...
+ - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; </code></pre>
+<pre class="r"><code>manhattanPlot(
+  p = 10^-regenie.gwas$LOG10P,
+  chromosome = regenie.gwas$CHROM, 
+  thinThreshold = 1e-4,
+  main= &quot;Manhattan plot of GWAS with REGENIE&quot;
+)</code></pre>
+<p><img src="figure/Session03_practical_Key.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>qqPlot(
+  pval = 10^-regenie.gwas$LOG10P,
+  thinThreshold = 1e-4,
+  main= &quot;Q-Q plot of GWAS with REGENIE&quot;
+ )</code></pre>
+<p><img src="figure/Session03_practical_Key.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>chisq.stats &lt;- qchisq(10^-regenie.gwas$LOG10P, df = 1, lower.tail = FALSE)
+median(chisq.stats) / qchisq(0.5,1)</code></pre>
+<pre><code>[1] 0.9962878</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1035,23 +995,45 @@ locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
-[1] workflowr_1.7.0
+[1] ggplot2_3.3.3       GWASTools_1.32.0    Biobase_2.46.0     
+[4] BiocGenerics_0.32.0 tidyr_1.0.2         dplyr_1.0.8        
+[7] data.table_1.13.2   workflowr_1.7.0    
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8.3     bslib_0.3.1      jquerylib_0.1.4  compiler_3.6.1  
- [5] pillar_1.7.0     later_1.3.0      git2r_0.30.1     tools_3.6.1     
- [9] getPass_0.2-2    digest_0.6.25    jsonlite_1.7.2   evaluate_0.15   
-[13] tibble_3.1.6     lifecycle_1.0.1  pkgconfig_2.0.3  rlang_1.0.4     
-[17] cli_3.1.1        rstudioapi_0.13  yaml_2.2.1       xfun_0.31       
-[21] fastmap_1.1.0    httr_1.4.3       stringr_1.4.0    knitr_1.39      
-[25] sass_0.4.0       fs_1.5.2         vctrs_0.3.8      rprojroot_2.0.3 
-[29] glue_1.6.1       R6_2.4.1         processx_3.5.3   fansi_0.4.1     
-[33] rmarkdown_2.14   callr_3.7.0      magrittr_1.5     whisker_0.4     
-[37] ps_1.7.0         promises_1.2.0.1 htmltools_0.5.2  ellipsis_0.3.2  
-[41] httpuv_1.6.5     utf8_1.1.4       stringi_1.4.6    crayon_1.3.4    </code></pre>
+ [1] nlme_3.1-140         fs_1.5.2             bit64_4.0.5         
+ [4] httr_1.4.3           rprojroot_2.0.3      tools_3.6.1         
+ [7] backports_1.1.5      bslib_0.3.1          utf8_1.1.4          
+[10] R6_2.4.1             colorspace_2.0-0     DBI_1.1.3           
+[13] mgcv_1.8-28          withr_2.5.0          DNAcopy_1.60.0      
+[16] tidyselect_1.1.1     processx_3.5.3       bit_4.0.4           
+[19] compiler_3.6.1       git2r_0.30.1         cli_3.1.1           
+[22] quantreg_5.54        mice_3.8.0           SparseM_1.78        
+[25] sandwich_3.0-1       labeling_0.4.2       sass_0.4.0          
+[28] scales_1.1.1         lmtest_0.9-40        quantsmooth_1.52.0  
+[31] callr_3.7.0          stringr_1.4.0        digest_0.6.25       
+[34] minqa_1.2.4          GWASExactHW_1.01     rmarkdown_2.14      
+[37] pkgconfig_2.0.3      htmltools_0.5.2      lme4_1.1-21         
+[40] fastmap_1.1.0        highr_0.8            rlang_1.0.4         
+[43] rstudioapi_0.13      RSQLite_2.2.15       farver_2.0.3        
+[46] jquerylib_0.1.4      generics_0.0.2       zoo_1.8-9           
+[49] jsonlite_1.7.2       magrittr_1.5         Matrix_1.2-17       
+[52] Rcpp_1.0.8.3         munsell_0.5.0        fansi_0.4.1         
+[55] lifecycle_1.0.1      stringi_1.4.6        whisker_0.4         
+[58] yaml_2.2.1           MASS_7.3-51.4        grid_3.6.1          
+[61] formula.tools_1.7.1  blob_1.2.3           promises_1.2.0.1    
+[64] crayon_1.3.4         lattice_0.20-38      splines_3.6.1       
+[67] knitr_1.39           ps_1.7.0             pillar_1.7.0        
+[70] boot_1.3-22          logistf_1.24.1       gdsfmt_1.22.0       
+[73] glue_1.6.1           evaluate_0.15        getPass_0.2-2       
+[76] operator.tools_1.6.3 vctrs_0.3.8          nloptr_1.2.2.1      
+[79] httpuv_1.6.5         MatrixModels_0.4-1   gtable_0.3.0        
+[82] purrr_0.3.3          cachem_1.0.6         xfun_0.31           
+[85] broom_0.5.5          later_1.3.0          survival_3.2-10     
+[88] tibble_3.1.6         memoise_2.0.1        ellipsis_0.3.2      </code></pre>
 </div>
 </div>
 </div>
