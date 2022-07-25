@@ -59,7 +59,7 @@ Only perform association test on SNPs that pass the following quality control th
 
 The basic command would look like
 ```{r, eval = FALSE}
-system("plink2 --bfile /data/SISG2022M15/data/sim_rels_geno --pheno /data/SISG2022M15/data/sim_rels_pheno.txt --pheno-name <pheno_name> --maf <min_MAF> --geno <max_miss> --hwe <hwe_p_thresh> --glm allow-no-covars --out <output_prefix>")
+system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/sim_rels_geno --pheno /data/SISG2022M15/data/sim_rels_pheno.txt --pheno-name <pheno_name> --maf <min_MAF> --geno <max_miss> --hwe <hwe_p_thresh> --glm allow-no-covars --out <output_prefix>")
 ```
 
 4. Make a Manhattan plot of the association results using the `manhattanPlot()` R function. The basic command would look like
@@ -94,12 +94,12 @@ using a whole genome regression model.
   
   * Run REGENIE Step 1 to fit the null model and obtain polygenic predictions using a leave-one-chromosome-out (LOCO) scheme. The basic command would look like
 ```{r, eval = FALSE}
-system("regenie --bed /data/SISG2022M15/data/sim_rels_geno --phenoFile /data/SISG2022M15/data/sim_rels_pheno.txt --step 1 --loocv --bsize 1000 --qt --extract <plink_QC_pass_snplist> --out <output_prefix_step1>")
+system("/data/SISG2022M15/exe/regenie --bed /data/SISG2022M15/data/sim_rels_geno --phenoFile /data/SISG2022M15/data/sim_rels_pheno.txt --step 1 --loocv --bsize 1000 --qt --extract <plink_QC_pass_snplist> --out <output_prefix_step1>")
 ```
 
   * Run REGENIE Step 2 to perform association testing **at the same set of SNPs tested in PLINK**. The basic command would look like
 ```{r, eval = FALSE}
-system("regenie --bed /data/SISG2022M15/data/sim_rels_geno --phenoFile /data/SISG2022M15/data/sim_rels_pheno.txt --step 2 --bsize 400 --qt  --pred <output_prefix_step1>_pred.list --extract <plink_GWAS_snplist> --out <output_prefix_step2>")
+system("/data/SISG2022M15/exe/regenie --bed /data/SISG2022M15/data/sim_rels_geno --phenoFile /data/SISG2022M15/data/sim_rels_pheno.txt --step 2 --bsize 400 --qt  --pred <output_prefix_step1>_pred.list --extract <plink_GWAS_snplist> --out <output_prefix_step2>")
 ```  
 
   * Generate Manhatthan and Q-Q plots based on the association results and compute $\lambda_{GC}$. Compare with output from Questions 4-6.
