@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Session 01 - Exercises Key</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SISG 2022 Module 15</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sessions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Day 1</li>
+    <li>
+      <a href="Session01_practical.html">Session 1</a>
+    </li>
+    <li>
+      <a href="Session02_practical.html">Session 2</a>
+    </li>
+    <li>
+      <a href="Session03_practical.html">Session 3</a>
+    </li>
+    <li>
+      <a href="SISGM15_prac4.html">Session 4</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Day 2</li>
+    <li>
+      <a href="SISGM15_prac5.html">Session 5</a>
+    </li>
+    <li>
+      <a href="SISGM15_prac6.html">Session 6</a>
+    </li>
+    <li>
+      <a href="Session07_practical.html">Session 7</a>
+    </li>
+    <li>
+      <a href="Session08_practical.html">Session 8</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Day 3</li>
+    <li>
+      <a href="SISGM15_prac9.html">Session 9</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Session 01 - Exercises Key</h1>
+<h4 class="author"></h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-07-25
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong>
+<code>SISG2022_Association_Mapping/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20220530code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20220530)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20220530code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20220530)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree1c5a6de1901ccd9cd3fba4ad96af347d3ab7e406targetblank1c5a6dea">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/1c5a6de1901ccd9cd3fba4ad96af347d3ab7e406" target="_blank">1c5a6de</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree1c5a6de1901ccd9cd3fba4ad96af347d3ab7e406targetblank1c5a6dea"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/1c5a6de1901ccd9cd3fba4ad96af347d3ab7e406" target="_blank">1c5a6de</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    analysis/.Rhistory
+    Ignored:    code/.Rhistory
+    Ignored:    data/.DS_Store
+    Ignored:    lectures/.DS_Store
+
+Untracked files:
+    Untracked:  analysis/Session02_practical_Key.Rmd
+    Untracked:  analysis/Session03_practical_Key.Rmd
+    Untracked:  analysis/Session07_practical_Key.Rmd
+    Untracked:  analysis/Session08_practical_Key.Rmd
+
+Unstaged changes:
+    Modified:   analysis/_site.yml
+    Modified:   analysis/index.Rmd
+    Deleted:    key/Session01_practical_Key.Rmd
+    Deleted:    key/Session01_practical_Key.html
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/Session01_practical_Key.Rmd</code>) and HTML
+(<code>docs/Session01_practical_Key.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/1c5a6de1901ccd9cd3fba4ad96af347d3ab7e406/analysis/Session01_practical_Key.Rmd" target="_blank">1c5a6de</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+<td>
+add key
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="case-control-association-testing" class="section level2">
+<h2>Case-Control Association Testing</h2>
+<p>Before you begin:</p>
+<ul>
+<li>Make sure that R is installed on your computer</li>
+<li>For this lab, we will use the <code>data.table</code> and
+<code>dplyr</code> library</li>
+</ul>
+<pre class="r"><code>require(data.table)
+require(dplyr)
+require(tidyr)
+require(ggplot2)</code></pre>
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
+<p>We will be using the <a
+href="https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt">LHON
+dataset</a> covered in the lecture notes for this portion of the
+exercises. The LHON dataset is from a case-control study and includes
+both phenotype and genotype data for a candidate gene.</p>
+<p>Let’s first load the LHON data file into the R session. You can read
+the file directly from the web (if you are connected to the web) using
+the following command:</p>
+<pre class="r"><code>LHON.df &lt;- fread(&quot;https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt&quot;, header=TRUE)</code></pre>
+<p>Alternatively, you can save the file to your computer and read it
+into R from the directory where the file is located:</p>
+<pre class="r"><code>LHON.df &lt;- fread(&quot;LHON.txt&quot;, header=TRUE)</code></pre>
+</div>
+<div id="exercises" class="section level3">
+<h3>Exercises</h3>
+<p>Here are some things to look at:</p>
+<ol style="list-style-type: decimal">
+<li>Examine the variables in the dataset:</li>
+</ol>
+<pre class="r"><code># Each row is a sample
+LHON.df %&gt;% 
+  head</code></pre>
+<pre><code>   IID GENO   PHENO
+1: ID1   TT CONTROL
+2: ID2   CT CONTROL
+3: ID3   TT    CASE
+4: ID4   CT CONTROL
+5: ID5   TT CONTROL
+6: ID6   TT CONTROL</code></pre>
+<pre class="r"><code># Character variables
+LHON.df %&gt;% 
+  str</code></pre>
+<pre><code>Classes &#39;data.table&#39; and &#39;data.frame&#39;:  328 obs. of  3 variables:
+ $ IID  : chr  &quot;ID1&quot; &quot;ID2&quot; &quot;ID3&quot; &quot;ID4&quot; ...
+ $ GENO : chr  &quot;TT&quot; &quot;CT&quot; &quot;TT&quot; &quot;CT&quot; ...
+ $ PHENO: chr  &quot;CONTROL&quot; &quot;CONTROL&quot; &quot;CASE&quot; &quot;CONTROL&quot; ...
+ - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; </code></pre>
+<ul>
+<li>How many observations?</li>
+</ul>
+<pre class="r"><code>LHON.df %&gt;% 
+  nrow</code></pre>
+<pre><code>[1] 328</code></pre>
+<ul>
+<li>How many cases/controls?</li>
+</ul>
+<pre class="r"><code>LHON.df %&gt;% select(PHENO) %&gt;% table</code></pre>
+<pre><code>.
+   CASE CONTROL 
+     89     239 </code></pre>
+<ul>
+<li>What is the distribution of the genotypes across
+cases/controls?</li>
+</ul>
+<pre class="r"><code>LHON.df %&gt;% 
+      select(PHENO, GENO) %&gt;% 
+      table</code></pre>
+<pre><code>         GENO
+PHENO      CC  CT  TT
+  CASE      6   8  75
+  CONTROL  10  66 163</code></pre>
+<ul>
+<li>What about for allele types?</li>
+</ul>
+<pre class="r"><code>LHON.df %&gt;% 
+      group_by(PHENO) %&gt;% 
+      summarize(
+        n.C = 2 * sum(GENO == &quot;CC&quot;) + 1 * sum(GENO == &quot;CT&quot;),
+        n.T = 2 * sum(GENO == &quot;TT&quot;) + 1 * sum(GENO == &quot;CT&quot;)
+      )</code></pre>
+<pre><code># A tibble: 2 × 3
+  PHENO     n.C   n.T
+  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
+1 CASE       20   158
+2 CONTROL    86   392</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Perform a logistic regression analysis for this data with
+<code>CC</code> as the reference genotype using the <code>glm()</code>
+function. (Hint: make sure to convert the phenotype to a binary 0/1
+variable)</li>
+</ol>
+<pre class="r"><code>LHON.df &lt;- LHON.df %&gt;% 
+  mutate(
+    PHENO.bin = as.numeric(PHENO == &quot;CASE&quot;),
+    GENO.factor = factor(GENO, levels = c(&quot;CC&quot;, &quot;CT&quot;, &quot;TT&quot;))
+    )
+log.model &lt;- glm(PHENO.bin ~ GENO.factor, data = LHON.df, family = binomial(link = &quot;logit&quot;)) </code></pre>
+<p>View summary information from the fitted model, including coefficient
+estimates, standard errors and p-values.</p>
+<pre class="r"><code>log.model %&gt;% summary</code></pre>
+<pre><code>
+Call:
+glm(formula = PHENO.bin ~ GENO.factor, family = binomial(link = &quot;logit&quot;), 
+    data = LHON.df)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-0.9695  -0.8701  -0.8701   1.5197   2.1093  
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)  
+(Intercept)    -0.5108     0.5164  -0.989   0.3226  
+GENO.factorCT  -1.5994     0.6378  -2.508   0.0122 *
+GENO.factorTT  -0.2654     0.5349  -0.496   0.6197  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 383.49  on 327  degrees of freedom
+Residual deviance: 368.48  on 325  degrees of freedom
+AIC: 374.48
+
+Number of Fisher Scoring iterations: 4</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Obtain odds ratios and confidence intervals for the <code>CT</code>
+and <code>TT</code> genotypes relative to the <code>CC</code> reference
+genotype. Interpret.</li>
+</ol>
+<ul>
+<li>By hand</li>
+</ul>
+<pre class="r"><code># OR for CT and TT
+log.model %&gt;% coef %&gt;% exp</code></pre>
+<pre><code>  (Intercept) GENO.factorCT GENO.factorTT 
+    0.6000000     0.2020202     0.7668712 </code></pre>
+<pre class="r"><code># CI for CT
+exp( -1.5994 + c(-1,1) * 1.96 * 0.6378)</code></pre>
+<pre><code>[1] 0.05787394 0.70517308</code></pre>
+<pre class="r"><code># CI for TT
+exp( -0.2654 + c(-1,1) * 1.96 * 0.5349)</code></pre>
+<pre><code>[1] 0.2687956 2.1880353</code></pre>
+<ul>
+<li>Using R function <code>confint.default()</code></li>
+</ul>
+<pre class="r"><code>confint.default(log.model) %&gt;% exp</code></pre>
+<pre><code>                   2.5 %   97.5 %
+(Intercept)   0.21806837 1.650858
+GENO.factorCT 0.05787424 0.705187
+GENO.factorTT 0.26878265 2.187981</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Is there evidence of differences in odds of being a case for the
+<code>CT</code> and <code>TT</code> genotypes (compared to
+<code>CC</code>)?</li>
+</ol>
+<p>Check the p-values.</p>
+<p><em>Extra</em>: 5. Perform the logistic regression analysis with the
+additive genotype coding. Obtain odds ratios and confidence intervals.
+Is there evidence of an association? How does it compare with the
+2-parameter model?</p>
+<pre class="r"><code>LHON.df &lt;- LHON.df %&gt;% 
+  mutate(
+    GENO.num = 0 + 1 * (GENO == &quot;CT&quot;) + 2 * (GENO == &quot;TT&quot;)
+    )
+log.model.add &lt;- glm(PHENO.bin ~ GENO.num, data = LHON.df, family = binomial(link = &quot;logit&quot;)) 
+log.model.add %&gt;% summary</code></pre>
+<pre><code>
+Call:
+glm(formula = PHENO.bin ~ GENO.num, family = binomial(link = &quot;logit&quot;), 
+    data = LHON.df)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-0.8436  -0.8436  -0.6854   1.5531   1.9797  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -1.8077     0.4554  -3.970  7.2e-05 ***
+GENO.num      0.4787     0.2505   1.911   0.0559 .  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 383.49  on 327  degrees of freedom
+Residual deviance: 379.47  on 326  degrees of freedom
+AIC: 383.47
+
+Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>log.model.add %&gt;% coef %&gt;% exp</code></pre>
+<pre><code>(Intercept)    GENO.num 
+  0.1640322   1.6140439 </code></pre>
+<pre class="r"><code>confint.default(log.model.add) %&gt;% exp</code></pre>
+<pre><code>                 2.5 %    97.5 %
+(Intercept) 0.06718883 0.4004616
+GENO.num    0.98792490 2.6369796</code></pre>
+</div>
+</div>
+<div id="association-testing-with-quantitative-traits"
+class="section level2">
+<h2>Association Testing with Quantitative Traits</h2>
+<div id="introduction-1" class="section level3">
+<h3>Introduction</h3>
+<p>We will be using the <a
+href="https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/LHON.txt">Blood
+Pressure dataset</a> for this portion of the exercises. This dataset
+contains diastolic and systolic blood pressure measurements for 1000
+individuals, and genotype data at 11 SNPs in a candidate gene for blood
+pressure. Covariates such as gender (sex) and body mass index (bmi) are
+included as well.</p>
+<p>Let’s first load the file into R. You can read the file directly from
+the web (if you are connected to the web) using the following
+command:</p>
+<pre class="r"><code>BP.df &lt;- fread(&quot;https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/bpdata.csv&quot;, header=TRUE)</code></pre>
+<p>Alternatively, you can save the file to your computer and read it
+into R from the directory where the file is located:</p>
+<pre class="r"><code>BP.df &lt;- fread(&quot;bpdata.csv&quot;, header=TRUE)</code></pre>
+</div>
+<div id="exercises-1" class="section level3">
+<h3>Exercises</h3>
+<p>Let’s take a look at the dataset:</p>
+<pre class="r"><code>BP.df %&gt;% head</code></pre>
+<pre><code>   V1    sex sbp dbp snp1 snp2 snp3 snp4 snp5 snp6 snp7 snp8 snp9 snp10 snp11
+1:  1 FEMALE 171  89   CC   TT   TT   TT   CC   GG   AA   TT   TT    CC    TT
+2:  2   MALE 160  99   TT   TT   CC &lt;NA&gt;   CC   AG   AT   CC   CT    CC    CT
+3:  3 FEMALE 142  83   CT   TT   TC   CT   CC   AG   TT   CC   TT    CT    TT
+4:  4   MALE 126  71   CT   TT   CC &lt;NA&gt;   CC   AA   TT   CC   TT    CT    CT
+5:  5 FEMALE 126  82   CT   TT   CC   CC   CC   AA   TT   CC   TT    CT    CT
+6:  6 FEMALE 132  89   CT   TT   CC   CC   CC &lt;NA&gt;   TT   CC   TT    TT    CT
+   bmi
+1:  25
+2:  35
+3:  34
+4:  32
+5:  34
+6:  25</code></pre>
+<pre class="r"><code>BP.df %&gt;% str</code></pre>
+<pre><code>Classes &#39;data.table&#39; and &#39;data.frame&#39;:  1000 obs. of  16 variables:
+ $ V1   : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ sex  : chr  &quot;FEMALE&quot; &quot;MALE&quot; &quot;FEMALE&quot; &quot;MALE&quot; ...
+ $ sbp  : int  171 160 142 126 126 132 136 121 120 136 ...
+ $ dbp  : int  89 99 83 71 82 89 58 87 69 88 ...
+ $ snp1 : chr  &quot;CC&quot; &quot;TT&quot; &quot;CT&quot; &quot;CT&quot; ...
+ $ snp2 : chr  &quot;TT&quot; &quot;TT&quot; &quot;TT&quot; &quot;TT&quot; ...
+ $ snp3 : chr  &quot;TT&quot; &quot;CC&quot; &quot;TC&quot; &quot;CC&quot; ...
+ $ snp4 : chr  &quot;TT&quot; NA &quot;CT&quot; NA ...
+ $ snp5 : chr  &quot;CC&quot; &quot;CC&quot; &quot;CC&quot; &quot;CC&quot; ...
+ $ snp6 : chr  &quot;GG&quot; &quot;AG&quot; &quot;AG&quot; &quot;AA&quot; ...
+ $ snp7 : chr  &quot;AA&quot; &quot;AT&quot; &quot;TT&quot; &quot;TT&quot; ...
+ $ snp8 : chr  &quot;TT&quot; &quot;CC&quot; &quot;CC&quot; &quot;CC&quot; ...
+ $ snp9 : chr  &quot;TT&quot; &quot;CT&quot; &quot;TT&quot; &quot;TT&quot; ...
+ $ snp10: chr  &quot;CC&quot; &quot;CC&quot; &quot;CT&quot; &quot;CT&quot; ...
+ $ snp11: chr  &quot;TT&quot; &quot;CT&quot; &quot;TT&quot; &quot;CT&quot; ...
+ $ bmi  : int  25 35 34 32 34 25 22 33 21 29 ...
+ - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; </code></pre>
+<ol style="list-style-type: decimal">
+<li>Perform a linear regression of systolic blood pressure
+(<code>sbp</code>) on <code>SNP3</code> using the <code>lm()</code>
+function. Compare the estimates, confidence intervals and p-values you
+get.</li>
+</ol>
+<ul>
+<li>Additive (linear) model: let’s count the number of <code>T</code>
+allele</li>
+</ul>
+<pre class="r"><code>BP.df %&gt;% select(snp3) %&gt;% table</code></pre>
+<pre><code>.
+ CC  TC  TT 
+621 304  35 </code></pre>
+<pre class="r"><code>BP.df &lt;- BP.df %&gt;%
+  mutate(snp3.add = 1 * (snp3 == &quot;TC&quot;) + 2 * (snp3 == &quot;TT&quot;))
+lm.add &lt;- lm(sbp ~ snp3.add, data = BP.df) 
+lm.add %&gt;% summary</code></pre>
+<pre><code>
+Call:
+lm(formula = sbp ~ snp3.add, data = BP.df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-55.974 -12.418  -0.974  10.582  60.582 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 140.4179     0.7219 194.506   &lt;2e-16 ***
+snp3.add      2.5556     1.0615   2.407   0.0163 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 18.33 on 958 degrees of freedom
+  (40 observations deleted due to missingness)
+Multiple R-squared:  0.006014,  Adjusted R-squared:  0.004976 
+F-statistic: 5.796 on 1 and 958 DF,  p-value: 0.01625</code></pre>
+<pre class="r"><code>lm.add %&gt;% confint.default</code></pre>
+<pre><code>                  2.5 %     97.5 %
+(Intercept) 139.0029685 141.832849
+snp3.add      0.4750661   4.636205</code></pre>
+<p>Let’s check how it compares when we count the number of
+<code>C</code> alleles.</p>
+<pre class="r"><code>BP.df &lt;- BP.df %&gt;%
+  mutate(snp3.add.C = 1 * (snp3 == &quot;TC&quot;) + 2 * (snp3 == &quot;CC&quot;))
+lm.add.C &lt;- lm(sbp ~ snp3.add.C, data = BP.df) 
+lm.add.C %&gt;% summary</code></pre>
+<pre><code>
+Call:
+lm(formula = sbp ~ snp3.add.C, data = BP.df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-55.974 -12.418  -0.974  10.582  60.582 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  145.529      1.809  80.446   &lt;2e-16 ***
+snp3.add.C    -2.556      1.062  -2.407   0.0163 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 18.33 on 958 degrees of freedom
+  (40 observations deleted due to missingness)
+Multiple R-squared:  0.006014,  Adjusted R-squared:  0.004976 
+F-statistic: 5.796 on 1 and 958 DF,  p-value: 0.01625</code></pre>
+<ul>
+<li>dominant model (for <code>T</code> allele)</li>
+</ul>
+<pre class="r"><code>BP.df &lt;- BP.df %&gt;%
+  mutate(snp3.dom = 1 * (snp3 == &quot;TC&quot; | snp3 == &quot;TT&quot;))
+BP.df %&gt;% select(snp3.dom, snp3) %&gt;% table</code></pre>
+<pre><code>        snp3
+snp3.dom  CC  TC  TT
+       0 621   0   0
+       1   0 304  35</code></pre>
+<pre class="r"><code>lm.dom &lt;- lm(sbp ~ snp3.dom, data = BP.df) 
+lm.dom %&gt;% summary</code></pre>
+<pre><code>
+Call:
+lm(formula = sbp ~ snp3.dom, data = BP.df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-56.218 -12.428  -0.823  10.572  60.572 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  140.428      0.736 190.801   &lt;2e-16 ***
+snp3.dom       2.790      1.238   2.253   0.0245 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 18.34 on 958 degrees of freedom
+  (40 observations deleted due to missingness)
+Multiple R-squared:  0.005269,  Adjusted R-squared:  0.00423 
+F-statistic: 5.074 on 1 and 958 DF,  p-value: 0.02451</code></pre>
+<pre class="r"><code>lm.dom %&gt;% confint.default</code></pre>
+<pre><code>                  2.5 %     97.5 %
+(Intercept) 138.9858186 141.870864
+snp3.dom      0.3624521   5.217443</code></pre>
+<ul>
+<li>recessive model (for <code>T</code> allele)</li>
+</ul>
+<pre class="r"><code>BP.df &lt;- BP.df %&gt;%
+  mutate(snp3.rec = 1 * (snp3 == &quot;TT&quot;))
+BP.df %&gt;% select(snp3.rec, snp3) %&gt;% table</code></pre>
+<pre><code>        snp3
+snp3.rec  CC  TC  TT
+       0 621 304   0
+       1   0   0  35</code></pre>
+<pre class="r"><code>lm.rec &lt;- lm(sbp ~ snp3.rec, data = BP.df) 
+lm.rec %&gt;% summary</code></pre>
+<pre><code>
+Call:
+lm(formula = sbp ~ snp3.rec, data = BP.df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-54.251 -12.501  -1.251  10.749  59.749 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  141.251      0.604 233.854   &lt;2e-16 ***
+snp3.rec       4.463      3.163   1.411    0.159    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 18.37 on 958 degrees of freedom
+  (40 observations deleted due to missingness)
+Multiple R-squared:  0.002074,  Adjusted R-squared:  0.001032 
+F-statistic: 1.991 on 1 and 958 DF,  p-value: 0.1586</code></pre>
+<pre class="r"><code>lm.rec %&gt;% confint.default</code></pre>
+<pre><code>                2.5 %    97.5 %
+(Intercept) 140.06697 142.43465
+snp3.rec     -1.73658  10.66353</code></pre>
+<ul>
+<li>2 parameter model</li>
+</ul>
+<pre class="r"><code>lm.rec &lt;- lm(sbp ~ snp3, data = BP.df) 
+lm.rec %&gt;% summary</code></pre>
+<pre><code>
+Call:
+lm(formula = sbp ~ snp3, data = BP.df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-55.931 -12.428  -0.931  10.572  60.572 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 140.4283     0.7361 190.773   &lt;2e-16 ***
+snp3TC        2.5026     1.2840   1.949   0.0516 .  
+snp3TT        5.2859     3.1868   1.659   0.0975 .  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 18.34 on 957 degrees of freedom
+  (40 observations deleted due to missingness)
+Multiple R-squared:  0.006019,  Adjusted R-squared:  0.003942 
+F-statistic: 2.898 on 2 and 957 DF,  p-value: 0.05563</code></pre>
+<pre class="r"><code>lm.rec %&gt;% confint.default</code></pre>
+<pre><code>                   2.5 %     97.5 %
+(Intercept) 138.98560975 141.871073
+snp3TC       -0.01405184   5.019211
+snp3TT       -0.96007686  11.531966</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Provide a plot illustrating the relationship between sbp and the
+three genotypes at SNP3.</li>
+</ol>
+<pre class="r"><code>BP.df %&gt;%
+  drop_na(snp3) %&gt;%
+  ggplot(aes(x = snp3, y = sbp, fill = snp3)) +
+  geom_boxplot()</code></pre>
+<p><img src="figure/Session01_practical_Key.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>For question 3 and 4 below, R also has a ‘formula’ syntax, frequently
+used when specifying regression models with many predictors. To regress
+an outcome <code>y</code> on several covariates, the syntax is:</p>
+<pre class="r"><code>outcome ~ covariate1 + covariate2 + covariate3</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Now redo the linear regression analysis of <code>sbp</code> from
+question 1 for the additive model, but this time adjust for
+<code>sex</code> and <code>bmi</code>. Do the results change?</li>
+</ol>
+<pre class="r"><code>lm(sbp ~ snp3.add + sex + bmi, data = BP.df) %&gt;% summary</code></pre>
+<pre><code>
+Call:
+lm(formula = sbp ~ snp3.add + sex + bmi, data = BP.df)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-58.83 -12.81  -0.82  11.58  57.80 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 145.85380    3.00271  48.574  &lt; 2e-16 ***
+snp3.add      2.63566    1.05434   2.500   0.0126 *  
+sexMALE      -4.77580    1.17642  -4.060 5.32e-05 ***
+bmi          -0.09837    0.09481  -1.038   0.2997    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 18.19 on 955 degrees of freedom
+  (41 observations deleted due to missingness)
+Multiple R-squared:  0.02402,   Adjusted R-squared:  0.02096 
+F-statistic: 7.836 on 3 and 955 DF,  p-value: 3.608e-05</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>What proportion of the heritability of <code>sbp</code> is explained
+by all of the 11 SNPs together?</li>
+</ol>
+<pre class="r"><code> lm(sbp ~ snp1+snp2+snp3+snp4+snp5+snp6+snp7+snp8+snp9+snp10+snp11, data = BP.df) %&gt;% summary</code></pre>
+<pre><code>
+Call:
+lm(formula = sbp ~ snp1 + snp2 + snp3 + snp4 + snp5 + snp6 + 
+    snp7 + snp8 + snp9 + snp10 + snp11, data = BP.df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-50.722 -11.967  -0.703  11.021  61.704 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 133.1726    12.4033  10.737   &lt;2e-16 ***
+snp1CT       -1.7048     4.5991  -0.371    0.711    
+snp1TT        1.9319     8.2839   0.233    0.816    
+snp2AT        0.7347     5.5923   0.131    0.896    
+snp2TT       -0.5118     6.9317  -0.074    0.941    
+snp3TC        4.7672     5.0211   0.949    0.343    
+snp3TT        6.6913     9.7904   0.683    0.495    
+snp4CT       -0.4778     3.5501  -0.135    0.893    
+snp4TT        2.3431     6.4874   0.361    0.718    
+snp5CT        1.1896     3.0462   0.391    0.696    
+snp5TT       -2.2787     7.5490  -0.302    0.763    
+snp6AG       -3.0266     2.0697  -1.462    0.144    
+snp6GG        2.1230     4.6650   0.455    0.649    
+snp7AT       -3.0873     3.9148  -0.789    0.431    
+snp7TT       -2.6319     4.3146  -0.610    0.542    
+snp8CT       -1.5509     3.6318  -0.427    0.669    
+snp8TT       -2.5507     7.3228  -0.348    0.728    
+snp9CT        6.0693     7.6170   0.797    0.426    
+snp9TT        4.7385     7.4517   0.636    0.525    
+snp10CT       1.4330     1.6466   0.870    0.384    
+snp10TT       1.9810     2.0699   0.957    0.339    
+snp11CT       4.8005     6.5175   0.737    0.462    
+snp11TT       4.0226     9.2775   0.434    0.665    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 18.2 on 707 degrees of freedom
+  (270 observations deleted due to missingness)
+Multiple R-squared:  0.02633,   Adjusted R-squared:  -0.003965 
+F-statistic: 0.8691 on 22 and 707 DF,  p-value: 0.6372</code></pre>
+<p>Let’s check the model if we had used additive coding for all
+SNPs.</p>
+<pre class="r"><code># all allele combinations: C/T, A/T, A/G
+BP.df %&gt;% select(snp1:snp11) %&gt;% unlist %&gt;% table</code></pre>
+<pre><code>.
+  AA   AG   AT   CC   CT   GG   TC   TT 
+ 636  335  666 2874 2276   73  304 3428 </code></pre>
+<pre class="r"><code>BP.df %&gt;%
+  mutate(across(
+    snp1:snp11, 
+    function(snp) { 1 * (snp == &quot;TC&quot; | snp == &quot;CT&quot; | snp == &quot;AT&quot; | snp == &quot;AG&quot;) + 2 * (snp == &quot;TT&quot; | snp == &quot;GG&quot;)}
+    )) %&gt;%
+  lm(sbp ~ snp1+snp2+snp3+snp4+snp5+snp6+snp7+snp8+snp9+snp10+snp11, data = .) %&gt;% 
+  summary</code></pre>
+<pre><code>
+Call:
+lm(formula = sbp ~ snp1 + snp2 + snp3 + snp4 + snp5 + snp6 + 
+    snp7 + snp8 + snp9 + snp10 + snp11, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-53.638 -12.849  -0.522  11.032  61.683 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 137.36286    9.09141  15.109   &lt;2e-16 ***
+snp1          1.88456    4.03838   0.467    0.641    
+snp2         -1.95639    2.96674  -0.659    0.510    
+snp3          4.60730    4.65652   0.989    0.323    
+snp4          0.05946    3.11138   0.019    0.985    
+snp5         -0.26494    2.58719  -0.102    0.918    
+snp6         -1.17284    1.80185  -0.651    0.515    
+snp7         -0.28939    1.78362  -0.162    0.871    
+snp8          0.70702    2.78030   0.254    0.799    
+snp9          2.17197    2.54774   0.853    0.394    
+snp10         0.60685    1.01229   0.599    0.549    
+snp11        -0.39009    4.15347  -0.094    0.925    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 18.17 on 718 degrees of freedom
+  (270 observations deleted due to missingness)
+Multiple R-squared:  0.01418,   Adjusted R-squared:  -0.0009268 
+F-statistic: 0.9386 on 11 and 718 DF,  p-value: 0.5022</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS  10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_3.3.3     tidyr_1.0.2       dplyr_1.0.8       data.table_1.13.2
+[5] workflowr_1.7.0  
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.1.1 xfun_0.31        bslib_0.3.1      purrr_0.3.3     
+ [5] colorspace_2.0-0 vctrs_0.3.8      generics_0.0.2   htmltools_0.5.2 
+ [9] yaml_2.2.1       utf8_1.1.4       rlang_1.0.4      later_1.3.0     
+[13] pillar_1.7.0     jquerylib_0.1.4  glue_1.6.1       withr_2.5.0     
+[17] lifecycle_1.0.1  stringr_1.4.0    munsell_0.5.0    gtable_0.3.0    
+[21] evaluate_0.15    labeling_0.4.2   knitr_1.39       callr_3.7.0     
+[25] fastmap_1.1.0    httpuv_1.6.5     ps_1.7.0         curl_4.3        
+[29] fansi_0.4.1      highr_0.8        Rcpp_1.0.8.3     promises_1.2.0.1
+[33] scales_1.1.1     jsonlite_1.7.2   farver_2.0.3     fs_1.5.2        
+[37] digest_0.6.25    stringi_1.4.6    processx_3.5.3   getPass_0.2-2   
+[41] rprojroot_2.0.3  grid_3.6.1       cli_3.1.1        tools_3.6.1     
+[45] magrittr_1.5     sass_0.4.0       tibble_3.1.6     crayon_1.3.4    
+[49] whisker_0.4      pkgconfig_2.0.3  ellipsis_0.3.2   rmarkdown_2.14  
+[53] httr_1.4.3       rstudioapi_0.13  R6_2.4.1         git2r_0.30.1    
+[57] compiler_3.6.1  </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
