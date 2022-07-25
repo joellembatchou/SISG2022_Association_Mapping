@@ -11,7 +11,7 @@
 
 <meta name="author" content="Summer Institute of Statical Genetics (Module 15)" />
 
-<meta name="date" content="2022-07-21" />
+<meta name="date" content="2022-07-25" />
 
 <title>Practical 4: Power Calculation and Designs of GWAS studies</title>
 
@@ -401,7 +401,7 @@ div.tocify {
 of GWAS studies</h1>
 <h4 class="author">Summer Institute of Statical Genetics (Module
 15)</h4>
-<h4 class="date">2022-07-21</h4>
+<h4 class="date">2022-07-25</h4>
 
 </div>
 
@@ -430,7 +430,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-07-22
+<strong>Last updated:</strong> 2022-07-24
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -562,15 +562,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree7453eb76487ea52235e27f82e22a53d5529544cdtargetblank7453eb7a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree072b219a867fdb2bd536f3e0c56500da8572e977targetblank072b219a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/7453eb76487ea52235e27f82e22a53d5529544cd" target="_blank">7453eb7</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/072b219a867fdb2bd536f3e0c56500da8572e977" target="_blank">072b219</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree7453eb76487ea52235e27f82e22a53d5529544cdtargetblank7453eb7a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree072b219a867fdb2bd536f3e0c56500da8572e977targetblank072b219a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -580,7 +580,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/7453eb76487ea52235e27f82e22a53d5529544cd" target="_blank">7453eb7</a>.
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/072b219a867fdb2bd536f3e0c56500da8572e977" target="_blank">072b219</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -645,6 +645,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/072b219a867fdb2bd536f3e0c56500da8572e977/analysis/SISGM15_prac4.Rmd" target="_blank">072b219</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-24
+</td>
+<td>
+update exercises
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/660617ee946fde78b5c9f5f1ef6983d9c73d8848/docs/SISGM15_prac4.html" target="_blank">660617e</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -796,18 +830,18 @@ class="math inline">\(K\)</span>), (ii) run a t-test and (iii) returns
 the p-value from the t-test.</p>
 <p><strong>Copy this code into your <code>R</code> session to load the
 function.</strong></p>
-<pre class="r"><code>SimBasedPower &lt;- function(N=10000,p=0.2,pi=0.5,alpha=5e-8,R=1.2,K=0.01){
+<pre class="r"><code>SimBasedPower &lt;- function(N=10000,p=0.2,pi=0.5,R=1.2,K=0.01){
   ## Expected allele frequencies under single locus disease model
   p1  &lt;- p * R  / (p * R + 1 - p)
   p0  &lt;- ( p/(1-K) ) * (1 - K*R/(1 + p*(R-1) ))
   
   ## Expected counts
-  n1 &lt;- N*prop     # number of cases
-  n0 &lt;- N*(1-prop) # number of controls
+  n1 &lt;- N*pi     # number of cases
+  n0 &lt;- N*(1-pi) # number of controls
 
   ## Phenotypes -- not used here but might be handy for the bonus question
   y1 &lt;- rep(1,n1)  # vector of 1&#39;s - case status
-  y0 &lt;- rep(0,n0)  # vector of o&#39;s - control status
+  y0 &lt;- rep(0,n0)  # vector of 0&#39;s - control status
   y  &lt;- c(y1,y0)   # vector phenotypes (y=1: cases; y=0: controls)
   
   ## Simulate genotypes
@@ -826,6 +860,10 @@ modify the code above to replace the t-test with the p-value from a
 regression model of the phenotype on the allele counts
 (<code>glm(y~x,family="binomial)</code>). Is the empirical power still
 consistent with the expected statistical power?</strong></p>
+<pre class="r"><code>B &lt;- 10000
+Pvals &lt;- sapply(1:B, function(k) SimBasedPower(N=10000,p=0.2,pi=0.5,R=1.2,K=0.01) )
+EmpiricalPower &lt;- mean(Pvals&lt;5e-8)
+EmpiricalPower</code></pre>
 </div>
 <div id="part-2.-power-of-a-two-stage-gwas-approach."
 class="section level2">
@@ -841,7 +879,7 @@ for association.</p>
 <p>Deriving a closed-form formula for the statistical power of this
 approach is not straightforward. Therefore, we will use simulations. The
 following <code>R</code> code simulates such a strategy. In the first
-stage, <code>M=1000</code> SNPs are tested for association in
+stage, <code>M=500</code> SNPs are tested for association in
 <code>Nd=2000</code> individuals in the discovery sample. Only one of
 those SNPs is actually associated with the trait and explains <span
 class="math inline">\(q^2=0.3\%\)</span> of trait variance. The first
@@ -854,7 +892,7 @@ and a significance threshold <span
 class="math inline">\(\alpha_1=0.005\)</span> for the first stage, we
 can estimate the statistical power of the first stage to be about 36%.
 The second stage involves genotyping <span
-class="math inline">\(N_r=10,000\)</span> individuals. If we could
+class="math inline">\(N_r=5,000\)</span> individuals. If we could
 genotype all individuals in the discovery and replication samples for
 all SNPs, then the statistical power for a GWAS in <span
 class="math inline">\(N=N_d + N_r\)</span>, would have been about 71%
@@ -865,9 +903,9 @@ described above and returns the smallest p-value obtained. <strong>Copy
 this code into your <code>R</code> session to load the
 function.</strong></p>
 <pre class="r"><code>PowerTwoStages &lt;- function(Nd=2000,
-                           Nr=10000,
+                           Nr=5000,
                            q2=0.003,
-                           Md=1000,
+                           Md=500,
                            alpha1=5e-3,
                            alpha2=5e-8,
                            verbose=FALSE){
@@ -931,10 +969,7 @@ function.</strong></p>
 }
 
 ## Example
-PowerTwoStages(Nd=2000,Nr=10000,q2=0.003,Md=1000,alpha1=5e-3,alpha2=5e-8,verbose = TRUE)</code></pre>
-<pre><code>Statistical Power of Stage 1 = 36%.
-Expected Statistical Power of Stage 1+2 = 71%.</code></pre>
-<pre><code>[1] 2.64073e-10</code></pre>
+PowerTwoStages(Nd=2000,Nr=5000,q2=0.003,Md=1000,alpha1=5e-3,alpha2=5e-8,verbose = TRUE)</code></pre>
 <p><strong>Question 4. Run at least 100 replicates and quantify the
 empirical statistical power, i.e., proportion of p-values lower than
 <span class="math inline">\(\alpha_2=5\times 10^{-8}\)</span>. Can you
@@ -945,7 +980,7 @@ combinations)?</strong></p>
 commands</p>
 <pre class="r"><code>nRep &lt;- 100 ## Number of replicates
 Pvals &lt;- sapply(1:nRep,function(k){
-  PowerTwoStages(Nd=2000,Nr=10000,q2=0.003,Md=1000,alpha1=5e-3,alpha2=5e-8,verbose=FALSE)
+  PowerTwoStages(Nd=2000,Nr=5000,q2=0.003,Md=500,alpha1=5e-3,alpha2=5e-8,verbose=FALSE)
 })
 PowerEmpirical &lt;- mean(unlist(Pvals)&lt;5e-8)
 print(PowerEmpirical)</code></pre>
