@@ -7,7 +7,7 @@ editor_options:
   chunk_output_type: console
 ---
 ```{r echo = FALSE}
-knitr::opts_knit$set(root.dir = "/Users/joelle.mbatchou/software/github/SISG2022_Association_Mapping/")
+knitr::opts_knit$set(root.dir = "~/")
 ```
 Before you begin:
 
@@ -43,19 +43,19 @@ Here are some things to look at:
 1. Examine the dataset:
   * How many samples are present? 
 ```{r}
-famfile <- fread("data/YRI_CEU_ASW_MEX_NAM.fam", header = FALSE)
+famfile <- fread("/data/SISG2022M15/data/YRI_CEU_ASW_MEX_NAM.fam", header = FALSE)
 famfile %>% head
 famfile %>% nrow
 ```
   * How many SNPs?
 ```{r}
-bimfile <- fread("data/YRI_CEU_ASW_MEX_NAM.bim", header = FALSE)
+bimfile <- fread("/data/SISG2022M15/data/YRI_CEU_ASW_MEX_NAM.bim", header = FALSE)
 bimfile %>% head
 bimfile %>% nrow
 ```
   * What is the number of samples in each population?
 ```{r}
-pop_info <- fread("data/Population_Sample_Info.txt", header = TRUE)
+pop_info <- fread("/data/SISG2022M15/data/Population_Sample_Info.txt", header = TRUE)
 head(pop_info)
 # join with fam file
 fam_pop_info <- left_join(famfile, pop_info, by = c("V1" = "FID", "V2" = "IID"))
@@ -63,12 +63,12 @@ fam_pop_info %>% select(Population) %>% table
 ```
 
 2. Get the first 10 principal components (PCs) in PLINK using all SNPs.
-```{bash}
-~/software/bins/plink2 --bfile data/YRI_CEU_ASW_MEX_NAM --pca 10 --out /tmp/pca_out
+```{r}
+system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/YRI_CEU_ASW_MEX_NAM --pca 10 --out tmp/pca_out")
 ```
   * Make a scatterplot of the first two PCs with each point colored by population membership. 
 ```{r}
-pcs <- left_join(fam_pop_info, fread("/tmp/pca_out.eigenvec"), by = c("V1" = "#FID", "V2" = "IID"))
+pcs <- left_join(fam_pop_info, fread("tmp/pca_out.eigenvec"), by = c("V1" = "#FID", "V2" = "IID"))
 pcs %>%
   ggplot(aes(x=PC1, y=PC2, color = Population)) +
   geom_point()
@@ -77,7 +77,7 @@ pcs %>%
 * Interpret the first two PCs, what ancestries are they reflecting?
 * Make a scree plot of the eigenvalues for the first 10 PCs. Approximate the proportion of variance explained by the first two PCs.
 ```{r}
-evals.pca <- fread("/tmp/pca_out.eigenval", header = FALSE)
+evals.pca <- fread("tmp/pca_out.eigenval", header = FALSE)
 evals.pca %>%
   ggplot(aes(x = 1:10, y = V1)) +
   geom_point() +
@@ -92,7 +92,7 @@ sum(evals.pca$V1[1:2]) / sum(evals.pca$V1)
 principal components (PCs) with each point colored according to population
 membership. 
 ```{r}
-obj.bed <- bed(bedfile = "data/YRI_CEU_ASW_MEX_NAM.bed")
+obj.bed <- bed(bedfile = "/data/SISG2022M15/data/YRI_CEU_ASW_MEX_NAM.bed")
 pca.bigsnpr <- bed_autoSVD(
   obj.bed, 
   thr.r2 = 0.2, 
@@ -138,8 +138,8 @@ data.frame(
 ```{r}
 # check for 2nd degree relateds or closer
 rel.df <- snp_plinkKINGQC(
-  plink2.path = "~/software/bins/plink2", 
-  bedfile.in = "data/YRI_CEU_ASW_MEX_NAM.bed", 
+  plink2.path = "/data/SISG2022M15/exe/plink2", 
+  bedfile.in = "/data/SISG2022M15/data/YRI_CEU_ASW_MEX_NAM.bed", 
   thr.king = 2^-3.5,
   make.bed = FALSE
 )
