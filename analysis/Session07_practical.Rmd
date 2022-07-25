@@ -41,25 +41,31 @@ Here are some things to try:
 
 1.  Using PLINK, extract **rare variants** in a new PLINK BED file.
 (Hint: use options `--max-maf` to select rare variants and `--maj-ref force` so that the minor allele is the effect allele)
+```{r, eval = FALSE}
+system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/rv_geno_chr1 --max-maf <..> --maj-ref force --make-bed --out <output_prefix>")
+```
   
 
 2. Load the data in R: 
 
   * Read in the SNPs using R function `BEDMatrix()` (hint: use option `simple_names = TRUE` to easily filter by sample IID later)
+```{r, eval = FALSE}
+G <- BEDMatrix("<bed_file_prefix>", simple_names = TRUE)
+```
   * Load the phenotype data from `rv_pheno.txt`
   * Keep only samples who are present both in the genotype as well as phenotype data and who don't have missing values for the phenotype
 
 3. Examine the genotype data:
   * Compute the minor allele frequency (MAF) for each SNP and plot histogram. (hint: use `na.rm=TRUE` when calling `mean()`)
-  * Check for missing values
+  * Check for missing values (hint: use function `is.na()` which returns TRUE/FALSE value for missing status)
   
 4. Run the single variant association tests in PLINK (only for the extracted variants).
   * What would be your significance threshold after applying Bonferroni correction for the multiple tests (assume the significance level is 0.05)? Is anything significant after this correction?
   * Make a volcano plot (i.e. log10 p-values vs effect sizes). Which of the Burden/SKAT/ACAT tests do you expect will give us most power? 
 
 Reminder: The PLINK2 command would look like
-```{bash, eval = FALSE}
-plink2 --bfile <BED_file_with_extracted_SNPs> --pheno rv_pheno.txt --pheno-name <pheno_name> --glm allow-no-covars --out <output_prefix>
+```{r, eval = FALSE}
+system("/data/SISG2022M15/exe/plink2 --bfile <BED_file_with_extracted_SNPs> --pheno /data/SISG2022M15/data/rv_pheno.txt --pheno-name <pheno_name> --glm allow-no-covars --out <output_prefix>")
 ```
 
 5. We will first compare three collapsing/burden approaches:
