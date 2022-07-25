@@ -11,7 +11,7 @@
 
 <meta name="author" content="Summer Institute of Statical Genetics (Module 15)" />
 
-<meta name="date" content="2022-07-20" />
+<meta name="date" content="2022-07-26" />
 
 <title>Practical 6: Prediction using GWAS summary statistics</title>
 
@@ -404,7 +404,7 @@ div.tocify {
 statistics</h1>
 <h4 class="author">Summer Institute of Statical Genetics (Module
 15)</h4>
-<h4 class="date">2022-07-20</h4>
+<h4 class="date">2022-07-26</h4>
 
 </div>
 
@@ -565,15 +565,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreebdaaf1af41522773c91a8755226d522bd628dc6etargetblankbdaaf1aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree8cd7c9a3a16c84bb48f52a769cff32be3ebe98b8targetblank8cd7c9aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/bdaaf1af41522773c91a8755226d522bd628dc6e" target="_blank">bdaaf1a</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/8cd7c9a3a16c84bb48f52a769cff32be3ebe98b8" target="_blank">8cd7c9a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreebdaaf1af41522773c91a8755226d522bd628dc6etargetblankbdaaf1aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree8cd7c9a3a16c84bb48f52a769cff32be3ebe98b8targetblank8cd7c9aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -583,7 +583,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/bdaaf1af41522773c91a8755226d522bd628dc6e" target="_blank">bdaaf1a</a>.
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/8cd7c9a3a16c84bb48f52a769cff32be3ebe98b8" target="_blank">8cd7c9a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -604,8 +604,15 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    lectures/.DS_Store
 
-Unstaged changes:
-    Modified:   analysis/_site.yml
+Untracked files:
+    Untracked:  analysis/.index.Rmd.swp
+    Untracked:  analysis/Session07_practical_Key.Rmd
+    Untracked:  analysis/Session08_practical_Key.Rmd
+    Untracked:  analysis/prac4Solution.Rmd
+    Untracked:  analysis/prac5Solution.Rmd
+    Untracked:  analysis/prac6Solution.Rmd
+    Untracked:  analysis/prac9Solution.Rmd
+    Untracked:  data/sim_rels_geno.bed
 
 </code></pre>
 <p>
@@ -651,6 +658,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/8cd7c9a3a16c84bb48f52a769cff32be3ebe98b8/analysis/SISGM15_prac6.Rmd" target="_blank">8cd7c9a</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+<td>
+add exercises
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/088662f4186884e6eacd9f56444c72ab333f016f/docs/SISGM15_prac6.html" target="_blank">088662f</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -764,8 +805,6 @@ add loic’s practical exercises
 server.</strong></span></p>
 <div id="preparation" class="section level2">
 <h2>Preparation</h2>
-<p>First login</p>
-<pre class="bash"><code>ssh yourlogincredentials@si2022-m15.biostat.washington.edu</code></pre>
 <p>This practical proposes a detailed tutorial for running three popular
 polygenic score (PGS) methods using GWAS summary statistics as
 introduced in <strong>Lecture 6</strong>.</p>
@@ -931,7 +970,7 @@ in each population.</p>
 <pre class="r"><code>options(stringsAsFactors = FALSE)
 r2_thr &lt;- 0.1
 pops   &lt;- read.table(&quot;1kg-sample-2504-phased.txt&quot;,h=T) ## This contains ancestry information
-trait  &lt;- &quot;Trait1&quot;
+trait  &lt;- &quot;Trait2&quot;
 phen   &lt;- read.table(paste0(&quot;1kg.&quot;,trait,&quot;.phen&quot;),h=T)[,-1] ## Read phenotype
 colnames(phen) &lt;- c(&quot;IID&quot;,trait)
 
@@ -978,24 +1017,28 @@ for(thresh in Threshs){
     idAnc &lt;- which(phen[,&quot;super_pop&quot;]==ancestry)
     RsqPerAnc[ancestry,idThresh] &lt;- cor(phen[idAnc,trait],phen[idAnc,idThresh])^2
   }
-}</code></pre>
-<p><strong>Question 2. What is the best prediction accuracy in EUR
-individuals across all significance thresholds? Is the best accuracy
-reached using the same significance threshold consistently across all
-ancestry groups? In which ancestry group is the prediction higher? Do
-you see any difference between <code>Trait1</code> and
+}
+RsqPerAnc</code></pre>
+<p><strong>Question 2. </strong></p>
+<p><strong>What is the best prediction accuracy in EUR individuals
+across all significance thresholds? Is the best accuracy reached using
+the same significance threshold consistently across all ancestry groups?
+In which ancestry group is the prediction higher? Do you see any
+difference between <code>Trait1</code> and
 <code>Trait2</code>?</strong></p>
-<p>If you have time and answered the question above then you could split
-the EUR sample in 2 (random) subsets, select the threshold that yields
-the larger accuracy in subset1, then re-evaluate the prediction accuracy
-of the corresponding PGS in subset 2. Compare the resulting prediction
-accuracy with your answer to the first part of <strong>Question
-2</strong> above. This process is called cross-validation.</p>
+<p>If you have time (<strong>at the end of the Practical</strong>) and
+answered the question above then you could split the EUR sample in 2
+(random) subsets, select the threshold that yields the larger accuracy
+in subset1, then re-evaluate the prediction accuracy of the
+corresponding PGS in subset 2. Compare the resulting prediction accuracy
+with your answer to the first part of <strong>Question 2</strong> above.
+This process is called cross-validation.</p>
 </div>
 <div id="part-2.-prediction-using-sblup." class="section level2">
 <h2>Part 2. Prediction using SBLUP.</h2>
 <p>Create a folder to store all intermediate files generated for this
 method.</p>
+<p>(Back to the terminal!)</p>
 <pre class="bash"><code>mkdir SBLUP</code></pre>
 <p>The SNP-based heritability of <code>Trait1</code> and
 <code>Trait2</code> is <span class="math inline">\(h^2_{SNP} =
@@ -1025,20 +1068,18 @@ run it using the following command</p>
 Rscript /data/SISG2022M15/data/sblup.R Trait1</code></pre>
 <p>The command above will generate a file named
 <code>SBLUP/Trait1.sblupInR.res</code>.</p>
-<p><strong>Question 3. Using the examples above, 1) calculate the PGS
+<p><strong>Question 3. Using the examples above,1) calculate the PGS
 using SNP effects from SBLUP (for <code>Trait1</code> and
-<code>Trait2</code>) 2) assess prediction accuracy in the test sample 3)
-compare your results with the prediction accuracy in EUR and non-EUR
+<code>Trait2</code>); 2) assess prediction accuracy in the test sample
+3) compare your results with the prediction accuracy in EUR and non-EUR
 individuals obtained using the C+PT method</strong>.</p>
-<pre class="bash"><code>## Solution
-${PLINK} --bfile 1kg_hm3 --score SBLUP/Trait1.sblubInR.res 1 2 3 sum center --out SBLUP/Trait1.pred.R</code></pre>
 <p>It is expected that you try to answer these questions using the R
 functions introduced above. The below code is a partial solution to the
 above questions and uses some key functions that you may want to use to
 answer the above questions.</p>
 <pre class="r"><code>options(stringsAsFactors = FALSE)
 pops   &lt;- read.table(&quot;1kg-sample-2504-phased.txt&quot;,h=T)
-trait  &lt;- &quot;Trait1&quot;
+trait  &lt;- &quot;Trait2&quot;
 phen   &lt;- read.table(paste0(&quot;1kg.&quot;,trait,&quot;.phen&quot;),h=T)[,-1] ## Read phenotype
 colnames(phen) &lt;- c(&quot;IID&quot;,trait)
 sblup  &lt;- read.table(paste0(&quot;SBLUP/&quot;,trait,&quot;.pred.R.profile&quot;),h=T)[,c(2,6)]
@@ -1101,7 +1142,7 @@ method.</p>
 <pre class="bash"><code>mkdir SBC</code></pre>
 <p>SBayesC requires a different format for the LD matrix. We provide a
 LD matrix directly calculated with GCTB using a command like this</p>
-<pre class="bash"><code>${GCTB}/gctb --bfile sampleForLD --make-full-ldm --snp 1-5000 --out SBC/BLOCK1618.CHROM20</code></pre>
+<pre class="bash"><code>${GCTB} --bfile sampleForLD --make-full-ldm --snp 1-5000 --out SBC/BLOCK1618.CHROM20</code></pre>
 <p><code>sampleForLD</code> is a subset of 348,501 unrelated EUR
 participants of the UKB. LD correlations on chromosome 20 were
 calculated within 38 non-overlapping LD blocks identified in an EUR
@@ -1138,7 +1179,7 @@ prediction accuracy will be calculated using 1/10 iterations
 (<code>--burn-in</code>).</p>
 <p><strong>Question 4. What is the heritability of <code>Trait1</code>?
 What is the proportion/expected number of SNPs with a non-zero effect on
-the trait? What s the genetic and residual variances?</strong>.</p>
+the trait? What is the genetic and residual variances?</strong>.</p>
 <p>The command above will generate a file named
 <code>SBC/Trait1.snpRes</code>. We can use that file to calculated a PGS
 using the following command</p>

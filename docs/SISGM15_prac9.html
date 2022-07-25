@@ -11,9 +11,9 @@
 
 <meta name="author" content="Summer Institute of Statical Genetics (Module 15)" />
 
-<meta name="date" content="2022-07-21" />
+<meta name="date" content="2022-07-27" />
 
-<title>Practical 9: Within-family GWAS</title>
+<title>Solution for Practical 9: Within-family GWAS</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -400,10 +400,11 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Practical 9: Within-family GWAS</h1>
+<h1 class="title toc-ignore">Solution for Practical 9: Within-family
+GWAS</h1>
 <h4 class="author">Summer Institute of Statical Genetics (Module
 15)</h4>
-<h4 class="date">2022-07-21</h4>
+<h4 class="date">2022-07-27</h4>
 
 </div>
 
@@ -564,15 +565,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreebdaaf1af41522773c91a8755226d522bd628dc6etargetblankbdaaf1aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree8cd7c9a3a16c84bb48f52a769cff32be3ebe98b8targetblank8cd7c9aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/bdaaf1af41522773c91a8755226d522bd628dc6e" target="_blank">bdaaf1a</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/8cd7c9a3a16c84bb48f52a769cff32be3ebe98b8" target="_blank">8cd7c9a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreebdaaf1af41522773c91a8755226d522bd628dc6etargetblankbdaaf1aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree8cd7c9a3a16c84bb48f52a769cff32be3ebe98b8targetblank8cd7c9aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -582,7 +583,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/bdaaf1af41522773c91a8755226d522bd628dc6e" target="_blank">bdaaf1a</a>.
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/8cd7c9a3a16c84bb48f52a769cff32be3ebe98b8" target="_blank">8cd7c9a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -603,8 +604,15 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    lectures/.DS_Store
 
-Unstaged changes:
-    Modified:   analysis/_site.yml
+Untracked files:
+    Untracked:  analysis/.index.Rmd.swp
+    Untracked:  analysis/Session07_practical_Key.Rmd
+    Untracked:  analysis/Session08_practical_Key.Rmd
+    Untracked:  analysis/prac4Solution.Rmd
+    Untracked:  analysis/prac5Solution.Rmd
+    Untracked:  analysis/prac6Solution.Rmd
+    Untracked:  analysis/prac9Solution.Rmd
+    Untracked:  data/sim_rels_geno.bed
 
 </code></pre>
 <p>
@@ -650,6 +658,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/8cd7c9a3a16c84bb48f52a769cff32be3ebe98b8/analysis/SISGM15_prac9.Rmd" target="_blank">8cd7c9a</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+<td>
+add exercises
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/088662f4186884e6eacd9f56444c72ab333f016f/docs/SISGM15_prac9.html" target="_blank">088662f</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -761,8 +803,7 @@ add loic’s practical exercises
 </div>
 <p><span style="color:red;"><strong>This practical can be run in
 <code>R</code> on your own computer.</strong></span></p>
-<div id="part-1-population-stratification" class="section level2">
-<h2>Part 1: Population stratification</h2>
+<!-- ## Part 1: Population stratification -->
 <p>This practical aims at illustrating that within-family GWAS are
 robust to population stratification. We provide a set of <code>R</code>
 commands below to simulate the phenotypes and genotypes (at <span
@@ -794,7 +835,8 @@ environment.</strong></p>
                   M=1000,   # Number of SNPs tested 
                   Fst=0.025,# Genetic differentiation between subgroups
                   vs=.05,   # variance explained by stratification
-                  g=2){     # Number of subgroups
+                  g=2,      # Number of subgroups
+                  nPC=10){  # Number of PCs fitted
 ms   &lt;- rnorm(n=g,mean=0,sd=sqrt(vs))
 p    &lt;- runif(n=M,min=0.05,max=0.95)
 tab  &lt;- cut(1:N,breaks = quantile(1:N,probs = seq(0,1,len=g+1)),include.lowest = TRUE)
@@ -846,7 +888,7 @@ gwas_pop &lt;- do.call(&quot;rbind&quot;,lapply(1:M, function(j){
 }))
 
 gwas_pcs &lt;- do.call(&quot;rbind&quot;,lapply(1:M, function(j){
-  summary(lm(Y1~X1[,j] + pcs[,1:10]))$coefficients[2,]
+  summary(lm(Y1~X1[,j] + pcs[,1:nPC]))$coefficients[2,]
 }))
 
 gwas_wf &lt;- do.call(&quot;rbind&quot;,lapply(1:M, function(j){
@@ -885,16 +927,23 @@ phenotype. Note that the mean association test statistic is reduced to
 (<code>CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=2)</code>) in your own
 environment. Do you find consistent observations?</strong></p>
 <p><strong>Question 2. Increase the number of subgroups (e.g..
-<code>g=5</code>, <code>g=10</code>, <code>g=50</code>,
-<code>g=100</code>). What can you say about the separation between
-subgroups on the first two PCs? Is the adjustment for 10 PCs still
-sufficient to control for inflation? If not, how many PCs do you need to
-fit and why? What do you observe for the within-family GWAS
-results?</strong></p>
+<code>g=5</code>, <code>g=10</code>, <code>g=50</code>). What can you
+say about the separation between subgroups on the first two PCs? Is the
+adjustment for 10 PCs still sufficient to control for inflation? If not,
+how many PCs do you need to fit and why? What do you observe for the
+within-family GWAS results?</strong></p>
+<pre class="r"><code>CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=5,nPC=10)
+CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=10,nPC=10)
+CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=50,nPC=10)
+
+## Let&#39;s try fitting 50 PCs
+CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=50,nPC=50)</code></pre>
 <p><strong>Question 3. Now set <code>Fst=0.1</code> (that would
 correspond to subgroups with different continental ancestries),
-<code>vs=0.1</code> and <code>g=100</code>. Are your conclusions from
+<code>vs=0.1</code> and <code>g=50</code>. Are your conclusions from
 Question 2 different?</strong></p>
+<pre class="r"><code>CHISQ(N=10000,M=1000,Fst=.1,vs=.1,g=50,nPC=10)</code></pre>
+<!-- ## Part 2. GWAX -->
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -933,7 +982,6 @@ loaded via a namespace (and not attached):
 [33] rmarkdown_2.14   callr_3.7.0      magrittr_1.5     whisker_0.4     
 [37] ps_1.7.0         promises_1.2.0.1 htmltools_0.5.2  ellipsis_0.3.2  
 [41] httpuv_1.6.5     utf8_1.1.4       stringi_1.4.6    crayon_1.3.4    </code></pre>
-</div>
 </div>
 
 
