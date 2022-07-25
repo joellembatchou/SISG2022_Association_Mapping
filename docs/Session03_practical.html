@@ -515,16 +515,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreecbbe10d03c71d6b32e9104725199aff4afa24225targetblankcbbe10da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/cbbe10d03c71d6b32e9104725199aff4afa24225" target="_blank">cbbe10d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreeed55e0dd548d5fc4117c81ee41ebf95f8de00667targetblanked55e0da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/ed55e0dd548d5fc4117c81ee41ebf95f8de00667" target="_blank">ed55e0d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreecbbe10d03c71d6b32e9104725199aff4afa24225targetblankcbbe10da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreeed55e0dd548d5fc4117c81ee41ebf95f8de00667targetblanked55e0da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/cbbe10d03c71d6b32e9104725199aff4afa24225" target="_blank">cbbe10d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/ed55e0dd548d5fc4117c81ee41ebf95f8de00667" target="_blank">ed55e0d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -533,12 +533,14 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    analysis/.DS_Store
     Ignored:    analysis/.Rhistory
+    Ignored:    analysis/figure/
     Ignored:    code/.Rhistory
     Ignored:    data/.DS_Store
     Ignored:    lectures/.DS_Store
 
 Untracked files:
     Untracked:  GWAS.ma
+    Untracked:  analysis/.Session03_practical.Rmd.swp
     Untracked:  analysis/SISGM15_prac5Solution.Rmd
     Untracked:  analysis/SISGM15_prac6Solution.Rmd
     Untracked:  analysis/SISGM15_prac9Solution.Rmd
@@ -606,6 +608,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/ed55e0dd548d5fc4117c81ee41ebf95f8de00667/analysis/Session03_practical.Rmd" target="_blank">ed55e0d</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+<td>
+update key
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/b36f8f109dd0a861e1df96556ea5207a44898d6d/docs/Session03_practical.html" target="_blank">b36f8f1</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -916,7 +952,7 @@ require(ggplot2)</code></pre>
 <li>HWE p-values greater than 0.001</li>
 </ul>
 <p>The basic command would look like</p>
-<pre class="bash"><code>plink2 --bfile sim_rels_geno --pheno sim_rels_pheno.txt --pheno-name &lt;pheno_name&gt; --maf &lt;min_MAF&gt; --geno &lt;max_miss&gt; --hwe &lt;hwe_p_thresh&gt; --glm allow-no-covars --out &lt;output_prefix&gt;</code></pre>
+<pre class="r"><code>system(&quot;plink2 --bfile /data/SISG2022M15/data/sim_rels_geno --pheno /data/SISG2022M15/data/sim_rels_pheno.txt --pheno-name &lt;pheno_name&gt; --maf &lt;min_MAF&gt; --geno &lt;max_miss&gt; --hwe &lt;hwe_p_thresh&gt; --glm allow-no-covars --out &lt;output_prefix&gt;&quot;)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Make a Manhattan plot of the association results using the <code>manhattanPlot()</code> R function. The basic command would look like</li>
 </ol>
@@ -942,11 +978,11 @@ require(ggplot2)</code></pre>
 <li><p>We want to use high quality variants in the Step 1 null model fitting. Using PLINK, apply QC filters to remove variants with MAF below 5%, missingness above 1%, HWE p-value below 0.001, minor allele count (MAC) below 20. (hint: use <code>--write-snplist</code> to store list of variants passing QC without making a new BED file)</p></li>
 <li><p>Run REGENIE Step 1 to fit the null model and obtain polygenic predictions using a leave-one-chromosome-out (LOCO) scheme. The basic command would look like</p></li>
 </ul>
-<pre class="bash"><code>regenie --bed sim_rels_geno --phenoFile sim_rels_pheno.txt --step 1 --loocv --bsize 1000 --qt --extract &lt;plink_QC_pass_snplist&gt; --out &lt;output_prefix_step1&gt;</code></pre>
+<pre class="r"><code>system(&quot;regenie --bed /data/SISG2022M15/data/sim_rels_geno --phenoFile /data/SISG2022M15/data/sim_rels_pheno.txt --step 1 --loocv --bsize 1000 --qt --extract &lt;plink_QC_pass_snplist&gt; --out &lt;output_prefix_step1&gt;&quot;)</code></pre>
 <ul>
 <li>Run REGENIE Step 2 to perform association testing <strong>at the same set of SNPs tested in PLINK</strong>. The basic command would look like</li>
 </ul>
-<pre class="bash"><code>regenie --bed sim_rels_geno --phenoFile sim_rels_pheno.txt --step 2 --bsize 400 --qt  --pred &lt;output_prefix_step1&gt;_pred.list --extract &lt;plink_GWAS_snplist&gt; --out &lt;output_prefix_step2&gt;</code></pre>
+<pre class="r"><code>system(&quot;regenie --bed /data/SISG2022M15/data/sim_rels_geno --phenoFile /data/SISG2022M15/data/sim_rels_pheno.txt --step 2 --bsize 400 --qt  --pred &lt;output_prefix_step1&gt;_pred.list --extract &lt;plink_GWAS_snplist&gt; --out &lt;output_prefix_step2&gt;&quot;)</code></pre>
 <ul>
 <li>Generate Manhatthan and Q-Q plots based on the association results and compute <span class="math inline">\(\lambda_{GC}\)</span>. Compare with output from Questions 4-6.</li>
 </ul>
