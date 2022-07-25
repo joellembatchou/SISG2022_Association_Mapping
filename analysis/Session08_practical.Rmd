@@ -21,6 +21,13 @@ require(patchwork)
 
 The R template to do the exercises is [here](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/code).
 
+*Note: if on the online server, set your working directory to your home directory using in R*
+```{r, eval = FALSE} 
+setwd("home/<username>/")
+```
+
+The data files are in the folder `/data/SISG2022M15/data/`.
+
 ## Case-control imbalance in GWAS
 
 ### Introduction
