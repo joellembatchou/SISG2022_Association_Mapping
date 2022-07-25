@@ -46,7 +46,7 @@ If you decide to run analyses from your local machine instead, follow the instru
 * PLINK 1.9 : 
   <a href="https://www.cog-genomics.org/plink2/" target="_blank">https://www.cog-genomics.org/plink2/</a>
 * PLINK 2.0 : 
-  <a href="https://www.cog-genomics.org/plink2.0/" target="_blank">https://www.cog-genomics.org/plink/2.0/</a>
+  <a href="https://www.cog-genomics.org/plink/2.0/" target="_blank">https://www.cog-genomics.org/plink/2.0/</a>
 * REGENIE : 
   <a href="https://github.com/rgcgithub/regenie/releases/" target="_blank">https://github.com/rgcgithub/regenie/releases/</a>
 * Zoom : 
