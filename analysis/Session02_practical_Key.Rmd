@@ -1,0 +1,172 @@
+---
+title: "Session 02 - Exercises Key"
+author: ""
+date: ""
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+```{r echo = FALSE}
+knitr::opts_knit$set(root.dir = "/Users/joelle.mbatchou/software/github/SISG2022_Association_Mapping/")
+```
+Before you begin:
+
+* Make sure that R is installed on your computer
+* For this lab, we will use the following R libraries:
+```{r load-libs, message=FALSE, warning=FALSE}
+require(data.table)
+require(dplyr)
+require(tidyr)
+require(bigsnpr)
+require(ggplot2)
+```
+
+## Population Structure Inference
+
+### Introduction
+We will be working with a subset of the genotype data from the Human Genome Diversity Panel (HGDP) and HapMap.
+
+The file “[YRI_CEU_ASW_MEX_NAM.bed](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/data)” is a binary file in PLINK BED format with accompanying BIM and FAM files.
+It contains genotype data at autosomal SNPs for:
+
+* Native American samples from HGDP (NAM)
+* Four population samples from HapMap: 
+  + Yoruba in Ibadan, Nigeria (YRI)
+  + Utah residents with ancestry from
+Northern and Western Europe (CEU)
+  + Mexican Americans in Los Angeles, California (MXL)
+  + African Americans from the south-western United States (ASW)
+
+### Exercises
+Here are some things to look at:
+
+1. Examine the dataset:
+  * How many samples are present? 
+```{r}
+famfile <- fread("data/YRI_CEU_ASW_MEX_NAM.fam", header = FALSE)
+famfile %>% head
+famfile %>% nrow
+```
+  * How many SNPs?
+```{r}
+bimfile <- fread("data/YRI_CEU_ASW_MEX_NAM.bim", header = FALSE)
+bimfile %>% head
+bimfile %>% nrow
+```
+  * What is the number of samples in each population?
+```{r}
+pop_info <- fread("data/Population_Sample_Info.txt", header = TRUE)
+head(pop_info)
+# join with fam file
+fam_pop_info <- left_join(famfile, pop_info, by = c("V1" = "FID", "V2" = "IID"))
+fam_pop_info %>% select(Population) %>% table
+```
+
+2. Get the first 10 principal components (PCs) in PLINK using all SNPs.
+```{bash}
+~/software/bins/plink2 --bfile data/YRI_CEU_ASW_MEX_NAM --pca 10 --out /tmp/pca_out
+```
+  * Make a scatterplot of the first two PCs with each point colored by population membership. 
+```{r}
+pcs <- left_join(fam_pop_info, fread("/tmp/pca_out.eigenvec"), by = c("V1" = "#FID", "V2" = "IID"))
+pcs %>%
+  ggplot(aes(x=PC1, y=PC2, color = Population)) +
+  geom_point()
+```
+
+* Interpret the first two PCs, what ancestries are they reflecting?
+* Make a scree plot of the eigenvalues for the first 10 PCs. Approximate the proportion of variance explained by the first two PCs.
+```{r}
+evals.pca <- fread("/tmp/pca_out.eigenval", header = FALSE)
+evals.pca %>%
+  ggplot(aes(x = 1:10, y = V1)) +
+  geom_point() +
+  geom_line() +
+  scale_x_continuous(breaks = 1:10) +
+  labs(x = "PC", y = "Eigenvalue")
+sum(evals.pca$V1[1:2]) / sum(evals.pca$V1)
+```
+
+3. Now redo Question 2 above using the [`bigsnpr` R package](https://privefl.github.io/bigsnpr/reference/index.html) specifying a $r^2$ threshold of 0.2 (i.e. LD pruning) as well as a minimum minor allele count (MAC) of 20. 
+  * Run PCA and make a scatter plot of the first two
+principal components (PCs) with each point colored according to population
+membership. 
+```{r}
+obj.bed <- bed(bedfile = "data/YRI_CEU_ASW_MEX_NAM.bed")
+pca.bigsnpr <- bed_autoSVD(
+  obj.bed, 
+  thr.r2 = 0.2, 
+  k = 10, 
+  min.mac = 20
+)
+plot(pca.bigsnpr, type = "scores", scores = 1:2) +
+  aes(color = fam_pop_info$Population) +
+  labs(color = "Population")
+```
+
+  * Does the plot change from the one in Question 2?
+  * Check the SNP loadings for the first 10 PCs.
+```{r}
+plot(pca.bigsnpr, type = "loadings", loadings = 1:10, coeff = 0.4)
+``` 
+
+4. Predict proportional Native American and European Ancestry for the HapMap
+MXL from the PCA output in Question 3 *using one of the principal components*. (Which PC is most appropriate for this analysis?) Assume that the HapMap MXL have negligible African Ancestry.
+```{r}
+pca.bigsnpr %>% str
+ceu.mean <- pca.bigsnpr$u[fam_pop_info$Population == "CEU",2] %>% mean
+nam.mean <- pca.bigsnpr$u[fam_pop_info$Population == "NAM",2] %>% mean
+c(ceu.mean, nam.mean)
+mxl.prop.nam <- (pca.bigsnpr$u[fam_pop_info$Population == "MXL",2] - ceu.mean) / abs(nam.mean - ceu.mean)
+mxl.prop.nam %>% summary
+```
+
+5. Make a barplot of the proportional ancestry estimates from question 4.
+```{r}
+data.frame(
+  ind = 1:length(mxl.prop.nam), 
+  NAM = sort(mxl.prop.nam, decreasing = TRUE)
+  ) %>%
+  mutate(CEU = 1 - NAM) %>%
+  gather(Pop, Prop, NAM, CEU) %>%
+  ggplot(aes(x = ind, y = Prop, fill = factor(Pop, levels = c("NAM", "CEU")))) +
+  geom_bar(position="stack", stat="identity") +
+  labs(x="Sample", y = "Ancestry Proportion", fill = "Population")
+```
+
+6. Check if there are samples related 2nd degree or closer. If so, run PCA as in Question 3 removing these samples then project the remaining samples onto the PC space.
+```{r}
+# check for 2nd degree relateds or closer
+rel.df <- snp_plinkKINGQC(
+  plink2.path = "~/software/bins/plink2", 
+  bedfile.in = "data/YRI_CEU_ASW_MEX_NAM.bed", 
+  thr.king = 2^-3.5,
+  make.bed = FALSE
+)
+rel.df %>% str
+# Gets indices of samples not related (match by fid/iid)
+rel.ids <- c(paste(rel.df$FID1, rel.df$IID1), paste(rel.df$FID2, rel.df$IID2))
+indices.unrel <- which(!(paste(famfile$V1,famfile$V2) %in% rel.ids))
+indices.unrel %>% str
+# Run PCA excluding relateds
+pca.bigsnpr.norels <- bed_autoSVD(
+  obj.bed, 
+  ind.row = indices.unrel,
+  thr.r2 = 0.2, 
+  k = 10, 
+  min.mac = 20
+)
+# Project related samples
+PCs <- matrix(NA, nrow(obj.bed), ncol(pca.bigsnpr.norels$u))
+PCs[indices.unrel, ] <- predict(pca.bigsnpr.norels) # pc from model (unrels)
+proj.rels <- bed_projectSelfPCA(
+  pca.bigsnpr.norels, 
+  obj.bed,
+  ind.row = (1:nrow(famfile))[-indices.unrel]
+  )
+PCs[-indices.unrel, ] <- proj.rels$OADP_proj # pc from projection (rels)
+data.frame(PC1 = PCs[,1], PC2 = PCs[,2], pop = fam_pop_info$Population, Type = c("Projected", "Model")[1 + (1:nrow(famfile)) %in% indices.unrel]) %>%
+  ggplot(aes(x = PC1, y = PC2, color = pop, shape = Type)) +
+  geom_point() +
+  labs(color = "Population")
+```

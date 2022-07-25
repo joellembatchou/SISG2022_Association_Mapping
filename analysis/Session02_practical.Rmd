@@ -36,6 +36,8 @@ Northern and Western Europe (CEU)
   + Mexican Americans in Los Angeles, California (MXL)
   + African Americans from the south-western United States (ASW)
 
+**File with ancestry labels assignment for each sample**: [Population_Sample_Info.txt](https://raw.githubusercontent.com/joellembatchou/SISG2022_Association_Mapping/master/data/Population_Sample_Info.txt) 
+
 ### Exercises
 Here are some things to look at:
 
