@@ -1,7 +1,7 @@
 ---
 title: 'Practical 4: Power Calculation and Designs of GWAS studies'
 author: "Summer Institute of Statical Genetics (Module  15)"
-date: '2022-07-21'
+date: '2022-07-25'
 output:
   html_document: default
   pdf_document: default
@@ -60,18 +60,18 @@ The `R` function below (i) simulates data under a single locus disease model (i.
 **Copy this code into your `R` session to load the function.**
 
 ```{R, eval=TRUE}
-SimBasedPower <- function(N=10000,p=0.2,pi=0.5,alpha=5e-8,R=1.2,K=0.01){
+SimBasedPower <- function(N=10000,p=0.2,pi=0.5,R=1.2,K=0.01){
   ## Expected allele frequencies under single locus disease model
   p1  <- p * R  / (p * R + 1 - p)
   p0  <- ( p/(1-K) ) * (1 - K*R/(1 + p*(R-1) ))
   
   ## Expected counts
-  n1 <- N*prop     # number of cases
-  n0 <- N*(1-prop) # number of controls
+  n1 <- N*pi     # number of cases
+  n0 <- N*(1-pi) # number of controls
 
   ## Phenotypes -- not used here but might be handy for the bonus question
   y1 <- rep(1,n1)  # vector of 1's - case status
-  y0 <- rep(0,n0)  # vector of o's - control status
+  y0 <- rep(0,n0)  # vector of 0's - control status
   y  <- c(y1,y0)   # vector phenotypes (y=1: cases; y=0: controls)
   
   ## Simulate genotypes
@@ -87,25 +87,31 @@ SimBasedPower <- function(N=10000,p=0.2,pi=0.5,alpha=5e-8,R=1.2,K=0.01){
 
 **Question 3. Use the function above to simulate 10,000 replicates and count how many times p-values are below the input significance threshold. Is this consistent with our expectations? Bonus: modify the code above to replace the t-test with the p-value from a regression model of the phenotype on the allele counts (`glm(y~x,family="binomial)`). Is the empirical power still consistent with the expected statistical power?**
 
+```{R, eval=FALSE}
+B <- 10000
+Pvals <- sapply(1:B, function(k) SimBasedPower(N=10000,p=0.2,pi=0.5,R=1.2,K=0.01) )
+EmpiricalPower <- mean(Pvals<5e-8)
+EmpiricalPower
+```
 
 ## Part 2. Power of a two-stage GWAS approach.
 
 This part of the practical aims at evaluating the statistical power of a two-stage GWAS strategy. In the old days of GWAS, investigators would first run a GWAS on a relatively small number of individuals ($N_d$, for discovery), select a fraction of the most associated SNPs (e.g., with a p-value lower than 0.05), genotype those top SNPs in a larger number of individuals ($N_r$, for replication) and re-test those for association.
 
-Deriving a closed-form formula for the statistical power of this approach is not straightforward. Therefore, we will use simulations. The following `R` code simulates such a strategy. In the first stage, `M=1000` SNPs are tested for association in `Nd=2000` individuals in the discovery sample. Only one of those SNPs is actually associated with the trait and explains $q^2=0.3\%$ of trait variance. The first stage consists of selecting SNPs with a p-value lower than 0.005.
+Deriving a closed-form formula for the statistical power of this approach is not straightforward. Therefore, we will use simulations. The following `R` code simulates such a strategy. In the first stage, `M=500` SNPs are tested for association in `Nd=2000` individuals in the discovery sample. Only one of those SNPs is actually associated with the trait and explains $q^2=0.3\%$ of trait variance. The first stage consists of selecting SNPs with a p-value lower than 0.005.
 
 Given that the trait of interest is quantitative, we can calculate the statistical power the first stage using the NCP formula for quantitative traits given in the 
 $$ \text{NCP}({q^2},N) = \frac{Nq^2}{1-q^2} $$
-Using this formula and a significance threshold $\alpha_1=0.005$ for the first stage, we can estimate the statistical power of the first stage to be about 36%. The second stage involves genotyping $N_r=10,000$ individuals. If we could genotype all individuals in the discovery and replication samples for all SNPs, then the statistical power for a GWAS in $N=N_d + N_r$, would have been about 71% (calculated using $NCP(q^2=0.003,N=N_d+N_r)$).
+Using this formula and a significance threshold $\alpha_1=0.005$ for the first stage, we can estimate the statistical power of the first stage to be about 36%. The second stage involves genotyping $N_r=5,000$ individuals. If we could genotype all individuals in the discovery and replication samples for all SNPs, then the statistical power for a GWAS in $N=N_d + N_r$, would have been about 71% (calculated using $NCP(q^2=0.003,N=N_d+N_r)$).
 
 
 The `R` code below simulates the two-stage strategy described above and returns the smallest p-value obtained. **Copy this code into your `R` session to load the function.**
 
-```{R, eval=TRUE}
+```{R, eval=FALSE}
 PowerTwoStages <- function(Nd=2000,
-                           Nr=10000,
+                           Nr=5000,
                            q2=0.003,
-                           Md=1000,
+                           Md=500,
                            alpha1=5e-3,
                            alpha2=5e-8,
                            verbose=FALSE){
@@ -169,7 +175,7 @@ PowerTwoStages <- function(Nd=2000,
 }
 
 ## Example
-PowerTwoStages(Nd=2000,Nr=10000,q2=0.003,Md=1000,alpha1=5e-3,alpha2=5e-8,verbose = TRUE)
+PowerTwoStages(Nd=2000,Nr=5000,q2=0.003,Md=1000,alpha1=5e-3,alpha2=5e-8,verbose = TRUE)
 ```
 
 **Question 4. Run at least 100 replicates and quantify the empirical statistical power, i.e.,  proportion of p-values lower than $\alpha_2=5\times 10^{-8}$. Can you improve power by varying $N_d$ and $N_r$ (try a few more combinations)?**
@@ -179,9 +185,10 @@ To answer these questions, you could use the following `R` commands
 ```{R, eval=FALSE}
 nRep <- 100 ## Number of replicates
 Pvals <- sapply(1:nRep,function(k){
-  PowerTwoStages(Nd=2000,Nr=10000,q2=0.003,Md=1000,alpha1=5e-3,alpha2=5e-8,verbose=FALSE)
+  PowerTwoStages(Nd=2000,Nr=5000,q2=0.003,Md=500,alpha1=5e-3,alpha2=5e-8,verbose=FALSE)
 })
 PowerEmpirical <- mean(unlist(Pvals)<5e-8)
 print(PowerEmpirical)
 ```
+
 
