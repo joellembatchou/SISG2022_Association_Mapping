@@ -586,15 +586,15 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree8b17e8c31ab2f626c3eab118ff7f6f833b4346ebtargetblank8b17e8ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreeb2d43f73e3d3eeb5f1f142942111f7c6a82c0b2dtargetblankb2d43f7a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/8b17e8c31ab2f626c3eab118ff7f6f833b4346eb" target="_blank">8b17e8c</a>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/b2d43f73e3d3eeb5f1f142942111f7c6a82c0b2d" target="_blank">b2d43f7</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree8b17e8c31ab2f626c3eab118ff7f6f833b4346ebtargetblank8b17e8ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreeb2d43f73e3d3eeb5f1f142942111f7c6a82c0b2dtargetblankb2d43f7a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -604,7 +604,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/8b17e8c31ab2f626c3eab118ff7f6f833b4346eb" target="_blank">8b17e8c</a>.
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/b2d43f73e3d3eeb5f1f142942111f7c6a82c0b2d" target="_blank">b2d43f7</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -626,7 +626,6 @@ Ignored files:
     Ignored:    lectures/.DS_Store
 
 Untracked files:
-    Untracked:  analysis/.index.Rmd.swp
     Untracked:  analysis/Session03_practical_Key.Rmd
     Untracked:  analysis/Session07_practical_Key.Rmd
     Untracked:  analysis/Session08_practical_Key.Rmd
@@ -676,6 +675,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/99cdf2f4424a8f7e49da9b90e93a35726992f5c4/docs/Session02_practical_Key.html" target="_blank">99cdf2f</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -797,7 +813,7 @@ Options in effect:
   --out /tmp/pca_out
   --pca 10
 
-Start time: Mon Jul 25 14:45:25 2022
+Start time: Mon Jul 25 14:47:23 2022
 16384 MiB RAM detected; reserving 8192 MiB for main workspace.
 Using up to 12 threads (change this with --threads).
 604 samples (316 females, 288 males; 433 founders) loaded from
@@ -810,7 +826,7 @@ Correcting for missingness... 0%1%2%3%4%5%6%7%8%9%10%11%
 Extracting eigenvalues and eigenvectors... done.
 --pca: Eigenvectors written to /tmp/pca_out.eigenvec , and eigenvalues written
 to /tmp/pca_out.eigenval .
-End time: Mon Jul 25 14:45:25 2022</code></pre>
+End time: Mon Jul 25 14:47:23 2022</code></pre>
 <ul>
 <li>Make a scatterplot of the first two PCs with each point colored by
 population membership.</li>
@@ -820,6 +836,43 @@ pcs %&gt;%
   ggplot(aes(x=PC1, y=PC2, color = Population)) +
   geom_point()</code></pre>
 <p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/99cdf2f4424a8f7e49da9b90e93a35726992f5c4/docs/figure/Session02_practical_Key.Rmd/unnamed-chunk-6-1.png" target="_blank">99cdf2f</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li>Interpret the first two PCs, what ancestries are they
 reflecting?</li>
@@ -835,6 +888,43 @@ evals.pca %&gt;%
   scale_x_continuous(breaks = 1:10) +
   labs(x = &quot;PC&quot;, y = &quot;Eigenvalue&quot;)</code></pre>
 <p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/99cdf2f4424a8f7e49da9b90e93a35726992f5c4/docs/figure/Session02_practical_Key.Rmd/unnamed-chunk-7-1.png" target="_blank">99cdf2f</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>sum(evals.pca$V1[1:2]) / sum(evals.pca$V1)</code></pre>
 <pre><code>[1] 0.8308752</code></pre>
 <ol start="3" style="list-style-type: decimal">
@@ -871,12 +961,86 @@ Converged!</code></pre>
   aes(color = fam_pop_info$Population) +
   labs(color = &quot;Population&quot;)</code></pre>
 <p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/99cdf2f4424a8f7e49da9b90e93a35726992f5c4/docs/figure/Session02_practical_Key.Rmd/unnamed-chunk-8-1.png" target="_blank">99cdf2f</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li>Does the plot change from the one in Question 2?</li>
 <li>Check the SNP loadings for the first 10 PCs.</li>
 </ul>
 <pre class="r"><code>plot(pca.bigsnpr, type = &quot;loadings&quot;, loadings = 1:10, coeff = 0.4)</code></pre>
 <p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/99cdf2f4424a8f7e49da9b90e93a35726992f5c4/docs/figure/Session02_practical_Key.Rmd/unnamed-chunk-9-1.png" target="_blank">99cdf2f</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ol start="4" style="list-style-type: decimal">
 <li>Predict proportional Native American and European Ancestry for the
 HapMap MXL from the PCA output in Question 3 <em>using one of the
@@ -921,6 +1085,43 @@ mxl.prop.nam %&gt;% summary</code></pre>
   geom_bar(position=&quot;stack&quot;, stat=&quot;identity&quot;) +
   labs(x=&quot;Sample&quot;, y = &quot;Ancestry Proportion&quot;, fill = &quot;Population&quot;)</code></pre>
 <p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/99cdf2f4424a8f7e49da9b90e93a35726992f5c4/docs/figure/Session02_practical_Key.Rmd/unnamed-chunk-11-1.png" target="_blank">99cdf2f</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ol start="6" style="list-style-type: decimal">
 <li>Check if there are samples related 2nd degree or closer. If so, run
 PCA as in Question 3 removing these samples then project the remaining
@@ -979,6 +1180,43 @@ data.frame(PC1 = PCs[,1], PC2 = PCs[,2], pop = fam_pop_info$Population, Type = c
   geom_point() +
   labs(color = &quot;Population&quot;)</code></pre>
 <p><img src="figure/Session02_practical_Key.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/99cdf2f4424a8f7e49da9b90e93a35726992f5c4/docs/figure/Session02_practical_Key.Rmd/unnamed-chunk-12-1.png" target="_blank">99cdf2f</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
