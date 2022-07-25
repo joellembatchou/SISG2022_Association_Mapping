@@ -1,7 +1,7 @@
 ---
 title: 'Practical 6: Prediction using GWAS summary statistics'
 author: "Summer Institute of Statical Genetics (Module  15)"
-date: '2022-07-20'
+date: '2022-07-26'
 output:
   html_document: default
   pdf_document: default
@@ -15,13 +15,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ## Preparation
-
-First login
-
-```{bash, eval=FALSE}
-ssh yourlogincredentials@si2022-m15.biostat.washington.edu
-```
-
 This practical proposes a detailed tutorial for running three popular polygenic score (PGS) methods using GWAS summary statistics as introduced in **Lecture 6**. 
 
 **Method 1: C+PT**
@@ -158,7 +151,7 @@ PGS calculated using the command above are stored in the `*.profile` files (last
 options(stringsAsFactors = FALSE)
 r2_thr <- 0.1
 pops   <- read.table("1kg-sample-2504-phased.txt",h=T) ## This contains ancestry information
-trait  <- "Trait1"
+trait  <- "Trait2"
 phen   <- read.table(paste0("1kg.",trait,".phen"),h=T)[,-1] ## Read phenotype
 colnames(phen) <- c("IID",trait)
 
@@ -206,16 +199,21 @@ for(thresh in Threshs){
     RsqPerAnc[ancestry,idThresh] <- cor(phen[idAnc,trait],phen[idAnc,idThresh])^2
   }
 }
+RsqPerAnc
 ```
 
-**Question 2. What is the best prediction accuracy in EUR individuals across all significance thresholds? Is the best accuracy reached using the same significance threshold consistently across all ancestry groups? In which ancestry group is the prediction higher? Do you see any difference between `Trait1` and `Trait2`?**
+**Question 2. **
 
-If you have time and answered the question above then you could split the EUR sample in 2 (random) subsets, select the threshold that yields the larger accuracy in subset1, then re-evaluate the prediction accuracy of the corresponding PGS in subset 2. Compare the resulting prediction accuracy with your answer to the first part of **Question 2** above. This process is called cross-validation. 
+**What is the best prediction accuracy in EUR individuals across all significance thresholds? Is the best accuracy reached using the same significance threshold consistently across all ancestry groups? In which ancestry group is the prediction higher? Do you see any difference between `Trait1` and `Trait2`?**
+
+If you have time (**at the end of the Practical**) and answered the question above then you could split the EUR sample in 2 (random) subsets, select the threshold that yields the larger accuracy in subset1, then re-evaluate the prediction accuracy of the corresponding PGS in subset 2. Compare the resulting prediction accuracy with your answer to the first part of **Question 2** above. This process is called cross-validation. 
 
 
 ## Part 2. Prediction using SBLUP.
 
 Create a folder to store all intermediate files generated for this method.
+
+(Back to the terminal!)
 
 ```{bash, eval=FALSE}
 mkdir SBLUP
@@ -247,14 +245,7 @@ Rscript /data/SISG2022M15/data/sblup.R Trait1
 
 The command above will generate a file named `SBLUP/Trait1.sblupInR.res`.
 
-**Question 3. Using the examples above, 1) calculate the PGS using SNP effects from SBLUP (for `Trait1` and `Trait2`) 2) assess prediction accuracy in the test sample 3) compare your results with the prediction accuracy in EUR and non-EUR individuals obtained using the C+PT method**.
-
-```{bash, eval=FALSE}
-## Solution
-${PLINK} --bfile 1kg_hm3 --score SBLUP/Trait1.sblubInR.res 1 2 3 sum center --out SBLUP/Trait1.pred.R
-```
-
-
+**Question 3. Using the examples above,1) calculate the PGS using SNP effects from SBLUP (for `Trait1` and `Trait2`); 2) assess prediction accuracy in the test sample 3) compare your results with the prediction accuracy in EUR and non-EUR individuals obtained using the C+PT method**.
 
 It is expected that you try to answer these questions using the R functions introduced above. The below
 code is a partial solution to the above questions and uses some key functions that you may want to use to
@@ -263,7 +254,7 @@ answer the above questions.
 ```{R, eval=FALSE}
 options(stringsAsFactors = FALSE)
 pops   <- read.table("1kg-sample-2504-phased.txt",h=T)
-trait  <- "Trait1"
+trait  <- "Trait2"
 phen   <- read.table(paste0("1kg.",trait,".phen"),h=T)[,-1] ## Read phenotype
 colnames(phen) <- c("IID",trait)
 sblup  <- read.table(paste0("SBLUP/",trait,".pred.R.profile"),h=T)[,c(2,6)]
@@ -323,7 +314,7 @@ mkdir SBC
 SBayesC requires a different format for the LD matrix. We provide a LD matrix directly calculated with GCTB using a command like this
 
 ```{bash, eval=FALSE}
-${GCTB}/gctb --bfile sampleForLD --make-full-ldm --snp 1-5000 --out SBC/BLOCK1618.CHROM20
+${GCTB} --bfile sampleForLD --make-full-ldm --snp 1-5000 --out SBC/BLOCK1618.CHROM20
 ```
 
 `sampleForLD` is a subset of 348,501 unrelated EUR participants of the UKB. LD correlations on chromosome 20 were calculated within 38 non-overlapping LD blocks identified in an EUR sample (see: http://bitbucket.org/nygcresearch/ldetect-data). Pre-calculated LD matrices can be downloaded from the `GCTB` website. We provide these 38 LD submatrices in the folder named `ldm` and paths for each file are listed in `mldm.txt` (note the similarity with `GCTA`: in `GCTB` `--mldm` indicates that multiple LD matrices will be used, while in `GCTA` `--mgrm` indicates that multiple GRMs will be used).
@@ -332,7 +323,6 @@ Set the path to GCTB
 ```{bash, eval=FALSE}
 GCTB=/data/SISG2022M15/exe/gctb
 ```
-
 
 Now, to run SBayes C, you could run the following command.
 
@@ -354,7 +344,7 @@ ${GCTB} --sbayes C --mldm ${mldm} \
 
 This command will run 10,000 MCMC iterations (`--chain-length`) and output results every 100 iterations (`--out-freq`). Final statistics for parameters and prediction accuracy will be calculated using 1/10 iterations (`--thin`) after a burn-in of 5000 iterations (`--burn-in`). 
 
-**Question 4. What is the heritability of `Trait1`? What is the proportion/expected number of SNPs with a non-zero effect on the trait? What s the genetic and residual variances?**.
+**Question 4. What is the heritability of `Trait1`? What is the proportion/expected number of SNPs with a non-zero effect on the trait? What is the genetic and residual variances?**.
 
 The command above will generate a file named `SBC/Trait1.snpRes`. We can use that file to calculated a PGS using the following command
 
@@ -397,4 +387,3 @@ for(ancestry in ancestries){
   RsqPerAnc[ancestry] <- cor(phen[idAnc,trait],phen[idAnc,"SBC"])^2
 }
 ```
-
