@@ -134,7 +134,7 @@ data.frame(
     ".html, .Rmd",
     ".html, .Rmd",
     ".html, .Rmd",
-    " "
+    ".html, .Rmd"
   )
   , check.names = FALSE) %>%
 knitr::kable("html", escape = FALSE, 
