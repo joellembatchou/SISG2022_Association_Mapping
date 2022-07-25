@@ -10,6 +10,7 @@ editor_options:
 
 ```{r echo = FALSE, message=FALSE, warning=FALSE}
 require(dplyr)
+print.link <- function(name, link) paste0("[", name, "](", link, ")")
 ```
 
 Instructors: Joelle Mbatchou & Loic Yengo
