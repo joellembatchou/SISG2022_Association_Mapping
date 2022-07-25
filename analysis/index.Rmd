@@ -153,7 +153,7 @@ data.frame(
     "Emerging issues showcasing ongoing research"
     ),
   Lecture = c(
-    paste0(print.link("Lecture", "https://www.dropbox.com/s/6kzse5qe0ffokjm/L6_Polygenic_Scores_Lectures_M15.pdf?dl=0"), ", ", "Video"),
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/ovjlge16wvyqyet/L9_Beyond_Standard_GWAS_M15.pdf?dl=0"), ", ", "Video"),
     "Lecture, Video" 
       ),
   "Exercises" = c(
