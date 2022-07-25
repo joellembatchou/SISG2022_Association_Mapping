@@ -120,10 +120,10 @@ data.frame(
     "Emerging issues showcasing ongoing research"
     ),
   Lecture = c(
-    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/L5_Downstream-Analyses_M15.pdf), Video",
-    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/L6_Polygenic_Scores_Lectures_M15.pdf), Video",
-    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session07.pdf), Video",
-    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/SISG2022session08.pdf), Video"
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/ocn6w6nau9lhuu6/L5_Downstream-Analyses_M15.pdf?dl=0"), ", ", "Video"),
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/6kzse5qe0ffokjm/L6_Polygenic_Scores_Lectures_M15.pdf?dl=0"), ", ", "Video"),
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/6kzse5qe0ffokjm/L6_Polygenic_Scores_Lectures_M15.pdf?dl=0"), ", ", "Video"),
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/6kzse5qe0ffokjm/L6_Polygenic_Scores_Lectures_M15.pdf?dl=0"), ", ", "Video")
       ),
   "Exercises" = c(
     "[Exercises](SISGM15_prac5.html), Video",
@@ -153,7 +153,7 @@ data.frame(
     "Emerging issues showcasing ongoing research"
     ),
   Lecture = c(
-    "[Lecture](https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/master/lectures/L9_Beyond_Standard_GWAS_M15.pdf), Video",
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/6kzse5qe0ffokjm/L6_Polygenic_Scores_Lectures_M15.pdf?dl=0"), ", ", "Video"),
     "Lecture, Video" 
       ),
   "Exercises" = c(
