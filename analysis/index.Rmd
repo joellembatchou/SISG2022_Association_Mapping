@@ -94,13 +94,13 @@ data.frame(
     paste0(print.link("Exercises", "Session01_practical.html"), ", ", "Video"),
     paste0(print.link("Exercises", "Session02_practical.html"), ", ", "Video"),
     paste0(print.link("Exercises", "Session03_practical.html"), ", ", "Video"),
-    paste0(print.link("Exercises", "SISGM15_prac4"), ", ", "Video")
+    paste0(print.link("Exercises", "SISGM15_prac4.html"), ", ", "Video")
   ),
   "Key" = c(
 		paste0(print.link("HTML", "Session01_practical_Key.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/u4bjv1no3040wki/Session01_practical_Key.Rmd?dl=0")),
 		paste0(print.link("HTML", "Session02_practical_Key.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/shpwkzfzt5bm08f/Session02_practical_Key.Rmd?dl=0")),
 		paste0(print.link("HTML", "Session03_practical_Key.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/pw835vvm4jalg3v/Session03_practical_Key.Rmd?dl=0")),
-		paste0(print.link("HTML", "SISGM15_prac4.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/z28kt49c9wxglfd/SISGM15_prac4.Rmd?dl=0"))
+		paste0(print.link("HTML", "SISGM15_prac4Solution.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/19rvrix2mqs9shl/SISGM15_prac4Solution.Rmd?dl=0"))
   )
  , check.names = FALSE ) %>%
 knitr::kable("html", escape = FALSE, 
@@ -126,10 +126,10 @@ data.frame(
     paste0(print.link("Lecture", "https://www.dropbox.com/s/6kzse5qe0ffokjm/L6_Polygenic_Scores_Lectures_M15.pdf?dl=0"), ", ", "Video")
       ),
   "Exercises" = c(
-    "[Exercises](SISGM15_prac5.html), Video",
-    "[Exercises](SISGM15_prac6.html), Video",
-    "[Exercises](Session07_practical.html), Video",
-    "[Exercises](Session08_practical.html), Video"
+    paste0(print.link("Exercises", "SISGM15_prac5.html"), ", ", "Video"),
+    paste0(print.link("Exercises", "SISGM15_prac6.html"), ", ", "Video"),
+    paste0(print.link("Exercises", "Session05_practical.html"), ", ", "Video"),
+    paste0(print.link("Exercises", "Session05_practical.html"), ", ", "Video")
   ),
   "Key" = c(
     ".html, .Rmd",
