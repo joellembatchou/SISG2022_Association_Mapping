@@ -63,6 +63,7 @@ install.packages("tidyverse")
 install.packages("BEDMatrix")
 install.packages("devtools")
 install.packages("SKAT")
+install.packages("patchwork")
 devtools::install_github("yaowuliu/ACAT")
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
@@ -127,7 +128,7 @@ data.frame(
     "[Exercises](SISGM15_prac5.html), Video",
     "[Exercises](SISGM15_prac6.html), Video",
     "[Exercises](Session07_practical.html), Video",
-    " "
+    "[Exercises](Session08_practical.html), Video"
   ),
   "Key" = c(
     ".html, .Rmd",

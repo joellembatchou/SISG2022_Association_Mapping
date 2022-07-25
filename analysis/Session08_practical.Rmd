@@ -1,0 +1,106 @@
+---
+title: "Session 08 - Exercises"
+author: ""
+date: ""
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+Before you begin:
+
+* Make sure that R is installed on your computer
+* For this lab, we will use the following R libraries:
+```{r load-libs, eval=FALSE}
+require(data.table)
+require(dplyr)
+require(tidyr)
+require(GWASTools)
+require(ggplot2)
+require(patchwork)
+```
+
+The R template to do the exercises is [here](https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/master/code).
+
+## Case-control imbalance in GWAS
+
+### Introduction
+We will use a simulated dataset consisting of 3 binary traits with different amounts of case-control imbalance, as well as a genetic data set of null SNPs to examine the null distribution of the test statistics from GWAS.
+
+### Simulate the data
+We can use PLINK1.9 to simulate the genetic dataset. For $N=10,000$ samples, Let's simulate 10,000 variants where 5,000 are common with MAF chosen from a Uniform(0.05, 0.5) distribution and for the rare variants, we will use a Uniform(0.001, 0.01) distribution. Run the following command in R:
+```{r, eval = FALSE}
+N <- 10e3
+# Generate a configuration file specifying allele frequencies (a,b) for Uniform(a,b) distribution
+write(paste0("5000 common 0.05 0.5 1 1"), "tmp/sim.config")
+write(paste0("5000 rare 0.001 0.01 1 1"), "tmp/sim.config", append = TRUE)
+# Run PLINK1.9
+system(paste0("plink1.9 --make-bed --simulate tmp/sim.config --simulate-ncases ", N, " --simulate-ncontrols 0 --simulate-prevalence 0.1  --out tmp/cc_imb_geno"))
+```
+You should now have files `tmp/cc_imb_geno.{bed,bim,fam}`.
+
+For the phenotype data simulation, we will simulate 3 phenotypes with different levels of case-control imbalance (CCR 1:9, 1:99, and 1:199). Run the following code
+```{r, eval = FALSE}
+# get FID/IID from FAM file
+sample.ids <- fread("tmp/cc_imb_geno.fam", header = FALSE)
+N <- nrow(sample.ids)
+
+## Set prevalence = 10% (CCR 1:9)
+y1 <- rbinom(N, 1, prob = 0.1 )
+## Set prevalence = 1% (CCR 1:99)
+y2 <- rbinom(N, 1, prob = 0.01 )
+## Set prevalence = 0.5% (CCR 1:199)
+y3 <- rbinom(N, 1, prob = 0.005 )
+
+# write to file
+data.frame(FID = sample.ids$V1, IID = sample.ids$V2, Y1 = y1, Y2 = y2, Y3 = y3) %>%
+  fwrite("tmp/cc_imb_pheno.txt", sep = "\t", na = NA, quote = FALSE)
+```
+You should now have file `tmp/cc_imb_pheno.txt`.
+
+### Exercises
+We will assess the null distribution of our test statistics when performing association mapping using different models. Here are some things to try:
+
+1.  Run GWAS in REGENIE (step 2) analyzing all 3 traits as quantitative. The basic command would be
+```{r, eval = FALSE}
+system("regenie --bed tmp/cc_imb_geno --phenoFile tmp/cc_imb_pheno.txt --step 2 --bsize 400 --qt  --ignore-pred --out <output_prefix>")
+```
+This will produce three files (one for each phenotype): `<output_prefix>_Y1.regenie`, `<output_prefix>_Y2.regenie`, `<output_prefix>_Y3.regenie` 
+
+2. Read in the three summary statistics files in R and make a QQ plot of the p-values for each phenotype. Since these are null SNPs, how does it compare to what we expect? The basic command for one phenotype would be
+```{r, eval = FALSE}
+sumstats.y1 <- fread("<output_prefix>_Y1.regenie") %>% mutate(Pval = 10^(-LOG10P), Z = sign(BETA) * sqrt(CHISQ))
+qqPlot( pval = sumstats.y1$Pval )
+```
+
+3. Make a histogram of the test statistics for each phenotype and overlay with a normal distribution. How well do they match? We will create a R function to easily make this plot for different phenotypes. The basic command for one phenotype would be
+```{r, eval = FALSE}
+plot.sumstats.hist <- function(df, title = ""){
+  df %>%
+  ggplot( aes(x = Z) ) +
+  geom_histogram(aes(y = ..density..), colour="black", fill="white", bins = 100) +
+  stat_function(
+    fun = dnorm, 
+    col = "red",
+    args = list(mean = mean(df$Z), sd = sd(df$Z))
+  ) +
+    labs(title = title)
+}
+
+# for Y1
+plot.sumstats.hist(sumstats.y1, title = "Y1")
+```
+
+What do you observe as the case-control imbalance gets more severe?
+
+4. Re-do 3 but now separate the histogram for common and rare SNPs. 
+
+* First separate the data frame based on common/rare simulated SNPs. For example for trait `Y1`:
+```{r, eval = FALSE}
+sumstats.y1.common <- sumstats.y1[ grepl("common", ID), ]
+sumstats.y1.rare <- sumstats.y1[ grepl("rare", ID), ]
+```
+
+* Make a histogram of the test statistics distribution at common/rare SNPs. What do you observe across the different case-control imbalances? To easily make side-by-side plots, we can use functionality from the R `patchwork` library (e.g. `p1|p2`). For example
+```{r, eval = FALSE}
+plot.sumstats.hist(sumstats.y1.common, title = "Y1 - Common SNPs") | plot.sumstats.hist(sumstats.y1.rare, title = "Y1 - Rare SNPs")
+```
