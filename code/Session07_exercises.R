@@ -16,7 +16,7 @@ setwd("~/")
 ###########################
 # Question 1. Using PLINK, extract **rare variants** in a new PLINK BED file.
 # PLINK BED file is in /data/SISG2022M15/data/rv_geno_chr1.bed
-system("/data/SISG2022M15/exe/plink2 --bfile <bed_prefix> --max-maf 0.05 --maj-ref force --make-bed --out <output_prefix>")
+system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/rv_geno_chr1 --max-maf <..> --maj-ref force --make-bed --out <output_prefix>")
 
 
 # Question 2. Load the data in R
@@ -37,7 +37,7 @@ maf <- colMeans(G, na.rm = TRUE)/2
 
 
 # Question 4: Run the single variant association tests in PLINK (only for the extracted variants).
-system("/data/SISG2022M15/exe/plink2 --bfile <BED_file_with_extracted_SNPs> --pheno rv_pheno.txt --pheno-name <pheno_name> --glm allow-no-covars --out <output_prefix>")
+system("/data/SISG2022M15/exe/plink2 --bfile <BED_file_with_extracted_SNPs> --pheno /data/SISG2022M15/data/rv_pheno.txt --pheno-name <pheno_name> --glm allow-no-covars --out <output_prefix>")
 ## What would be your significance threshold after applying Bonferroni correction for the multiple tests (assume the significance level is 0.05)? Is anything significant after this correction?
 
 ## Make a volcano plot (i.e. log10 p-values (y) vs effect sizes (x) ).
