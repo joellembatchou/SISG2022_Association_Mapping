@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Summer Institute of Statical Genetics (Module 15)" />
+
+<meta name="date" content="2022-07-26" />
+
+<title>Solution for Practical 6: Prediction using GWAS summary statistics</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SISG 2022 Module 15</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sessions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Day 1</li>
+    <li>
+      <a href="Session01_practical.html">Session 1</a>
+    </li>
+    <li>
+      <a href="Session02_practical.html">Session 2</a>
+    </li>
+    <li>
+      <a href="Session03_practical.html">Session 3</a>
+    </li>
+    <li>
+      <a href="SISGM15_prac4.html">Session 4</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Day 2</li>
+    <li>
+      <a href="SISGM15_prac5.html">Session 5</a>
+    </li>
+    <li>
+      <a href="SISGM15_prac6.html">Session 6</a>
+    </li>
+    <li>
+      <a href="Session07_practical.html">Session 7</a>
+    </li>
+    <li>
+      <a href="Session08_practical.html">Session 8</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Day 3</li>
+    <li>
+      <a href="SISGM15_prac9.html">Session 9</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Solution for Practical 6: Prediction using GWAS summary statistics</h1>
+<h4 class="author">Summer Institute of Statical Genetics (Module 15)</h4>
+<h4 class="date">2022-07-26</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-07-26
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>SISG2022_Association_Mapping/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20220530code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20220530)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20220530code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20220530)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree9b63e8401c58049404bed2ba34fdf379d028d87ctargetblank9b63e84a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/9b63e8401c58049404bed2ba34fdf379d028d87c" target="_blank">9b63e84</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree9b63e8401c58049404bed2ba34fdf379d028d87ctargetblank9b63e84a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/9b63e8401c58049404bed2ba34fdf379d028d87c" target="_blank">9b63e84</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/.Rhistory
+    Ignored:    code/.Rhistory
+    Ignored:    data/.DS_Store
+    Ignored:    lectures/.DS_Store
+
+Untracked files:
+    Untracked:  analysis/.index.Rmd.swp
+    Untracked:  analysis/SISGM15_prac9Solution.Rmd
+    Untracked:  analysis/Session07_practical_Key.Rmd
+    Untracked:  analysis/Session08_practical_Key.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/SISGM15_prac6Solution.Rmd</code>) and HTML (<code>docs/SISGM15_prac6Solution.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/9b63e8401c58049404bed2ba34fdf379d028d87c/analysis/SISGM15_prac6Solution.Rmd" target="_blank">9b63e84</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-26
+</td>
+<td>
+add S6 key
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<p><span style="color:red;"><strong>This practical runs on the SISG2022 server.</strong></span></p>
+<div id="preparation" class="section level2">
+<h2>Preparation</h2>
+<p>This practical proposes a detailed tutorial for running three popular polygenic score (PGS) methods using GWAS summary statistics as introduced in <strong>Lecture 6</strong>.</p>
+<p><strong>Method 1: C+PT</strong></p>
+<p>The first method is classically denoted as “Clumping + P-value Thresholding (C+PT)”. This method is also abbreviated as P+T or C+T in certain publications. In brief, the principle of this method is compare various sets of uncorrelated SNPs (e.g., maximum squared pairwise correlation between allele counts at SNPs in the selected set is <span class="math inline">\(r^2 \leq 0.1\)</span>) that are associated with the trait / disease as certain p-value threshold (e.g., p&lt;0.01). We then select the set of SNPs that yields the largest prediction accuracy with the trait / disease of interest in a validation set. This method is broadly used because of it simplicity but may not often yield the largest accuracy. In this practical, we will use <code>PLINK</code> and <code>R</code> to determine these optimal sets of SNPs. PGS will be calculated using marginal/GWAS SNP effects as weights.</p>
+<p><strong>Method 2: SBLUP</strong></p>
+<p>The second method, the Summary-data based BLUP, is an approximation of the BLUP prediction method introduced in <strong>Lecture 5</strong>. In brief, SBLUP calculates PGS weights <span class="math inline">\(\mathbf{b}\)</span> using the following equation</p>
+<p><span class="math display">\[ \mathbf{b} = \left( \mathbf{R} + \frac{M_{SNP}(1-h_{SNP}^2)}{N_{GWAS}h_{SNP}^2}\mathbf{I}_M \right)^{-1} \boldsymbol{\beta} \]</span> where <span class="math inline">\(\boldsymbol{\beta}\)</span> is the vector of GWAS SNP effects and <span class="math inline">\(\mathbf{R}\)</span> a LD correlation matrix between SNPs estimated from a reference sample. Note that the SBLUP method is equivalent to the <code>LDpred-Inf</code> method. A detailed tutorial for LDpred2 is available at <a href="https://privefl.github.io/bigsnpr/articles/LDpred2.html" class="uri">https://privefl.github.io/bigsnpr/articles/LDpred2.html</a>. In this practical, we will calculate the SBLUP PGS weights “manually” in R.</p>
+<p><strong>Method 3: SBayes C</strong></p>
+<p>The Summary-data based BayesC (SBayesC) method is an approximation of the Bayes C method. This method is built upon a more flexible assumption regarding the distribution of SNP effects that only allows a subset of all <span class="math inline">\(M\)</span> SNPs to affect the trait/disease of interest. We denote <span class="math inline">\(\pi\)</span> the proportion of SNPs with a non-zero effect on the trait / disease. (S)BayesC implements a prior mixture distribution for the joint SNP effects <span class="math inline">\(\mathbf{b} = \left(b_1,\ldots,b_M\right)\)</span> defined as</p>
+<p><span class="math display">\[ b_j \sim \pi \mathcal{N}\left(0,\sigma^2_b\right)  + (1-\pi) \delta_0\]</span></p>
+<p>Note that the SBayesC method is equivalent to the <code>LDpred</code> (non-infinitesimal) method. In this practical, we will use the GCTB software to fit SBayes C.</p>
+<div style="page-break-after: always;"></div>
+<p><strong>Overview of the data</strong></p>
+<p>We provide GWAS summary statistics for two (simulated) traits hereafter denoted <code>Trait1</code> and <code>Trait2</code>. For simplicity, we will focus summary statistics of <span class="math inline">\(M=32,260\)</span> SNPs located on chromosome 20. These two GWAS were conducted in <span class="math inline">\(N=348,501\)</span> unrelated European ancestry participants from the UK Biobank (data accessed under project 12505) using the <code>fastGWA</code> module of the <code>GCTA</code> software (Yang et al. 2011).</p>
+<p>We will assess prediction <span class="math inline">\(n=2504\)</span> samples from the 1000 Genomes Project (1KG) with different ancestries. Ancestries groups are European (EUR; N=503), East-Asian (EAS; N=504), South-Asian (SAS; N=489), Admixed individuals from the Americas (AMR; N=347) and African (AFR; N=661). We provide genotypes under binary PLINK format (three files: <code>1kg_hm3.bed</code>, <code>1kg_hm3.bim</code> and <code>1kg_hm3.fam</code>) for these 2504 samples and phenotypes (files named: <code>1kg.Trait1.phen</code> and <code>1kg.Trait2.phen</code>). For more details about this format please visit PLINK website (<a href="https://www.cog-genomics.org/plink/1.9/formats#bed" class="uri">https://www.cog-genomics.org/plink/1.9/formats#bed</a>).</p>
+<p>Create a folder for the practical and move in that folder</p>
+<pre class="bash"><code>mkdir Practical6
+cd Practical6</code></pre>
+<p>Copy the data needed for the practical.</p>
+<ol style="list-style-type: decimal">
+<li>Copy the genotype files (data from 1000 Genomes Project; 1KG)</li>
+</ol>
+<pre class="bash"><code>cp /data/SISG2022M15/data/1kg_hm3.* .</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Copy GWAS summary statistics generated using <code>fastGWA</code></li>
+</ol>
+<pre class="bash"><code>cp /data/SISG2022M15/data/*.fastGWA .</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Copy phenotype data for the validation sample used to assess prediction accuracy</li>
+</ol>
+<pre class="bash"><code>cp /data/SISG2022M15/data/*.phen .</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Copy ancestry information for the validation sample</li>
+</ol>
+<pre class="bash"><code>cp /data/SISG2022M15/data/1kg-sample-2504-phased.txt .</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Copy list of 1KG samples with European ancestries</li>
+</ol>
+<pre class="bash"><code>cp /data/SISG2022M15/data/EUR.id .</code></pre>
+</div>
+<div id="part-1.-prediction-using-cpt." class="section level2">
+<h2>Part 1. Prediction using C+PT.</h2>
+<p>Create a sub-folder to store all intermediate files generated for this method.</p>
+<pre class="bash"><code>mkdir C+PT</code></pre>
+<p>We can run a first example using <code>Trait1</code> with following clumping parameters for PLINK: p-value below 5e-8 and squared correlation below <code>r2_thres=0.1</code> to determine independence between SNPs located within a window <code>window_kb=1000</code> kb (=1,000,000 base pairs). The command lines below allow you to that</p>
+<pre class="bash"><code>window_kb=1000 # 1000 kb = 1 Mb window
+r2_thresh=0.1  # LD threshold for clumping
+trait=Trait1
+pv_thresh=5e-8
+
+PLINK=/data/SISG2022M15/exe/plink
+${PLINK} --bfile 1kg_hm3 \
+      --keep EUR.id \
+      --clump ${trait}.fastGWA \
+      --clump-kb ${window_kb} \
+      --clump-p1 ${pv_thresh} \
+      --clump-p2 ${pv_thresh} \
+      --clump-r2 ${r2_thresh} \
+      --out C+PT/${trait}_rsq_${r2_thresh}_p_below_${pv_thresh}</code></pre>
+<p><strong>Question 1. How many SNPs were selected using the command above?</strong></p>
+<p><span style="color:red;">The command above has selected 450 SNPs (in fact: clumps = groups of SNPs).</span></p>
+<p>We will now consider multiple significance thresholds and also analyse the two traits. You could use the code below</p>
+<pre class="bash"><code>for pv_thresh in 5e-8 5e-7 5e-6 5e-5 5e-4 5e-3 5e-2
+do
+  for trait in Trait1 Trait2
+    do
+    ${PLINK} --bfile 1kg_hm3 \
+      --keep EUR.id \
+      --clump ${trait}.fastGWA \
+      --clump-kb ${window_kb} \
+      --clump-p1 ${pv_thresh} \
+      --clump-p2 ${pv_thresh} \
+      --clump-r2 ${r2_thresh} \
+      --out C+PT/${trait}_rsq_${r2_thresh}_p_below_${pv_thresh} --silent
+  done
+done</code></pre>
+<p>Now we can calculate the PGS with PLINK using the <code>--score</code> command (help: <a href="https://www.cog-genomics.org/plink/1.9/score" class="uri">https://www.cog-genomics.org/plink/1.9/score</a>).</p>
+<pre class="bash"><code>## Calculate PGS for each predictor
+for pv_thresh in 5e-8 5e-7 5e-6 5e-5 5e-4 5e-3 5e-2
+  do
+  for trait in Trait1 Trait2
+    do
+    ${PLINK} --bfile 1kg_hm3 \
+      --score ${trait}.fastGWA 2 4 8 sum center \
+      --extract C+PT/${trait}_rsq_${r2_thresh}_p_below_${pv_thresh}.clumped \
+      --out C+PT/${trait}_rsq_${r2_thresh}_p_below_${pv_thresh}.pred --silent
+  done
+done</code></pre>
+<p>PGS calculated using the command above are stored in the <code>*.profile</code> files (last column named <code>SCORESUM</code>). We can now load them in <code>R</code> and calculate prediction accuracy in each population.</p>
+<pre class="r"><code>options(stringsAsFactors = FALSE)
+r2_thr &lt;- 0.1
+pops   &lt;- read.table(&quot;1kg-sample-2504-phased.txt&quot;,h=T) ## This contains ancestry information
+trait  &lt;- &quot;Trait2&quot;
+phen   &lt;- read.table(paste0(&quot;1kg.&quot;,trait,&quot;.phen&quot;),h=T)[,-1] ## Read phenotype
+colnames(phen) &lt;- c(&quot;IID&quot;,trait)
+
+## Merge with all PGS
+Threshs &lt;- 8:2
+for(thresh in Threshs){
+  filename &lt;- paste0(&quot;C+PT/&quot;,trait,&quot;_rsq_&quot;,r2_thr,&quot;_p_below_5e-&quot;,thresh,&quot;.pred.profile&quot;)
+  tmp &lt;- read.table(filename,h=T)[,c(2,6)]
+  colnames(tmp)[2] &lt;- paste0(&quot;P&quot;,thresh)
+  phen &lt;- merge(phen,tmp,by=&quot;IID&quot;)
+}
+
+## This is the merged data containing all PGS
+## P8 denotes the PGS calculated using SNPs with p-value &lt;5e-8
+phen &lt;- merge(phen,pops,by.x=&quot;IID&quot;,by.y=&quot;sample&quot;)
+
+## Look at prediction accuracy
+# across the sample
+summary(lm(paste0(trait,&quot;~P8&quot;),phen)) 
+
+## within European ancestry individuals
+summary(lm(paste0(trait,&quot;~P8&quot;),phen[which(phen$super_pop==&quot;EUR&quot;),])) 
+
+## within African  ancestry individuals
+summary(lm(paste0(trait,&quot;~P8&quot;),phen[which(phen$super_pop==&quot;AFR&quot;),])) 
+
+## Select best threshold
+## Across all samples
+RsqOverall &lt;- rep(NA,length(Threshs))
+names(RsqOverall) &lt;- paste0(&quot;P&quot;,Threshs)
+for(thresh in Threshs){
+  idThresh &lt;- paste0(&quot;P&quot;,thresh)
+  RsqOverall[idThresh] &lt;- cor(phen[,trait],phen[,idThresh])^2
+}
+
+## Within each ancestry group
+ancestries &lt;- c(&quot;EUR&quot;,&quot;SAS&quot;,&quot;EAS&quot;,&quot;AMR&quot;,&quot;AFR&quot;)
+RsqPerAnc  &lt;- matrix(NA,nrow=length(ancestries),ncol=length(Threshs))
+colnames(RsqPerAnc) &lt;- paste0(&quot;P&quot;,Threshs)
+rownames(RsqPerAnc) &lt;- ancestries
+for(thresh in Threshs){
+  idThresh &lt;- paste0(&quot;P&quot;,thresh)
+  for(ancestry in ancestries){
+    idAnc &lt;- which(phen[,&quot;super_pop&quot;]==ancestry)
+    RsqPerAnc[ancestry,idThresh] &lt;- cor(phen[idAnc,trait],phen[idAnc,idThresh])^2
+  }
+}
+RsqPerAnc</code></pre>
+<p><strong>Question 2. </strong></p>
+<p><strong>What is the best prediction accuracy in EUR individuals across all significance thresholds?</strong></p>
+<p><span style="color:red;">The best threshold is reached for P&lt;5E-7 (see <code>R</code> code below)</span></p>
+<pre class="r"><code>bestIndex &lt;- which.max(RsqPerAnc[&quot;EUR&quot;,])
+paste0(&quot;5E-&quot;,Threshs[bestIndex])</code></pre>
+<p><strong>Is the best accuracy reached using the same significance threshold consistently across all ancestry groups?</strong></p>
+<p><span style="color:red;">No. Most of the times, SNPs with P&lt;5E-8 perform better across all ancestries but accuracy in maximized in EUR with P&lt;5E-7 and in EAS with P&lt;5E-5 (see <code>R</code> code below)</span></p>
+<pre class="r"><code>bestIndex &lt;- apply(RsqPerAnc,1,which.max)
+rbind(names(bestIndex),paste0(&quot;5E-&quot;,Threshs[bestIndex]))</code></pre>
+<p><strong>In which ancestry group is the prediction higher?</strong></p>
+<p><span style="color:red;">The largest prediction accuracy is observed in Admixed individuals from the Americas (AMR group; <span class="math inline">\(R^2_{max} = 0.147\)</span>) (see <code>R</code> code below)</span></p>
+<pre class="r"><code>bestAccuracies &lt;- apply(RsqPerAnc,1,max)
+which.max( bestAccuracies )</code></pre>
+<p><strong>Do you see any difference between <code>Trait1</code> and <code>Trait2</code>?</strong></p>
+<p><span style="color:red;">For <code>Trait2</code>, the best accuracy in EUR is reached for SNPs with P&lt;5E-2; Consistent with <code>Trait1</code>, the best within-ancestry prediction accuracy is not ncessarily reached with the same significance threshold; The largest accuracy is observed in EUR this time (<span class="math inline">\(R^2_{max} = 0.12\)</span>).</span></p>
+<p>If you have time and answered the question above then you could split the EUR sample in 2 (random) subsets, select the threshold that yields the larger accuracy in subset1, then re-evaluate the prediction accuracy of the corresponding PGS in subset 2. Compare the resulting prediction accuracy with your answer to the first part of <strong>Question 2</strong> above. This process is called cross-validation.</p>
+</div>
+<div id="part-2.-prediction-using-sblup." class="section level2">
+<h2>Part 2. Prediction using SBLUP.</h2>
+<p>Create a folder to store all intermediate files generated for this method.</p>
+<p>(Back to the terminal!)</p>
+<pre class="bash"><code>mkdir SBLUP</code></pre>
+<p>The SNP-based heritability of <code>Trait1</code> and <code>Trait2</code> is <span class="math inline">\(h^2_{SNP} = 0.2\)</span>. As shown above, the SBLUP uses a LD reference. Here we provide LD data calculated with PLINK in <span class="math inline">\(N=348,501\)</span> unrelated European ancestry participants from the UK Biobank using the following command.</p>
+<pre class="bash"><code>## Calculate PGS for each predictor
+${PLINK} \
+  --bfile UKBu_chrom20 \
+  --chr 20 \
+  --ld-window 999999999 \
+  --ld-window-kb 1000 \
+  --ld-window-r2 0.00 \
+  --r &#39;yes-really&#39; &#39;gz&#39; \
+  --out plinkLDMat_chrom20</code></pre>
+<p><span style="color:red;"><strong>We only show this command out of general interest. For the sake of time, we do not advise running this command during the practical but you could try it later at home. Note that the data named <code>UKBu_chrom20</code> has not been provided but you could replace it another dataset, e.g., with <code>1kg_hm3</code>.</strong></span></p>
+<p>You will see below an R script to run SBLUP. This code is provided in an external <code>R</code> script named <code>sblup.R</code>. You can run it using the following command</p>
+<pre class="bash"><code>## Calculate PGS for each predictor
+Rscript /data/SISG2022M15/data/sblup.R Trait1</code></pre>
+<p>The command above will generate a file named <code>SBLUP/Trait1.sblupInR.res</code>.</p>
+<p><strong>Question 3. Using the examples above,</strong></p>
+<p><strong>1) calculate the PGS using SNP effects from SBLUP (for <code>Trait1</code> and <code>Trait2</code>)</strong></p>
+<pre class="bash"><code>## Calculate PGS for each SBLUP predictor
+for trait in Trait1 Trait2
+  do
+  ${PLINK} --bfile 1kg_hm3 \
+    --score SBLUP/${trait}.sblubInR.res 1 2 3 sum center \
+    --out SBLUP/${trait}.pred.R --silent
+done</code></pre>
+<p><strong>2) assess prediction accuracy in the test sample 3) compare your results with the prediction accuracy in EUR and non-EUR individuals obtained using the C+PT method</strong>.</p>
+<p><span style="color:red;">We can note that SBLUP underperforms as compared to C+PT for <code>Trait1</code> (in EUR: 4.5% vs 9%), while for <code>Trait2</code> SBLUP yields the best accuracy in EUR (12.4%).</span></p>
+<p>It is expected that you try to answer these questions using the R functions introduced above. The below code is a partial solution to the above questions and uses some key functions that you may want to use to answer the above questions.</p>
+<pre class="r"><code>options(stringsAsFactors = FALSE)
+pops   &lt;- read.table(&quot;1kg-sample-2504-phased.txt&quot;,h=T)
+trait  &lt;- &quot;Trait2&quot;
+phen   &lt;- read.table(paste0(&quot;1kg.&quot;,trait,&quot;.phen&quot;),h=T)[,-1] ## Read phenotype
+colnames(phen) &lt;- c(&quot;IID&quot;,trait)
+sblup  &lt;- read.table(paste0(&quot;SBLUP/&quot;,trait,&quot;.pred.R.profile&quot;),h=T)[,c(2,6)]
+
+colnames(sblup)[2] &lt;- &quot;SBLUP&quot;
+phen &lt;- merge(phen,sblup,by=&quot;IID&quot;)
+phen &lt;- merge(phen,pops,by.x=&quot;IID&quot;,by.y=&quot;sample&quot;)
+
+## Look at prediction accuracy
+# across the entire sample
+summary(lm(paste0(trait,&quot;~SBLUP&quot;),phen)) 
+
+## within European ancestry individuals
+summary(lm(paste0(trait,&quot;~SBLUP&quot;),phen[which(phen$super_pop==&quot;EUR&quot;),])) 
+
+## within African  ancestry individuals
+summary(lm(paste0(trait,&quot;~SBLUP&quot;),phen[which(phen$super_pop==&quot;AFR&quot;),])) 
+
+## Within each ancestry group
+ancestries &lt;- c(&quot;EUR&quot;,&quot;SAS&quot;,&quot;EAS&quot;,&quot;AMR&quot;,&quot;AFR&quot;)
+RsqPerAnc  &lt;- rep(NA,length(ancestries))
+names(RsqPerAnc) &lt;- ancestries
+for(ancestry in ancestries){
+  idAnc &lt;- which(phen[,&quot;super_pop&quot;]==ancestry)
+  RsqPerAnc[ancestry] &lt;- cor(phen[idAnc,trait],phen[idAnc,&quot;SBLUP&quot;])^2
+}</code></pre>
+<p>It is also possible to run SBLUP using <code>GCTA</code>. This will require a different formatting of GWAS summary statistics, which we provide (files named <code>Trait1.ma</code> and <code>Trait2.ma</code>). Note that the same format can also be used with <code>GCTB</code> to run SBayesC (see <strong>Part 3</strong> below). The implementation of SBLUP in <code>GCTA</code> requires genotype data as input (and not a pre-calculated LD correlation matrix) as well as shrinkage parameter <span class="math inline">\(\lambda = M_{SNPs}\left(\frac{1}{h^2_{SNP}}-1\right)\)</span>. An example command is given below</p>
+<pre class="bash"><code>GCTA=/data/SISG2022M15/exe/gcta64_v1.94
+lambda=135628
+for trait in Trait1 Trait2
+  do
+  ${GCTA} \
+  --bfile 1kg_hm3 \
+  --chr 20 \
+  --cojo-file /data/SISG2022M15/data/${trait}.ma \
+  --cojo-sblup ${lambda} \
+  --cojo-wind 1000 \
+  --thread-num 20 \
+  --out SBLUP/${trait}
+done</code></pre>
+<p>This command will take approximately 5 min to run. In the interest of time, we recommend not running it and moving to <strong>Part 3</strong> instead. More details can be found here: <a href="https://yanglab.westlake.edu.cn/software/gcta/#SBLUP" class="uri">https://yanglab.westlake.edu.cn/software/gcta/#SBLUP</a>.</p>
+</div>
+<div id="part-3.-prediction-using-sbayes-c" class="section level2">
+<h2>Part 3. Prediction using SBayes C</h2>
+<p>Create a folder to store all intermediate files generated for this method.</p>
+<pre class="bash"><code>mkdir SBC</code></pre>
+<p>SBayesC requires a different format for the LD matrix. We provide a LD matrix directly calculated with GCTB using a command like this</p>
+<pre class="bash"><code>${GCTB} --bfile sampleForLD --make-full-ldm --snp 1-5000 --out SBC/BLOCK1618.CHROM20</code></pre>
+<p><code>sampleForLD</code> is a subset of 348,501 unrelated EUR participants of the UKB. LD correlations on chromosome 20 were calculated within 38 non-overlapping LD blocks identified in an EUR sample (see: <a href="http://bitbucket.org/nygcresearch/ldetect-data" class="uri">http://bitbucket.org/nygcresearch/ldetect-data</a>). Pre-calculated LD matrices can be downloaded from the <code>GCTB</code> website. We provide these 38 LD submatrices in the folder named <code>ldm</code> and paths for each file are listed in <code>mldm.txt</code> (note the similarity with <code>GCTA</code>: in <code>GCTB</code> <code>--mldm</code> indicates that multiple LD matrices will be used, while in <code>GCTA</code> <code>--mgrm</code> indicates that multiple GRMs will be used).</p>
+<p>Set the path to GCTB</p>
+<pre class="bash"><code>GCTB=/data/SISG2022M15/exe/gctb</code></pre>
+<p>Now, to run SBayes C, you could run the following command.</p>
+<pre class="bash"><code>mldm=/data/SISG2022M15/data/mldm.txt
+trait=Trait1
+
+${GCTB} --sbayes C --mldm ${mldm} \
+--gwas-summary /data/SISG2022M15/data/${trait}.ma \
+--pi 0.0001 --hsq 0.001 \
+--chain-length 10000 \
+--burn-in 5000 \
+--no-mcmc-bin \
+--robust \
+--out-freq 100 \
+--thin 10 \
+--out SBC/${trait}</code></pre>
+<p>This command will run 10,000 MCMC iterations (<code>--chain-length</code>) and output results every 100 iterations (<code>--out-freq</code>). Final statistics for parameters and prediction accuracy will be calculated using 1/10 iterations (<code>--thin</code>) after a burn-in of 5000 iterations (<code>--burn-in</code>).</p>
+<p><strong>Question 4. What is the heritability of <code>Trait1</code>? What is the proportion/expected number of SNPs with a non-zero effect on the trait? What is the genetic and residual variances?</strong>.</p>
+<p><span style="color:red;">GCTB displays these results at the end of the run. For <code>Trait1</code>, the heritability is <span class="math inline">\(h^2 = 0.219\)</span> (S.E. 0.001), the proportion of SNPs with a non-zero effect is <span class="math inline">\(\pi = 0.8\)</span>% (S.E. 0.06%) and the expected number of SNPs with a non-zero effect is approximately equal to 241 (S.E. 11). The genetic variance is 0.22 (S.E. 0.001) and resiudal variance is 0.78 (S.E. 0.002).</span></p>
+<p>The command above will generate a file named <code>SBC/Trait1.snpRes</code>. We can use that file to calculated a PGS using the following command</p>
+<pre class="bash"><code>trait=Trait1
+${PLINK} --bfile 1kg_hm3 \
+--score SBC/${trait}.snpRes 2 5 8 sum center \
+--out SBC/${trait}.pred</code></pre>
+<p>Assess the prediction accuracy of the SBayesC PGS in <code>R</code> as done previously</p>
+<pre class="bash"><code>options(stringsAsFactors = FALSE)
+pops   &lt;- read.table(&quot;1kg-sample-2504-phased.txt&quot;,h=T)
+trait  &lt;- &quot;Trait1&quot;
+phen   &lt;- read.table(paste0(&quot;1kg.&quot;,trait,&quot;.phen&quot;),h=T)[,-1] ## Read phenotype
+colnames(phen) &lt;- c(&quot;IID&quot;,trait)
+sblup  &lt;- read.table(paste0(&quot;SBC/&quot;,trait,&quot;.pred.profile&quot;),h=T)[,c(2,6)]
+colnames(sblup)[2] &lt;- &quot;SBC&quot;
+phen &lt;- merge(phen,sblup,by=&quot;IID&quot;)
+phen &lt;- merge(phen,pops,by.x=&quot;IID&quot;,by.y=&quot;sample&quot;)
+
+## Look at prediction accuracy
+# across the sample
+summary(lm(paste0(trait,&quot;~SBC&quot;),phen)) 
+
+## within European ancestry individuals
+summary(lm(paste0(trait,&quot;~SBC&quot;),phen[which(phen$super_pop==&quot;EUR&quot;),])) 
+
+## within African  ancestry individuals
+summary(lm(paste0(trait,&quot;~SBC&quot;),phen[which(phen$super_pop==&quot;AFR&quot;),])) 
+
+## Within each ancestry group
+ancestries &lt;- c(&quot;EUR&quot;,&quot;SAS&quot;,&quot;EAS&quot;,&quot;AMR&quot;,&quot;AFR&quot;)
+RsqPerAnc  &lt;- rep(NA,length(ancestries))
+names(RsqPerAnc) &lt;- ancestries
+for(ancestry in ancestries){
+  idAnc &lt;- which(phen[,&quot;super_pop&quot;]==ancestry)
+  RsqPerAnc[ancestry] &lt;- cor(phen[idAnc,trait],phen[idAnc,&quot;SBC&quot;])^2
+}</code></pre>
+<p><span style="color:red;">For <code>Trait1</code>, SBayesC yields an accuracy of 12% in EUR (so simular to C+PT and SBLUP) but the accuracy in AMR is much larger (up to 18%).</span></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.1 (2022-06-23)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 22.04 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+
+locale:
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.9       bslib_0.3.1      jquerylib_0.1.4  compiler_4.2.1  
+ [5] pillar_1.7.0     later_1.3.0      git2r_0.30.1     tools_4.2.1     
+ [9] getPass_0.2-2    digest_0.6.29    jsonlite_1.8.0   evaluate_0.15   
+[13] tibble_3.1.7     lifecycle_1.0.1  pkgconfig_2.0.3  rlang_1.0.3     
+[17] cli_3.3.0        rstudioapi_0.13  yaml_2.3.5       xfun_0.31       
+[21] fastmap_1.1.0    httr_1.4.3       stringr_1.4.0    knitr_1.39      
+[25] sass_0.4.1       fs_1.5.2         vctrs_0.4.1      rprojroot_2.0.3 
+[29] glue_1.6.2       R6_2.5.1         processx_3.7.0   fansi_1.0.3     
+[33] rmarkdown_2.14   callr_3.7.0      magrittr_2.0.3   whisker_0.4     
+[37] ps_1.7.1         promises_1.2.0.1 htmltools_0.5.2  ellipsis_0.3.2  
+[41] httpuv_1.6.5     utf8_1.2.2       stringi_1.7.6    crayon_1.5.1    </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
