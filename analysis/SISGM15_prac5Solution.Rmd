@@ -1,0 +1,292 @@
+---
+title: 'Solution for Practical 5: Conditional and Joint Analysis (COJO)'
+author: "Summer Institute of Statical Genetics (Module  15)"
+date: '2022-07-26'
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<span style="color:red;">**This practical runs on the SISG2022 server.**</span>
+
+
+This practical aims at
+
+1) Familiarizing you with GCTA-COJO (or COJO in short)
+
+2) Exploring different factors influencing COJO outcomes  
+
+The practical is run in `R` but uses the `R` function `system()` to run `PLINK` and `GCTA` from the terminal. If you have `PLINK` and `GCTA` installed on your own computer then you could also run it locally if your prefer. In that case you'd need to update a few links provided below.
+
+The COJO algorithm is not designed for fine-mapping per se. However, many of the challenges illustrated and discussed in this practical are relevant for any method using external linkage disequilibrium (LD) reference.
+
+## Part I: the data
+
+We provide an `R` code that simulates a 1 Mb long chromosome with `M=2000` SNPs organized within 20 LD blocks. Each block contains 100 SNPs, among which 5 causal variants. SNPs within a block are numbered between 1 and 100, such that the squared correlation $r^2_{i_{k}j_{k}}$ of allele counts at SNP $i_k$ and $j_k$ within LD block $k$ is
+
+$$  r^2_{i_{k}j_{k}} = \rho_k^{2|i_k-j_k|} $$
+
+LD blocks are characterized by the parameters $\rho^2_k$, which varies from 0.1 (when $k=1$; low LD locus) to 0.9 (when $k=20$; high LD locus).
+
+The code below generates the LD correlation structure between SNPs in each block.
+
+**Run the following commands**
+
+```{R, eval=TRUE}
+set.seed(28072022)
+nblocks <- 20
+rhos    <- sqrt(seq(0.1,0.9,len=nblocks))
+m       <- 100 # number of SNPs per LD block
+mcBlock <- 5   # number of causals LD per block
+M       <- m * nblocks 
+R       <- matrix(0,nrow=M,ncol=M)
+icausal <- c()
+for(k in 1:nblocks){
+  l <- ((k-1)*m + 1):(k*m);
+  R[l,l]  <- outer(1:m,1:m,FUN=function(i,j) rhos[k]^abs(i-j))
+  icausal <- c(icausal,sample(l,mcBlock))
+}
+```
+
+The figure code and figure below shows the LD correlation matrix for SNPs the 20-th LD block ($\rho^2_{20}=0.9$)
+
+```{R, eval=TRUE}
+k=20
+l=((k-1)*m + 1):(k*m)
+heatmap(R[l,l],Rowv=NA,Colv=NA)
+print("Extract of LD structure for 20-th LD block")
+print( R[l,l][1:5,1:5] )
+```
+
+**Run the following commands**
+
+```{R, eval=TRUE}
+chr     <- 10 # Chromosome number
+pos     <- 1234557 + sort(sample(0:1e6,M)) # Random Position for SNPs
+a1a2    <- do.call("rbind",lapply(1:M,function(j) sample(c("A","C","G","T"),2))) # alleles
+snps    <- paste0("SNP",1:M) # SNP ID
+ldblock <- rep(1:nblocks,each=m) # LD block ID
+names(ldblock) <- snps
+```
+
+The `R` code below generates and shows the LD score of each SNP on the chromosome (x-axis: genomic position in Mb; y-axis: LD score)
+
+```{R, eval=TRUE}
+Cols <- sample(colors(),nblocks)
+ldscores <- diag(crossprod(R))
+plot(pos/1e6,ldscores,pch=19,col=Cols[ldblock],
+     axes=FALSE,xlab="Genomic Position (Mb)",
+     ylab="LD scores")
+axis(1);axis(2)
+legend("topleft",legend=paste0("Block #",1:nblocks),
+       box.lty=0,pch=19,cex=0.5,col=Cols)
+cat(paste0("mean LD score = ",round(mean(ldscores),3),
+           " - SD LD score = ",round(sd(ldscores),3)))
+```
+
+**Run the following commands. This is a function to generate genotypes corresponding to the specified LD structure. For simplicity, we simulate all SNPs with an allele frequency equal to 0.5.**
+
+```{R, eval=TRUE}
+library(MASS)
+simGeno <- function(R,n){
+  z1 <- do.call("cbind",lapply(1:nblocks,function(i){
+    l <- ((i-1)*m + 1):(i*m)
+    mvrnorm(n=n,mu=rep(0,m),Sigma = R[l,l])
+  }))
+  z2 <- do.call("cbind",lapply(1:nblocks,function(i){
+    l <- ((i-1)*m + 1):(i*m)
+    mvrnorm(n=n,mu=rep(0,m),Sigma = R[l,l])
+  }))
+  x <- (z1>0) + (z2>0)
+  return(x)
+}
+```
+
+
+**Run the following commands to genarate genotypes and phenotypes of GWAS participants. GWAS sample size is `Ngwas=100000`**
+
+
+```{R, eval=TRUE}
+Ngwas <- 5e4
+
+## Simulate genotypes
+Xgwas <- simGeno(n = Ngwas,R)
+
+## Simulate phenotype
+mc    <- length(icausal) # total number of causal variants
+q2    <- 0.01 #variance explained by all SNPs on the chromosome
+b     <- rnorm(n=mc,mean=0,sd=sqrt(q2/mc))
+g     <- sqrt(2)*c((Xgwas[,icausal]-1)%*%b)
+e     <- rnorm(n=Ngwas,mean=0,sd=sqrt(1-q2))
+Ygwas <- g + e
+
+## Running GWAS
+var_x <- apply(Xgwas,2,var)
+beta  <- cov(Xgwas,Ygwas) / var_x # estimated regression coefficients
+se    <- sqrt( (var(Ygwas) - beta*beta*var_x)/((Ngwas-2)*var_x) ) # standard errors
+pval  <- 2 * pt(q=abs(beta/se),df=Ngwas-2,lower.tail = F) # T-distribution
+
+## GWAS data - COJO format
+gwas  <- cbind.data.frame(SNP=snps,A1=a1a2[,1],A2=a1a2[,2],
+                          Freq=colMeans(Xgwas)/2,beta=beta,
+                          se=se,P=pval,N=Ngwas)
+print(head(gwas,3))
+
+# folder where to store the data
+# default is ".", i.e. current directory
+# this can be changed
+datPath <- "." 
+
+write.table(gwas,paste0(datPath,"/GWAS.ma"),
+            quote=FALSE,row.names=FALSE,
+            col.names=TRUE,sep="\t")
+causals <- snps[icausal]
+write(causals,paste0(datPath,"/causals.snplist")) ## list of causal SNPs
+```
+
+**Run the following commands to simulate a LD reference (i.e., set of genotypes in `PLINK` format) from the same population.**
+
+```{R, eval=TRUE}
+## Set path for PLINK
+plink   <- "/data/SISG2022M15/exe/plink"
+
+## Simulate and write LD ref
+simLDref <- function(Nldref){
+  Xldref <- simGeno(n = Nldref,R)
+  refGeno <- t(sapply(1:M,function(j) {
+    c(paste0(a1a2[j,1],"\t",a1a2[j,1]),
+      paste0(a1a2[j,1],"\t",a1a2[j,2]),
+      paste0(a1a2[j,2],"\t",a1a2[j,2]))
+  }))
+  ped <- do.call("cbind",lapply(1:M,function(j){
+    refGeno[j,1+Xldref[,j]]}
+  ))
+  ## fam file
+  iid    <- paste0("IID",1:Nldref)
+  fid    <- iid
+  pid    <- rep(0,Nldref)
+  mid    <- rep(0,Nldref)
+  sex    <- sample(1:2,Nldref,replace=TRUE)
+  pheno  <- rep(-9,Nldref)
+  fam    <- cbind.data.frame(fid,iid,pid,mid,sex,pheno)
+  
+  ## ped/geno
+  mapData <- cbind.data.frame(chr,snps,0,pos)
+  pedData <- cbind.data.frame(fam,ped)
+  
+  write.table(mapData,paste0(datPath,"/ldRef.map"),
+              quote=FALSE,row.names=FALSE,col.names=FALSE,sep="\t")
+  write.table(pedData,paste0(datPath,"/ldRef.ped"),
+              quote=FALSE,row.names=FALSE,col.names=FALSE,sep="\t")
+  system(paste0(plink," --file ldRef --make-bed --out ldRef"))
+}
+simLDref(Nldref = 5000)
+```
+
+## Part II: running COJO
+
+If you have run all the commands above then the following files must be available in your current directory. To check type the following command in the terminal.
+
+```{bash, eval=TRUE}
+ls -lt GWAS.ma
+ls -lt ldRef.*
+```
+
+You can now run COJO. Either from the terminal
+
+```{bash, eval=TRUE}
+GCTA=/data/SISG2022M15/exe/gcta64_v1.94
+${GCTA} --bfile ldRef --cojo-file GWAS.ma --chr 10 --cojo-slct --cojo-p 2.5e-5 --out test1
+```
+
+or from `R` (calling terminal using the `system()` command)
+```{R, eval=TRUE}
+gcta <- "/data/SISG2022M15/exe/gcta64_v1.94"
+
+system(paste0(gcta," --bfile ldRef ",
+              "--cojo-file GWAS.ma --chr 10 ",
+              "--cojo-slct --cojo-p 2.5e-5 --out test1"))
+```
+
+**Question 1. How many SNPs are detected? How many of those are causal SNPs? (Note that you can obtain causal SNPs in your currrent `R` session as `causals = snps[icausal]`, or in the file named `causals.snplist`).**
+
+<span style="color:red;">The number of SNPs detected by COJO is displayed in the log file "Saving the 10 independent signals to [test1.jma.cojo]." and corresponds to the number of rows (minus one) in the *.jma.cojo file. Here, 10 SNPs were detected...</span>
+
+```{R, eval=TRUE}
+cojo1 <- read.table("test1.jma.cojo",h=T,stringsAsFactors = FALSE) ## Read COJO results
+print( table(cojo1$SNP%in%snps[icausal]) ) ## Count how many are causal
+```
+
+<span style="color:red;">...including 10 causal variants.</span>
+
+**Question 2. Regenerate LD reference data with a lower sample size `Nldref=2000, 1000 and 500` and rerun 1). What do you observe? Are all LD blocks affected the same?**
+
+<span style="color:red;">Let us focus on the smallest LD reference `Nldref=2000`. We modify and re-run some of the `R` commands given above...</span>
+```{R, eval=TRUE}
+simLDref(Nldref = 500)
+system(paste0(gcta," --bfile ldRef ",
+              "--cojo-file GWAS.ma --chr 10 ",
+              "--cojo-slct --cojo-p 2.5e-5 --out test2"))
+cojo2 <- read.table("test2.jma.cojo",h=T,stringsAsFactors = FALSE) ## Read COJO results
+print( table(cojo2$SNP%in%snps[icausal]) ) ## Count how many are causal
+```
+
+<span style="color:red;">We can see that 246 SNPs are now detected but only 23 of them are causal. To see if all LD blocks are affected the same, we can visualize the number of COJO SNPs (here mostly false positives) in each LD block using (for example) the following command.</span>
+
+```{R, eval=TRUE}
+barplot(table(ldblock[cojo2$SNP]),ylab="# COJO SNPs in each LD block",
+        xlab="LD blocks (1: low LD; 20: high LD)")
+```
+
+<span style="color:red;">Conclusion: the inflation is larger in low LD blocks.</span>
+
+**Question 3. Set the variance explained by SNPs on the chromosome to 3% (q2=0.03) and re-run 1) and 2). What can you conclude regarding the number of SNPs detected and the proportion of non-causal SNPs detected?**
+
+<span style="color:red;">Conclusion: the inflation of false positives observed with small LD reference is larger when the signal ($q^2$) is strong.</span>
+
+## Part III: fixing COJO?
+
+There is no simple way to fix the inflation of false positive observed when the LD reference is too small. As a rule of thumb, Yang et al. (GCTA website) recommend using sample sizes of at least 4000. Nevertheless, we observe that using a more stringent threshold for detecting collinearity might help.
+
+**Question 4. Set the variance explained by SNPs on the chromosome to 3% (q2=0.03) and the size of the LD reference to 1000. Re-run COJO adding the following flag `--cojo-collinear 0.1`. Quantify the improvement in the number of false positives.**
+
+```{R, eval=TRUE}
+q2    <- 0.03 #variance explained by all SNPs on the chromosome
+b     <- rnorm(n=mc,mean=0,sd=sqrt(q2/mc))
+g     <- sqrt(2)*c((Xgwas[,icausal]-1)%*%b)
+e     <- rnorm(n=Ngwas,mean=0,sd=sqrt(1-q2))
+Ygwas <- g + e
+beta  <- cov(Xgwas,Ygwas) / var_x # estimated regression coefficients
+se    <- sqrt( (var(Ygwas) - beta*beta*var_x)/((Ngwas-2)*var_x) ) # standard errors
+pval  <- 2 * pt(q=abs(beta/se),df=Ngwas-2,lower.tail = F) # T-distribution
+gwas  <- cbind.data.frame(SNP=snps,A1=a1a2[,1],A2=a1a2[,2],
+                          Freq=colMeans(Xgwas)/2,beta=beta,
+                          se=se,P=pval,N=Ngwas)
+print(head(gwas,3))
+write.table(gwas,paste0(datPath,"/GWAS.ma"),
+            quote=FALSE,row.names=FALSE,
+            col.names=TRUE,sep="\t")
+
+## Simulate LD reference and run COJO
+simLDref(Nldref = 1000)
+system(paste0(gcta," --bfile ldRef ",
+              "--cojo-file GWAS.ma --chr 10 ",
+              "--cojo-slct --cojo-p 2.5e-5 --out test3"))
+cojo3 <- read.table("test3.jma.cojo",h=T,stringsAsFactors = FALSE)
+
+print( table(cojo3$SNP%in%snps[icausal]) ) ## Count how many are causal
+
+
+system(paste0(gcta," --bfile ldRef ",
+              "--cojo-file GWAS.ma --chr 10 --cojo-collinear 0.05 ",
+              "--cojo-slct --cojo-p 2.5e-5 --out test4"))
+cojo4 <- read.table("test4.jma.cojo",h=T,stringsAsFactors = FALSE)
+
+print( table(cojo4$SNP%in%snps[icausal]) ) ## Count how many are causal
+```
+
+<span style="color:red;">Conclusion: using a more stringent collinearity threshold can reduce the proportion of false positives.</span>

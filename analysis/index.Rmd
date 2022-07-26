@@ -127,19 +127,19 @@ data.frame(
     "Emerging issues showcasing ongoing research"
     ),
   Lecture = c(
-    paste0(print.link("Lecture", "https://www.dropbox.com/s/ocn6w6nau9lhuu6/L5_Downstream-Analyses_M15.pdf?dl=0"), ", ", "Video"),
-    paste0(print.link("Lecture", "https://www.dropbox.com/s/6kzse5qe0ffokjm/L6_Polygenic_Scores_Lectures_M15.pdf?dl=0"), ", ", "Video"),
-    paste0(print.link("Lecture", "https://www.dropbox.com/s/bowur0rymsha5tq/SISG2022session07.pdf?dl=0"), ", ", "Video"),
-    paste0(print.link("Lecture", "https://www.dropbox.com/s/cxjwaft49uk2jv0/SISG2022session08.pdf?dl=0"), ", ", "Video")
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/ocn6w6nau9lhuu6/L5_Downstream-Analyses_M15.pdf?dl=0")),
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/6kzse5qe0ffokjm/L6_Polygenic_Scores_Lectures_M15.pdf?dl=0")),
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/bowur0rymsha5tq/SISG2022session07.pdf?dl=0")),
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/cxjwaft49uk2jv0/SISG2022session08.pdf?dl=0"))
       ),
   "Exercises" = c(
-    paste0(print.link("Exercises", "SISGM15_prac5.html"), ", ", "Video"),
-    paste0(print.link("Exercises", "SISGM15_prac6.html"), ", ", "Video"),
-    paste0(print.link("Exercises", "Session07_practical.html"), ", ", "Video"),
-    paste0(print.link("Exercises", "Session08_practical.html"), ", ", "Video")
+    paste0(print.link("Exercises", "SISGM15_prac5.html")),
+    paste0(print.link("Exercises", "SISGM15_prac6.html")),
+    paste0(print.link("Exercises", "Session07_practical.html")),
+    paste0(print.link("Exercises", "Session08_practical.html"))
   ),
   "Key" = c(
-		paste0(print.link("HTML", ""), ", ", print.link("Rmd", "")),
+    paste0(print.link("HTML", "SISGM15_prac5Solution.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/dq1g5ljtauzippi/SISGM15_prac5Solution.Rmd?dl=0")),
 		paste0(print.link("HTML", ""), ", ", print.link("Rmd", "")),
 		paste0(print.link("HTML", ""), ", ", print.link("Rmd", "")),
 		paste0(print.link("HTML", ""), ", ", print.link("Rmd", ""))
@@ -160,11 +160,11 @@ data.frame(
     "Emerging issues showcasing ongoing research"
     ),
   Lecture = c(
-    paste0(print.link("Lecture", "https://www.dropbox.com/s/ovjlge16wvyqyet/L9_Beyond_Standard_GWAS_M15.pdf?dl=0"), ", ", "Video"),
-    "Lecture, Video" 
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/ovjlge16wvyqyet/L9_Beyond_Standard_GWAS_M15.pdf?dl=0")),
+    "Lecture" 
       ),
   "Exercises" = c(
-    paste0(print.link("Exercises", "SISGM15_prac9.html"), ", ", "Video"),
+    paste0(print.link("Exercises", "SISGM15_prac9.html")),
     " "
   ),
   "Key" = c(
