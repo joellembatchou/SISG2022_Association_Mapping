@@ -35,7 +35,7 @@ Here are some things to try:
 
 1.  Using PLINK, extract **rare variants** in a new PLINK BED file.
 ```{r}
-system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/rv_geno_chr1 --max-maf 0.05 --maj-ref force --make-bed --out tmp/chr1_region_rv")
+system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/rv_geno_chr1 --max-maf 0.05 --maj-ref force --make-bed --out chr1_region_rv")
 ```
   
 
@@ -43,7 +43,7 @@ system("/data/SISG2022M15/exe/plink2 --bfile /data/SISG2022M15/data/rv_geno_chr1
 
   * Read in the SNPs using R function `BEDMatrix()`
 ```{r}
-G <- BEDMatrix("tmp/chr1_region_rv", simple_names = TRUE)
+G <- BEDMatrix("chr1_region_rv", simple_names = TRUE)
 ```
 
   * Load the phenotype data from `rv_pheno.txt`
@@ -75,12 +75,12 @@ sum(is.na(G))
   
 4. Run the single variant association tests in PLINK (only for the extracted variants).
 ```{r}
-system("/data/SISG2022M15/exe/plink2 --bfile tmp/chr1_region_rv --pheno /data/SISG2022M15/data/rv_pheno.txt --pheno-name Pheno --glm allow-no-covars --out tmp/sv_test")
+system("/data/SISG2022M15/exe/plink2 --bfile chr1_region_rv --pheno /data/SISG2022M15/data/rv_pheno.txt --pheno-name Pheno --glm allow-no-covars --out sv_test")
 ```
 
   * What would be your significance threshold after applying Bonferroni correction for the multiple tests (assume the significance level is 0.05)? Is anything significant after this correction?
 ```{r}
-sv_pvals <- fread("tmp/sv_test.Pheno.glm.linear")
+sv_pvals <- fread("sv_test.Pheno.glm.linear")
 bonf.p <- 0.05 / length(sv_pvals$P)
 bonf.p
 sv_pvals[P <= bonf.p, ] %>% 
