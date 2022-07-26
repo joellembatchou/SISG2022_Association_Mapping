@@ -37,8 +37,8 @@ data.frame(FID = sample.ids$V1, IID = sample.ids$V2, Y1 = y1, Y2 = y2, Y3 = y3) 
 
 
 
-# Question 1. Run GWAS in REGENIE (step 2 only) analyzing all 3 traits as quantitative.
-system("/data/SISG2022M15/exe/regenie --bed cc_imb_geno --phenoFile cc_imb_pheno.txt --step 2 --bsize 400 --qt --ignore-pred --out <output_prefix>")
+# Question 1. Run GWAS in REGENIE (step 2 only) analyzing all 3 traits.
+system("/data/SISG2022M15/exe/regenie --bed cc_imb_geno --phenoFile cc_imb_pheno.txt --step 2 --bsize 400 --bt --ignore-pred --out <output_prefix>")
 
 
 # Question 2. Read in the three summary statistics files in R and make a QQ plot of the p-values for each phenotype. Since these are null SNPs, how does it compare to what we expect?
