@@ -91,16 +91,16 @@ data.frame(
     "Power, Sample Size & Design Considerations"
     ),
   Lecture = c(
-    paste0(print.link("Intro", "https://www.dropbox.com/s/y9pnbp2ogiuhmn1/SISG2022session00.pdf?dl=0"), ", ", print.link("Lecture", "https://www.dropbox.com/s/mewb9fc40o539a2/SISG2022session01.pdf?dl=0"), ", ", "Video"),
-    paste0(print.link("Lecture", "https://www.dropbox.com/s/9d1qm2v1ww9umy6/SISG2022session02.pdf?dl=0"), ", ", "Video"),
-    paste0(print.link("Lecture", "https://www.dropbox.com/s/nlovi0ktxwcldtp/SISG2022session03.pdf?dl=0"), ", ", "Video"),
-    paste0(print.link("Lecture", "https://www.dropbox.com/s/g3r8gf96dx9o7o1/L4_Power-Design_M15.pdf?dl=0"), ", ", "Video")
+    paste0(print.link("Intro", "https://www.dropbox.com/s/y9pnbp2ogiuhmn1/SISG2022session00.pdf?dl=0"), ", ", print.link("Lecture", "https://www.dropbox.com/s/mewb9fc40o539a2/SISG2022session01.pdf?dl=0")),
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/9d1qm2v1ww9umy6/SISG2022session02.pdf?dl=0")),
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/nlovi0ktxwcldtp/SISG2022session03.pdf?dl=0")),
+    paste0(print.link("Lecture", "https://www.dropbox.com/s/g3r8gf96dx9o7o1/L4_Power-Design_M15.pdf?dl=0"))
       ),
   "Exercises" = c(
-    paste0(print.link("Exercises", "Session01_practical.html"), ", ", "Video"),
-    paste0(print.link("Exercises", "Session02_practical.html"), ", ", "Video"),
-    paste0(print.link("Exercises", "Session03_practical.html"), ", ", "Video"),
-    paste0(print.link("Exercises", "SISGM15_prac4.html"), ", ", "Video")
+    paste0(print.link("Exercises", "Session01_practical.html")),
+    paste0(print.link("Exercises", "Session02_practical.html")),
+    paste0(print.link("Exercises", "Session03_practical.html")),
+    paste0(print.link("Exercises", "SISGM15_prac4.html"))
   ),
   "Key" = c(
 		paste0(print.link("HTML", "Session01_practical_Key.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/u4bjv1no3040wki/Session01_practical_Key.Rmd?dl=0")),
@@ -115,6 +115,7 @@ knitr::kable("html", escape = FALSE,
 ) %>%
 kableExtra::kable_styling(bootstrap_options = c("hover", "condensed","striped"))
 ```
+Link to Day 1 video: `r print.link("Zoom recording", "https://cloudstor.aarnet.edu.au/plus/s/xWl39cHTNZyMliE")`
 
 ```{r tue-sched, echo = FALSE, results = "asis"}
 data.frame(
