@@ -515,16 +515,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreefa3ca91588073ffd38ffc08772f145bd182dfec3targetblankfa3ca91a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/fa3ca91588073ffd38ffc08772f145bd182dfec3" target="_blank">fa3ca91</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree9beb6f1ac80d807e0b11fa2f695109abced017f8targetblank9beb6f1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/9beb6f1ac80d807e0b11fa2f695109abced017f8" target="_blank">9beb6f1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreefa3ca91588073ffd38ffc08772f145bd182dfec3targetblankfa3ca91a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree9beb6f1ac80d807e0b11fa2f695109abced017f8targetblank9beb6f1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/fa3ca91588073ffd38ffc08772f145bd182dfec3" target="_blank">fa3ca91</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/9beb6f1ac80d807e0b11fa2f695109abced017f8" target="_blank">9beb6f1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -539,7 +539,6 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/.index.Rmd.swp
-    Untracked:  analysis/SISGM15_prac6Solution.Rmd
     Untracked:  analysis/SISGM15_prac9Solution.Rmd
     Untracked:  analysis/Session07_practical_Key.Rmd
     Untracked:  analysis/Session08_practical_Key.Rmd
@@ -581,6 +580,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/9beb6f1ac80d807e0b11fa2f695109abced017f8/analysis/Session08_practical.Rmd" target="_blank">9beb6f1</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-26
+</td>
+<td>
+edit exercise
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/0df0872814efc9327ddc44a331428d0e6bb2f2a7/docs/Session08_practical.html" target="_blank">0df0872</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -750,14 +783,14 @@ require(patchwork)</code></pre>
 <p>We can use PLINK1.9 to simulate the genetic dataset. For <span class="math inline">\(N=10,000\)</span> samples, Let’s simulate 10,000 variants where 5,000 are common with MAF chosen from a Uniform(0.05, 0.5) distribution and for the rare variants, we will use a Uniform(0.001, 0.01) distribution. Run the following command in R:</p>
 <pre class="r"><code>N &lt;- 10e3
 # Generate a configuration file specifying allele frequencies (a,b) for Uniform(a,b) distribution
-write(paste0(&quot;5000 common 0.05 0.5 1 1&quot;), &quot;tmp/sim.config&quot;)
-write(paste0(&quot;5000 rare 0.001 0.01 1 1&quot;), &quot;tmp/sim.config&quot;, append = TRUE)
+write(paste0(&quot;5000 common 0.05 0.5 1 1&quot;), &quot;sim.config&quot;)
+write(paste0(&quot;5000 rare 0.001 0.01 1 1&quot;), &quot;sim.config&quot;, append = TRUE)
 # Run PLINK1.9
-system(paste0(&quot;/data/SISG2022M15/exe/plink --make-bed --simulate tmp/sim.config --simulate-ncases &quot;, N, &quot; --simulate-ncontrols 0 --simulate-prevalence 0.1  --out tmp/cc_imb_geno&quot;))</code></pre>
-<p>You should now have files <code>tmp/cc_imb_geno.{bed,bim,fam}</code>.</p>
+system(paste0(&quot;/data/SISG2022M15/exe/plink --make-bed --simulate sim.config --simulate-ncases &quot;, N, &quot; --simulate-ncontrols 0 --simulate-prevalence 0.1  --out cc_imb_geno&quot;))</code></pre>
+<p>You should now have files <code>cc_imb_geno.{bed,bim,fam}</code>.</p>
 <p>For the phenotype data simulation, we will simulate 3 phenotypes with different levels of case-control imbalance (CCR 1:9, 1:99, and 1:199). Run the following code</p>
 <pre class="r"><code># get FID/IID from FAM file
-sample.ids &lt;- fread(&quot;tmp/cc_imb_geno.fam&quot;, header = FALSE)
+sample.ids &lt;- fread(&quot;cc_imb_geno.fam&quot;, header = FALSE)
 N &lt;- nrow(sample.ids)
 
 ## Set prevalence = 10% (CCR 1:9)
@@ -769,8 +802,8 @@ y3 &lt;- rbinom(N, 1, prob = 0.005 )
 
 # write to file
 data.frame(FID = sample.ids$V1, IID = sample.ids$V2, Y1 = y1, Y2 = y2, Y3 = y3) %&gt;%
-  fwrite(&quot;tmp/cc_imb_pheno.txt&quot;, sep = &quot;\t&quot;, na = NA, quote = FALSE)</code></pre>
-<p>You should now have file <code>tmp/cc_imb_pheno.txt</code>.</p>
+  fwrite(&quot;cc_imb_pheno.txt&quot;, sep = &quot;\t&quot;, na = NA, quote = FALSE)</code></pre>
+<p>You should now have file <code>cc_imb_pheno.txt</code>.</p>
 </div>
 <div id="exercises" class="section level3">
 <h3>Exercises</h3>
@@ -778,7 +811,7 @@ data.frame(FID = sample.ids$V1, IID = sample.ids$V2, Y1 = y1, Y2 = y2, Y3 = y3) 
 <ol style="list-style-type: decimal">
 <li>Run GWAS in REGENIE (step 2) analyzing all 3 traits. The basic command would be</li>
 </ol>
-<pre class="r"><code>system(&quot;/data/SISG2022M15/exe/regenie --bed tmp/cc_imb_geno --phenoFile tmp/cc_imb_pheno.txt --step 2 --bsize 400 --bt  --ignore-pred --out &lt;output_prefix&gt;&quot;)</code></pre>
+<pre class="r"><code>system(&quot;/data/SISG2022M15/exe/regenie --bed cc_imb_geno --phenoFile cc_imb_pheno.txt --step 2 --bsize 400 --bt  --ignore-pred --out &lt;output_prefix&gt;&quot;)</code></pre>
 <p>This will produce three files (one for each phenotype): <code>&lt;output_prefix&gt;_Y1.regenie</code>, <code>&lt;output_prefix&gt;_Y2.regenie</code>, <code>&lt;output_prefix&gt;_Y3.regenie</code></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Read in the three summary statistics files in R and make a QQ plot of the p-values for each phenotype. Since these are null SNPs, how does it compare to what we expect? The basic command for one phenotype would be</li>
