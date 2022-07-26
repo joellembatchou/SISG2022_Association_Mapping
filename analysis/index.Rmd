@@ -142,7 +142,7 @@ data.frame(
     paste0(print.link("HTML", "SISGM15_prac5Solution.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/dq1g5ljtauzippi/SISGM15_prac5Solution.Rmd?dl=0")),
     paste0(print.link("HTML", "SISGM15_prac6Solution.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/9hvla3t6e8hr7yg/SISGM15_prac6Solution.Rmd?dl=0")),
     paste0(print.link("HTML", "Session07_practical_Key.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/uwwwt9c2oquwrdm/Session07_practical_Key.Rmd?dl=0")),
-		paste0(print.link("HTML", ""), ", ", print.link("Rmd", ""))
+    paste0(print.link("HTML", "Session08_practical_Key.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/k5gmek552e1rbv6/Session08_practical_Key.Rmd?dl=0"))
   )
   , check.names = FALSE) %>%
 knitr::kable("html", escape = FALSE, 
