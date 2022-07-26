@@ -515,16 +515,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree7425ad90d87d29ea11649cb9f1dc93ada669b812targetblank7425ad9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/7425ad90d87d29ea11649cb9f1dc93ada669b812" target="_blank">7425ad9</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree799beee6b40747863a13e228817aff07e5e72467targetblank799beeea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/799beee6b40747863a13e228817aff07e5e72467" target="_blank">799beee</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree7425ad90d87d29ea11649cb9f1dc93ada669b812targetblank7425ad9a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtree799beee6b40747863a13e228817aff07e5e72467targetblank799beeea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/7425ad90d87d29ea11649cb9f1dc93ada669b812" target="_blank">7425ad9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/799beee6b40747863a13e228817aff07e5e72467" target="_blank">799beee</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -533,6 +533,7 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    analysis/.DS_Store
     Ignored:    analysis/.Rhistory
+    Ignored:    analysis/figure/
     Ignored:    code/.Rhistory
     Ignored:    data/.DS_Store
     Ignored:    lectures/.DS_Store
@@ -580,6 +581,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/799beee6b40747863a13e228817aff07e5e72467/analysis/Session08_practical.Rmd" target="_blank">799beee</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-26
+</td>
+<td>
+edit exercise
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellembatchou/SISG2022_Association_Mapping/836f3420b59ed8663248f6fbbfc6fc094f2d4cd2/docs/Session08_practical.html" target="_blank">836f342</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -865,6 +900,8 @@ sumstats.y1.rare &lt;- sumstats.y1[ grepl(&quot;rare&quot;, ID), ]</code></pre>
 <li>Make a histogram of the test statistics distribution at common/rare SNPs. What do you observe across the different case-control imbalances? To easily make side-by-side plots, we can use functionality from the R <code>patchwork</code> library (e.g. <code>p1|p2</code>). For example</li>
 </ul>
 <pre class="r"><code>plot.sumstats.hist(sumstats.y1.common, title = &quot;Y1 - Common SNPs&quot;) | plot.sumstats.hist(sumstats.y1.rare, title = &quot;Y1 - Rare SNPs&quot;)</code></pre>
+<p><em>Extra: 5. Re-run GWAS in Questions 1 but now applying Firth correction. Make a QQ plot of the -log10 p-values for Y3. The REGENIE command with Firth would be</em></p>
+<pre class="r"><code>system(&quot;/data/SISG2022M15/exe/regenie --bed cc_imb_geno --phenoFile cc_imb_pheno.txt --step 2 --bsize 400 --bt  --ignore-pred --firth --out --out &lt;output_prefix&gt;&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
