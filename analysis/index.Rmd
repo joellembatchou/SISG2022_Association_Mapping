@@ -10,7 +10,11 @@ editor_options:
 
 ```{r echo = FALSE, message=FALSE, warning=FALSE}
 require(dplyr)
-print.link <- function(name, link) paste0("[", name, "](", link, ")")
+print.link <- function(name, link) {
+  if(link != "") { 
+    paste0("[", name, "](", link, ")")
+  } else paste0("[", name, "]")
+}
 ```
 
 Instructors: Joelle Mbatchou & Loic Yengo
@@ -132,10 +136,10 @@ data.frame(
     paste0(print.link("Exercises", "Session08_practical.html"), ", ", "Video")
   ),
   "Key" = c(
-    ".html, .Rmd",
-    ".html, .Rmd",
-    ".html, .Rmd",
-    ".html, .Rmd"
+		paste0(print.link("HTML", ""), ", ", print.link("Rmd", "")),
+		paste0(print.link("HTML", ""), ", ", print.link("Rmd", "")),
+		paste0(print.link("HTML", ""), ", ", print.link("Rmd", "")),
+		paste0(print.link("HTML", ""), ", ", print.link("Rmd", ""))
   )
   , check.names = FALSE) %>%
 knitr::kable("html", escape = FALSE, 
@@ -157,11 +161,11 @@ data.frame(
     "Lecture, Video" 
       ),
   "Exercises" = c(
-    "[Exercises](SISGM15_prac9.html), Video",
+    paste0(print.link("Exercises", "SISGM15_prac9.html"), ", ", "Video"),
     " "
   ),
   "Key" = c(
-    ".html, .Rmd",
+		paste0(print.link("HTML", ""), ", ", print.link("Rmd", "")),
     " "
   )
   , check.names = FALSE) %>%
