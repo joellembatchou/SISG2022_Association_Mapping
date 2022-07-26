@@ -67,9 +67,9 @@ You should now have file `tmp/cc_imb_pheno.txt`.
 ### Exercises
 We will assess the null distribution of our test statistics when performing association mapping using different models. Here are some things to try:
 
-1.  Run GWAS in REGENIE (step 2) analyzing all 3 traits as quantitative. The basic command would be
+1.  Run GWAS in REGENIE (step 2) analyzing all 3 traits. The basic command would be
 ```{r, eval = FALSE}
-system("/data/SISG2022M15/exe/regenie --bed tmp/cc_imb_geno --phenoFile tmp/cc_imb_pheno.txt --step 2 --bsize 400 --qt  --ignore-pred --out <output_prefix>")
+system("/data/SISG2022M15/exe/regenie --bed tmp/cc_imb_geno --phenoFile tmp/cc_imb_pheno.txt --step 2 --bsize 400 --bt  --ignore-pred --out <output_prefix>")
 ```
 This will produce three files (one for each phenotype): `<output_prefix>_Y1.regenie`, `<output_prefix>_Y2.regenie`, `<output_prefix>_Y3.regenie` 
 
