@@ -54,6 +54,8 @@ If you decide to run analyses from your local machine instead, follow the instru
   <a href="https://www.cog-genomics.org/plink/2.0/" target="_blank">https://www.cog-genomics.org/plink/2.0/</a>
 * REGENIE : 
   <a href="https://github.com/rgcgithub/regenie/releases/" target="_blank">https://github.com/rgcgithub/regenie/releases/</a>
+* GCTA : 
+  <a href="https://yanglab.westlake.edu.cn/software/gcta/#Download" target="_blank">https://yanglab.westlake.edu.cn/software/gcta/#Download</a>
 * Zoom : 
   <a href="https://zoom.us/" target="_blank">https://zoom.us/</a>
 
