@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Summer Institute of Statical Genetics (Module 15)" />
+
+<meta name="date" content="2022-07-26" />
+
+<title>Solution for Practical 5: Conditional and Joint Analysis (COJO)</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SISG 2022 Module 15</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sessions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Day 1</li>
+    <li>
+      <a href="Session01_practical.html">Session 1</a>
+    </li>
+    <li>
+      <a href="Session02_practical.html">Session 2</a>
+    </li>
+    <li>
+      <a href="Session03_practical.html">Session 3</a>
+    </li>
+    <li>
+      <a href="SISGM15_prac4.html">Session 4</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Day 2</li>
+    <li>
+      <a href="SISGM15_prac5.html">Session 5</a>
+    </li>
+    <li>
+      <a href="SISGM15_prac6.html">Session 6</a>
+    </li>
+    <li>
+      <a href="Session07_practical.html">Session 7</a>
+    </li>
+    <li>
+      <a href="Session08_practical.html">Session 8</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Day 3</li>
+    <li>
+      <a href="SISGM15_prac9.html">Session 9</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Solution for Practical 5: Conditional and Joint Analysis (COJO)</h1>
+<h4 class="author">Summer Institute of Statical Genetics (Module 15)</h4>
+<h4 class="date">2022-07-26</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-07-26
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>SISG2022_Association_Mapping/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20220530code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20220530)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20220530code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20220530)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreedb25cfbbd2b8292bf6e491ad93b30169cd271a1dtargetblankdb25cfba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/db25cfbbd2b8292bf6e491ad93b30169cd271a1d" target="_blank">db25cfb</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellembatchouSISG2022AssociationMappingtreedb25cfbbd2b8292bf6e491ad93b30169cd271a1dtargetblankdb25cfba" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/tree/db25cfbbd2b8292bf6e491ad93b30169cd271a1d" target="_blank">db25cfb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/.Rhistory
+    Ignored:    code/.Rhistory
+    Ignored:    data/.DS_Store
+    Ignored:    lectures/.DS_Store
+
+Untracked files:
+    Untracked:  GWAS.ma
+    Untracked:  analysis/.index.Rmd.swp
+    Untracked:  analysis/SISGM15_prac6Solution.Rmd
+    Untracked:  analysis/SISGM15_prac9Solution.Rmd
+    Untracked:  analysis/Session07_practical_Key.Rmd
+    Untracked:  analysis/Session08_practical_Key.Rmd
+    Untracked:  causals.snplist
+    Untracked:  ldRef.bed
+    Untracked:  ldRef.bim
+    Untracked:  ldRef.fam
+    Untracked:  ldRef.log
+    Untracked:  ldRef.map
+    Untracked:  ldRef.ped
+    Untracked:  test1.cma.cojo
+    Untracked:  test1.jma.cojo
+    Untracked:  test1.ldr.cojo
+    Untracked:  test1.log
+    Untracked:  test2.cma.cojo
+    Untracked:  test2.jma.cojo
+    Untracked:  test2.ldr.cojo
+    Untracked:  test2.log
+    Untracked:  test3.cma.cojo
+    Untracked:  test3.jma.cojo
+    Untracked:  test3.ldr.cojo
+    Untracked:  test3.log
+    Untracked:  test4.cma.cojo
+    Untracked:  test4.jma.cojo
+    Untracked:  test4.ldr.cojo
+    Untracked:  test4.log
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/SISGM15_prac5Solution.Rmd</code>) and HTML (<code>docs/SISGM15_prac5Solution.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellembatchou/SISG2022_Association_Mapping/blob/db25cfbbd2b8292bf6e491ad93b30169cd271a1d/analysis/SISGM15_prac5Solution.Rmd" target="_blank">db25cfb</a>
+</td>
+<td>
+Joelle Mbatchou
+</td>
+<td>
+2022-07-26
+</td>
+<td>
+add key to S5
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<p><span style="color:red;"><strong>This practical runs on the SISG2022 server.</strong></span></p>
+<p>This practical aims at</p>
+<ol style="list-style-type: decimal">
+<li><p>Familiarizing you with GCTA-COJO (or COJO in short)</p></li>
+<li><p>Exploring different factors influencing COJO outcomes</p></li>
+</ol>
+<p>The practical is run in <code>R</code> but uses the <code>R</code> function <code>system()</code> to run <code>PLINK</code> and <code>GCTA</code> from the terminal. If you have <code>PLINK</code> and <code>GCTA</code> installed on your own computer then you could also run it locally if your prefer. In that case you’d need to update a few links provided below.</p>
+<p>The COJO algorithm is not designed for fine-mapping per se. However, many of the challenges illustrated and discussed in this practical are relevant for any method using external linkage disequilibrium (LD) reference.</p>
+<div id="part-i-the-data" class="section level2">
+<h2>Part I: the data</h2>
+<p>We provide an <code>R</code> code that simulates a 1 Mb long chromosome with <code>M=2000</code> SNPs organized within 20 LD blocks. Each block contains 100 SNPs, among which 5 causal variants. SNPs within a block are numbered between 1 and 100, such that the squared correlation <span class="math inline">\(r^2_{i_{k}j_{k}}\)</span> of allele counts at SNP <span class="math inline">\(i_k\)</span> and <span class="math inline">\(j_k\)</span> within LD block <span class="math inline">\(k\)</span> is</p>
+<p><span class="math display">\[  r^2_{i_{k}j_{k}} = \rho_k^{2|i_k-j_k|} \]</span></p>
+<p>LD blocks are characterized by the parameters <span class="math inline">\(\rho^2_k\)</span>, which varies from 0.1 (when <span class="math inline">\(k=1\)</span>; low LD locus) to 0.9 (when <span class="math inline">\(k=20\)</span>; high LD locus).</p>
+<p>The code below generates the LD correlation structure between SNPs in each block.</p>
+<p><strong>Run the following commands</strong></p>
+<pre class="r"><code>set.seed(28072022)
+nblocks &lt;- 20
+rhos    &lt;- sqrt(seq(0.1,0.9,len=nblocks))
+m       &lt;- 100 # number of SNPs per LD block
+mcBlock &lt;- 5   # number of causals LD per block
+M       &lt;- m * nblocks 
+R       &lt;- matrix(0,nrow=M,ncol=M)
+icausal &lt;- c()
+for(k in 1:nblocks){
+  l &lt;- ((k-1)*m + 1):(k*m);
+  R[l,l]  &lt;- outer(1:m,1:m,FUN=function(i,j) rhos[k]^abs(i-j))
+  icausal &lt;- c(icausal,sample(l,mcBlock))
+}</code></pre>
+<p>The figure code and figure below shows the LD correlation matrix for SNPs the 20-th LD block (<span class="math inline">\(\rho^2_{20}=0.9\)</span>)</p>
+<pre class="r"><code>k=20
+l=((k-1)*m + 1):(k*m)
+heatmap(R[l,l],Rowv=NA,Colv=NA)</code></pre>
+<p><img src="figure/SISGM15_prac5Solution.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>print(&quot;Extract of LD structure for 20-th LD block&quot;)</code></pre>
+<pre><code>[1] &quot;Extract of LD structure for 20-th LD block&quot;</code></pre>
+<pre class="r"><code>print( R[l,l][1:5,1:5] )</code></pre>
+<pre><code>          [,1]      [,2]      [,3]      [,4]      [,5]
+[1,] 1.0000000 0.9486833 0.9000000 0.8538150 0.8100000
+[2,] 0.9486833 1.0000000 0.9486833 0.9000000 0.8538150
+[3,] 0.9000000 0.9486833 1.0000000 0.9486833 0.9000000
+[4,] 0.8538150 0.9000000 0.9486833 1.0000000 0.9486833
+[5,] 0.8100000 0.8538150 0.9000000 0.9486833 1.0000000</code></pre>
+<p><strong>Run the following commands</strong></p>
+<pre class="r"><code>chr     &lt;- 10 # Chromosome number
+pos     &lt;- 1234557 + sort(sample(0:1e6,M)) # Random Position for SNPs
+a1a2    &lt;- do.call(&quot;rbind&quot;,lapply(1:M,function(j) sample(c(&quot;A&quot;,&quot;C&quot;,&quot;G&quot;,&quot;T&quot;),2))) # alleles
+snps    &lt;- paste0(&quot;SNP&quot;,1:M) # SNP ID
+ldblock &lt;- rep(1:nblocks,each=m) # LD block ID
+names(ldblock) &lt;- snps</code></pre>
+<p>The <code>R</code> code below generates and shows the LD score of each SNP on the chromosome (x-axis: genomic position in Mb; y-axis: LD score)</p>
+<pre class="r"><code>Cols &lt;- sample(colors(),nblocks)
+ldscores &lt;- diag(crossprod(R))
+plot(pos/1e6,ldscores,pch=19,col=Cols[ldblock],
+     axes=FALSE,xlab=&quot;Genomic Position (Mb)&quot;,
+     ylab=&quot;LD scores&quot;)
+axis(1);axis(2)
+legend(&quot;topleft&quot;,legend=paste0(&quot;Block #&quot;,1:nblocks),
+       box.lty=0,pch=19,cex=0.5,col=Cols)</code></pre>
+<p><img src="figure/SISGM15_prac5Solution.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cat(paste0(&quot;mean LD score = &quot;,round(mean(ldscores),3),
+           &quot; - SD LD score = &quot;,round(sd(ldscores),3)))</code></pre>
+<pre><code>mean LD score = 4.598 - SD LD score = 4.13</code></pre>
+<p><strong>Run the following commands. This is a function to generate genotypes corresponding to the specified LD structure. For simplicity, we simulate all SNPs with an allele frequency equal to 0.5.</strong></p>
+<pre class="r"><code>library(MASS)
+simGeno &lt;- function(R,n){
+  z1 &lt;- do.call(&quot;cbind&quot;,lapply(1:nblocks,function(i){
+    l &lt;- ((i-1)*m + 1):(i*m)
+    mvrnorm(n=n,mu=rep(0,m),Sigma = R[l,l])
+  }))
+  z2 &lt;- do.call(&quot;cbind&quot;,lapply(1:nblocks,function(i){
+    l &lt;- ((i-1)*m + 1):(i*m)
+    mvrnorm(n=n,mu=rep(0,m),Sigma = R[l,l])
+  }))
+  x &lt;- (z1&gt;0) + (z2&gt;0)
+  return(x)
+}</code></pre>
+<p><strong>Run the following commands to genarate genotypes and phenotypes of GWAS participants. GWAS sample size is <code>Ngwas=100000</code></strong></p>
+<pre class="r"><code>Ngwas &lt;- 5e4
+
+## Simulate genotypes
+Xgwas &lt;- simGeno(n = Ngwas,R)
+
+## Simulate phenotype
+mc    &lt;- length(icausal) # total number of causal variants
+q2    &lt;- 0.01 #variance explained by all SNPs on the chromosome
+b     &lt;- rnorm(n=mc,mean=0,sd=sqrt(q2/mc))
+g     &lt;- sqrt(2)*c((Xgwas[,icausal]-1)%*%b)
+e     &lt;- rnorm(n=Ngwas,mean=0,sd=sqrt(1-q2))
+Ygwas &lt;- g + e
+
+## Running GWAS
+var_x &lt;- apply(Xgwas,2,var)
+beta  &lt;- cov(Xgwas,Ygwas) / var_x # estimated regression coefficients
+se    &lt;- sqrt( (var(Ygwas) - beta*beta*var_x)/((Ngwas-2)*var_x) ) # standard errors
+pval  &lt;- 2 * pt(q=abs(beta/se),df=Ngwas-2,lower.tail = F) # T-distribution
+
+## GWAS data - COJO format
+gwas  &lt;- cbind.data.frame(SNP=snps,A1=a1a2[,1],A2=a1a2[,2],
+                          Freq=colMeans(Xgwas)/2,beta=beta,
+                          se=se,P=pval,N=Ngwas)
+print(head(gwas,3))</code></pre>
+<pre><code>   SNP A1 A2    Freq         beta          se          P     N
+1 SNP1  C  T 0.49772 -0.009919254 0.006328504 0.11702916 50000
+2 SNP2  T  C 0.49824 -0.001585635 0.006315480 0.80176012 50000
+3 SNP3  C  A 0.50110  0.011048179 0.006358965 0.08231961 50000</code></pre>
+<pre class="r"><code># folder where to store the data
+# default is &quot;.&quot;, i.e. current directory
+# this can be changed
+datPath &lt;- &quot;.&quot; 
+
+write.table(gwas,paste0(datPath,&quot;/GWAS.ma&quot;),
+            quote=FALSE,row.names=FALSE,
+            col.names=TRUE,sep=&quot;\t&quot;)
+causals &lt;- snps[icausal]
+write(causals,paste0(datPath,&quot;/causals.snplist&quot;)) ## list of causal SNPs</code></pre>
+<p><strong>Run the following commands to simulate a LD reference (i.e., set of genotypes in <code>PLINK</code> format) from the same population.</strong></p>
+<pre class="r"><code>## Set path for PLINK
+plink   &lt;- &quot;/data/SISG2022M15/exe/plink&quot;
+
+## Simulate and write LD ref
+simLDref &lt;- function(Nldref){
+  Xldref &lt;- simGeno(n = Nldref,R)
+  refGeno &lt;- t(sapply(1:M,function(j) {
+    c(paste0(a1a2[j,1],&quot;\t&quot;,a1a2[j,1]),
+      paste0(a1a2[j,1],&quot;\t&quot;,a1a2[j,2]),
+      paste0(a1a2[j,2],&quot;\t&quot;,a1a2[j,2]))
+  }))
+  ped &lt;- do.call(&quot;cbind&quot;,lapply(1:M,function(j){
+    refGeno[j,1+Xldref[,j]]}
+  ))
+  ## fam file
+  iid    &lt;- paste0(&quot;IID&quot;,1:Nldref)
+  fid    &lt;- iid
+  pid    &lt;- rep(0,Nldref)
+  mid    &lt;- rep(0,Nldref)
+  sex    &lt;- sample(1:2,Nldref,replace=TRUE)
+  pheno  &lt;- rep(-9,Nldref)
+  fam    &lt;- cbind.data.frame(fid,iid,pid,mid,sex,pheno)
+  
+  ## ped/geno
+  mapData &lt;- cbind.data.frame(chr,snps,0,pos)
+  pedData &lt;- cbind.data.frame(fam,ped)
+  
+  write.table(mapData,paste0(datPath,&quot;/ldRef.map&quot;),
+              quote=FALSE,row.names=FALSE,col.names=FALSE,sep=&quot;\t&quot;)
+  write.table(pedData,paste0(datPath,&quot;/ldRef.ped&quot;),
+              quote=FALSE,row.names=FALSE,col.names=FALSE,sep=&quot;\t&quot;)
+  system(paste0(plink,&quot; --file ldRef --make-bed --out ldRef&quot;))
+}
+simLDref(Nldref = 5000)</code></pre>
+</div>
+<div id="part-ii-running-cojo" class="section level2">
+<h2>Part II: running COJO</h2>
+<p>If you have run all the commands above then the following files must be available in your current directory. To check type the following command in the terminal.</p>
+<pre class="bash"><code>ls -lt GWAS.ma
+ls -lt ldRef.*</code></pre>
+<pre><code>-rw-rw-r-- 1 joelle.mbatchou joelle.mbatchou 167371 Jul 26 16:04 GWAS.ma
+-rw-rw-r-- 1 joelle.mbatchou joelle.mbatchou  2500003 Jul 26 16:04 ldRef.bed
+-rw-rw-r-- 1 joelle.mbatchou joelle.mbatchou    48893 Jul 26 16:04 ldRef.bim
+-rw-rw-r-- 1 joelle.mbatchou joelle.mbatchou   122786 Jul 26 16:04 ldRef.fam
+-rw-rw-r-- 1 joelle.mbatchou joelle.mbatchou      974 Jul 26 16:04 ldRef.log
+-rw-rw-r-- 1 joelle.mbatchou joelle.mbatchou 40122786 Jul 26 16:04 ldRef.ped
+-rw-rw-r-- 1 joelle.mbatchou joelle.mbatchou    40893 Jul 26 16:04 ldRef.map</code></pre>
+<p>You can now run COJO. Either from the terminal</p>
+<pre class="bash"><code>GCTA=/data/SISG2022M15/exe/gcta64_v1.94
+${GCTA} --bfile ldRef --cojo-file GWAS.ma --chr 10 --cojo-slct --cojo-p 2.5e-5 --out test1</code></pre>
+<pre><code>*******************************************************************
+* Genome-wide Complex Trait Analysis (GCTA)
+* version 1.94.0 beta Linux
+* (C) 2010-present, Jian Yang, The University of Queensland
+* Please report bugs to Jian Yang &lt;jian.yang.qt@gmail.com&gt;
+*******************************************************************
+Analysis started at 16:04:29 UTC on Tue Jul 26 2022.
+Hostname: si2022-compute
+
+Accepted options:
+--bfile ldRef
+--cojo-file GWAS.ma
+--chr 10
+--cojo-slct
+--cojo-p 2.5e-05
+--out test1
+
+
+Reading PLINK FAM file from [ldRef.fam].
+5000 individuals to be included from [ldRef.fam].
+Reading PLINK BIM file from [ldRef.bim].
+2000 SNPs to be included from [ldRef.bim].
+2000 SNPs on chromosome 10 are included in the analysis.
+Reading PLINK BED file from [ldRef.bed] in SNP-major format ...
+Genotype data for 5000 individuals and 2000 SNPs to be included from [ldRef.bed].
+
+Reading GWAS summary-level statistics from [GWAS.ma] ...
+GWAS summary statistics of 2000 SNPs read from [GWAS.ma].
+Phenotypic variance estimated from summary statistics of all 2000 SNPs: 1.00122 (variance of logit for case-control studies).
+Matching the GWAS meta-analysis results to the genotype data ...
+Calculating allele frequencies ...
+2000 SNPs are matched to the genotype data.
+Calculating the variance of SNP genotypes ...
+
+Performing stepwise model selection on 2000 SNPs to select association signals ... (p cutoff = 2.5e-05; collinearity cutoff = 0.9)
+(Assuming complete linkage equilibrium between SNPs which are more than 10Mb away from each other)
+5 associated SNPs have been selected.
+10 associated SNPs have been selected.
+Finally, 12 associated SNPs are selected.
+Performing joint analysis on all the 12 selected signals ...
+Saving the 12 independent signals to [test1.jma.cojo] ...
+Saving the LD structure of 12 independent signals to [test1.ldr.cojo] ...
+Saving the conditional analysis results of 1988 remaining SNPs to [test1.cma.cojo] ...
+(0 SNPs eliminated by backward selection and 0 SNPs filtered by collinearity test are not included in the output)
+
+Analysis finished at 16:04:31 UTC on Tue Jul 26 2022
+Overall computational time: 2.88 sec.</code></pre>
+<p>or from <code>R</code> (calling terminal using the <code>system()</code> command)</p>
+<pre class="r"><code>gcta &lt;- &quot;/data/SISG2022M15/exe/gcta64_v1.94&quot;
+
+system(paste0(gcta,&quot; --bfile ldRef &quot;,
+              &quot;--cojo-file GWAS.ma --chr 10 &quot;,
+              &quot;--cojo-slct --cojo-p 2.5e-5 --out test1&quot;))</code></pre>
+<p><strong>Question 1. How many SNPs are detected? How many of those are causal SNPs? (Note that you can obtain causal SNPs in your currrent <code>R</code> session as <code>causals = snps[icausal]</code>, or in the file named <code>causals.snplist</code>).</strong></p>
+<p><span style="color:red;">The number of SNPs detected by COJO is displayed in the log file “Saving the 10 independent signals to [test1.jma.cojo].” and corresponds to the number of rows (minus one) in the *.jma.cojo file. Here, 10 SNPs were detected…</span></p>
+<pre class="r"><code>cojo1 &lt;- read.table(&quot;test1.jma.cojo&quot;,h=T,stringsAsFactors = FALSE) ## Read COJO results
+print( table(cojo1$SNP%in%snps[icausal]) ) ## Count how many are causal</code></pre>
+<pre><code>
+FALSE  TRUE 
+    1    11 </code></pre>
+<p><span style="color:red;">…including 10 causal variants.</span></p>
+<p><strong>Question 2. Regenerate LD reference data with a lower sample size <code>Nldref=2000, 1000 and 500</code> and rerun 1). What do you observe? Are all LD blocks affected the same?</strong></p>
+<p><span style="color:red;">Let us focus on the smallest LD reference <code>Nldref=2000</code>. We modify and re-run some of the <code>R</code> commands given above…</span></p>
+<pre class="r"><code>simLDref(Nldref = 500)
+system(paste0(gcta,&quot; --bfile ldRef &quot;,
+              &quot;--cojo-file GWAS.ma --chr 10 &quot;,
+              &quot;--cojo-slct --cojo-p 2.5e-5 --out test2&quot;))
+cojo2 &lt;- read.table(&quot;test2.jma.cojo&quot;,h=T,stringsAsFactors = FALSE) ## Read COJO results
+print( table(cojo2$SNP%in%snps[icausal]) ) ## Count how many are causal</code></pre>
+<pre><code>
+FALSE  TRUE 
+  215    24 </code></pre>
+<p><span style="color:red;">We can see that 246 SNPs are now detected but only 23 of them are causal. To see if all LD blocks are affected the same, we can visualize the number of COJO SNPs (here mostly false positives) in each LD block using (for example) the following command.</span></p>
+<pre class="r"><code>barplot(table(ldblock[cojo2$SNP]),ylab=&quot;# COJO SNPs in each LD block&quot;,
+        xlab=&quot;LD blocks (1: low LD; 20: high LD)&quot;)</code></pre>
+<p><img src="figure/SISGM15_prac5Solution.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><span style="color:red;">Conclusion: the inflation is larger in low LD blocks.</span></p>
+<p><strong>Question 3. Set the variance explained by SNPs on the chromosome to 3% (q2=0.03) and re-run 1) and 2). What can you conclude regarding the number of SNPs detected and the proportion of non-causal SNPs detected?</strong></p>
+<p><span style="color:red;">Conclusion: the inflation of false positives observed with small LD reference is larger when the signal (<span class="math inline">\(q^2\)</span>) is strong.</span></p>
+</div>
+<div id="part-iii-fixing-cojo" class="section level2">
+<h2>Part III: fixing COJO?</h2>
+<p>There is no simple way to fix the inflation of false positive observed when the LD reference is too small. As a rule of thumb, Yang et al. (GCTA website) recommend using sample sizes of at least 4000. Nevertheless, we observe that using a more stringent threshold for detecting collinearity might help.</p>
+<p><strong>Question 4. Set the variance explained by SNPs on the chromosome to 3% (q2=0.03) and the size of the LD reference to 1000. Re-run COJO adding the following flag <code>--cojo-collinear 0.1</code>. Quantify the improvement in the number of false positives.</strong></p>
+<pre class="r"><code>q2    &lt;- 0.03 #variance explained by all SNPs on the chromosome
+b     &lt;- rnorm(n=mc,mean=0,sd=sqrt(q2/mc))
+g     &lt;- sqrt(2)*c((Xgwas[,icausal]-1)%*%b)
+e     &lt;- rnorm(n=Ngwas,mean=0,sd=sqrt(1-q2))
+Ygwas &lt;- g + e
+beta  &lt;- cov(Xgwas,Ygwas) / var_x # estimated regression coefficients
+se    &lt;- sqrt( (var(Ygwas) - beta*beta*var_x)/((Ngwas-2)*var_x) ) # standard errors
+pval  &lt;- 2 * pt(q=abs(beta/se),df=Ngwas-2,lower.tail = F) # T-distribution
+gwas  &lt;- cbind.data.frame(SNP=snps,A1=a1a2[,1],A2=a1a2[,2],
+                          Freq=colMeans(Xgwas)/2,beta=beta,
+                          se=se,P=pval,N=Ngwas)
+print(head(gwas,3))</code></pre>
+<pre><code>   SNP A1 A2    Freq         beta          se         P     N
+1 SNP1  C  T 0.49772  0.001225852 0.006326721 0.8463663 50000
+2 SNP2  T  C 0.49824 -0.003415884 0.006313533 0.5884813 50000
+3 SNP3  C  A 0.50110 -0.001948620 0.006357205 0.7592089 50000</code></pre>
+<pre class="r"><code>write.table(gwas,paste0(datPath,&quot;/GWAS.ma&quot;),
+            quote=FALSE,row.names=FALSE,
+            col.names=TRUE,sep=&quot;\t&quot;)
+
+## Simulate LD reference and run COJO
+simLDref(Nldref = 1000)
+system(paste0(gcta,&quot; --bfile ldRef &quot;,
+              &quot;--cojo-file GWAS.ma --chr 10 &quot;,
+              &quot;--cojo-slct --cojo-p 2.5e-5 --out test3&quot;))
+cojo3 &lt;- read.table(&quot;test3.jma.cojo&quot;,h=T,stringsAsFactors = FALSE)
+
+print( table(cojo3$SNP%in%snps[icausal]) ) ## Count how many are causal</code></pre>
+<pre><code>
+FALSE  TRUE 
+   37    32 </code></pre>
+<pre class="r"><code>system(paste0(gcta,&quot; --bfile ldRef &quot;,
+              &quot;--cojo-file GWAS.ma --chr 10 --cojo-collinear 0.05 &quot;,
+              &quot;--cojo-slct --cojo-p 2.5e-5 --out test4&quot;))
+cojo4 &lt;- read.table(&quot;test4.jma.cojo&quot;,h=T,stringsAsFactors = FALSE)
+
+print( table(cojo4$SNP%in%snps[icausal]) ) ## Count how many are causal</code></pre>
+<pre><code>
+FALSE  TRUE 
+   10    23 </code></pre>
+<p><span style="color:red;">Conclusion: using a more stringent collinearity threshold can reduce the proportion of false positives.</span></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.1 (2022-06-23)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 22.04 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+
+locale:
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] MASS_7.3-57     workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.9       highr_0.9        bslib_0.3.1      jquerylib_0.1.4 
+ [5] compiler_4.2.1   pillar_1.7.0     later_1.3.0      git2r_0.30.1    
+ [9] tools_4.2.1      getPass_0.2-2    digest_0.6.29    jsonlite_1.8.0  
+[13] evaluate_0.15    tibble_3.1.7     lifecycle_1.0.1  pkgconfig_2.0.3 
+[17] rlang_1.0.3      cli_3.3.0        rstudioapi_0.13  yaml_2.3.5      
+[21] xfun_0.31        fastmap_1.1.0    httr_1.4.3       stringr_1.4.0   
+[25] knitr_1.39       sass_0.4.1       fs_1.5.2         vctrs_0.4.1     
+[29] rprojroot_2.0.3  glue_1.6.2       R6_2.5.1         processx_3.7.0  
+[33] fansi_1.0.3      rmarkdown_2.14   callr_3.7.0      magrittr_2.0.3  
+[37] whisker_0.4      ps_1.7.1         promises_1.2.0.1 htmltools_0.5.2 
+[41] ellipsis_0.3.2   httpuv_1.6.5     utf8_1.2.2       stringi_1.7.6   
+[45] crayon_1.5.1    </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
