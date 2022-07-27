@@ -1,5 +1,5 @@
 ---
-title: 'Solution for Practical 9: Within-family GWAS'
+title: 'Practical 9: Within-family GWAS'
 author: "Summer Institute of Statical Genetics (Module  15)"
 date: '2022-07-27'
 output:
