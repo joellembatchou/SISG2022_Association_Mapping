@@ -179,6 +179,8 @@ knitr::kable("html", escape = FALSE,
 ) %>%
 kableExtra::kable_styling(bootstrap_options = c("hover", "condensed","striped"))
 ```
+Link to Day 3 video: `r print.link("Zoom recording", "https://cloudstor.aarnet.edu.au/plus/s/edR12nsfDxD9IiV")`
+
 
 ## Datasets
 
