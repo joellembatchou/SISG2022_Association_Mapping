@@ -169,7 +169,7 @@ data.frame(
     " "
   ),
   "Key" = c(
-		paste0(print.link("HTML", ""), ", ", print.link("Rmd", "")),
+    paste0(print.link("HTML", "SISGM15_prac9Solution.html"), ", ", print.link("Rmd", "https://www.dropbox.com/s/4bspvg6eteoir1z/SISGM15_prac9Solution.Rmd?dl=0")),
     " "
   )
   , check.names = FALSE) %>%

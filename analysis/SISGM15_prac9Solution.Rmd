@@ -1,0 +1,149 @@
+---
+title: 'Solution for Practical 9: Within-family GWAS'
+author: "Summer Institute of Statical Genetics (Module  15)"
+date: '2022-07-27'
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<span style="color:red;">**This practical can be run in `R` on your own computer.**</span>
+
+<!-- ## Part 1: Population stratification -->
+
+This practical aims at illustrating that within-family GWAS are robust to population stratification. We provide a set of `R` commands below to simulate the phenotypes and genotypes (at $M=1,000$ SNPs) of $N=10,000$ independent sibling pairs. Each sibling pair is sampled from $g$ subgroups, which differ in allele frequencies and mean phenotypes.
+
+**None of the $M$ SNPs is associated with the trait within-each subpopulations. Therefore, the mean association $\chi^2$ test statistic across SNPs is expected to equal 1. Any deviation reflects population stratification.**
+
+The `R` function `CHISQ` below returns the mean association $\chi^2$ test statistic across $M=1,000$ simulated SNPs for 3 analytical strategies:
+
+(1) simple linear regression using phenotypes and genotypes of the oldest siblings (`X1` and `Y1`)
+
+(2) same as (1) but fitting 10 genotypic principal components (PC)
+
+(3) within-family GWAS from regressing `Y1-Y2` onto colums of `X1-X2`
+
+**Copy/Run the following command to enable the `CHISQ` function in your current `R` environment.**
+
+```{R, eval=TRUE}
+CHISQ <- function(N=10000,  # Sample size
+                  M=1000,   # Number of SNPs tested 
+                  Fst=0.025,# Genetic differentiation between subgroups
+                  vs=.05,   # variance explained by stratification
+                  g=2,      # Number of subgroups
+                  nPC=10){  # Number of PCs fitted
+ms   <- rnorm(n=g,mean=0,sd=sqrt(vs))
+p    <- runif(n=M,min=0.05,max=0.95)
+tab  <- cut(1:N,breaks = quantile(1:N,probs = seq(0,1,len=g+1)),include.lowest = TRUE)
+grp  <- as.numeric(tab)
+
+simPS <- function(N,M,Fst,p,g){
+  a    <- p*(1-Fst)/Fst
+  b    <- (1-Fst)*(1-p)/Fst
+  tab  <- cut(1:N,breaks = quantile(1:N,probs = seq(0,1,len=g+1)),include.lowest = TRUE)
+  grp  <- as.numeric(tab)
+  n    <- as.numeric(table(tab))
+  X    <- do.call("rbind",lapply(1:g, function(k){
+    px <- rbeta(M,shape1=a,shape2=b)
+    do.call("cbind",lapply(1:M, function(j){
+      rbinom(n=n[k],size=2,prob=px[j])
+    }))
+  }))
+  return(X)
+}
+
+Xm  <- simPS(N,M,Fst,p,g) # Simulage genotypes of mother
+Xf  <- simPS(N,M,Fst,p,g) # Simulate genotyoes of father
+
+X1 <- do.call("cbind",lapply(1:M, function(j){
+  rbinom(n=N,size=1,prob=Xm[,j]/2) + rbinom(n=N,size=1,prob=Xf[,j]/2)
+}))
+
+X2 <- do.call("cbind",lapply(1:M, function(j){
+  rbinom(n=N,size=1,prob=Xm[,j]/2) + rbinom(n=N,size=1,prob=Xf[,j]/2)
+}))
+
+Y1 <- rnorm(n=N,mean=ms[grp],sd=sqrt(1-vs))
+Y2 <- rnorm(n=N,mean=ms[grp],sd=sqrt(1-vs))
+
+## PCA
+SVD <- svd(scale(X1))
+system.time( pcs <- SVD$u )
+
+PC1 <- pcs[,1] * SVD$d[1]
+PC2 <- pcs[,2] * SVD$d[2]
+plot(PC1,PC2,pch=19,cex=0.5,col=grp,axes=FALSE,
+     xlab="PC1",ylab="PC2")
+axis(1);axis(2)
+abline(h=0,v=0,col="grey")
+
+## GWAS
+gwas_pop <- do.call("rbind",lapply(1:M, function(j){
+  summary(lm(Y1~X1[,j]))$coefficients[2,]
+}))
+
+gwas_pcs <- do.call("rbind",lapply(1:M, function(j){
+  summary(lm(Y1~X1[,j] + pcs[,1:nPC]))$coefficients[2,]
+}))
+
+gwas_wf <- do.call("rbind",lapply(1:M, function(j){
+  summary(lm(I(Y1-Y2)~I(X1[,j]-X2[,j])))$coefficients[2,]
+}))
+
+ChisqUnAdj  <- mean(gwas_pop[,3]^2)
+ChisqPCAdj  <- mean(gwas_pcs[,3]^2)
+ChisqQFAM   <- mean(gwas_wf[,3]^2)
+
+return(c(UnAdj=ChisqUnAdj,PCAdj=ChisqPCAdj,QFAM=ChisqQFAM))
+} 
+```
+
+The `CHISQ` function has 5 input parameters: `N` (sample size), `M` (number of SNPs tested), `Fst` (a parameter measuring genetic differentiation between subgroups in the sample), `vs` (variance explained by stratification) and `g` (the number of subgroups in the sample).
+
+Let's run a first sample with `N=10000` individuals, `g=2` subgroups in the sample, `M=1000` SNPs, `Fst=.025` and stratification explaining `vs=.05` of the phenotypic variance.
+
+```{R, eval=TRUE}
+set.seed(27072022)
+system.time( testResults <- CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=2) )
+testResults
+```  
+
+This example generates a PCA plot (PC1 vs PC2) showing a neat separation between the two subgroups in the sample. In addition, the mean association test statistic for the unadjusted analysis is `UnAdj`~2.0, which indicates confounding due to population stratification given that none of these SNPS are associated with the phenotype. Note that the mean association test statistic is reduced to `PCAdj`~1.0, when adjusting these analyses for 10 PCs and to `ChisqQFAM`~0.9 for the within-family GWAS.
+
+**Question 1. Change the seed number (check the `set.seed()` function above) and run the previous command (`CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=2)`) in your own environment. Do you find consistent observations?**
+
+```{R, eval=TRUE}
+set.seed(22061986)
+system.time( testResults <- CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=2) )
+testResults
+```  
+
+<span style="color:red;">This examples takes about 1 minute to run.</span>
+
+**Question 2. Increase the number of subgroups (e.g.. `g=5`, `g=10`, `g=50`). What can you say about the separation between subgroups on the first two PCs? Is the adjustment for 10 PCs still sufficient to control for inflation? If not, how many PCs do you need to fit and why? What do you observe for the within-family GWAS results?**
+
+```{R, eval=TRUE}
+CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=5,nPC=10)
+CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=10,nPC=10)
+CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=50,nPC=10)
+
+## Let's try fitting 50 PCs
+CHISQ(N=10000,M=1000,Fst=.025,vs=.05,g=50,nPC=50)
+```  
+
+<span style="color:red;">The separation between groups along the first two PCs decreases as we increase the number of groups. Fitting the 10 PCs seems to become inefficient. Fitting as many PCs as the number of groups seems to work but also substantially increases the computational time.</span>
+
+
+**Question 3. Now set `Fst=0.1` (that would correspond to subgroups with different continental ancestries), `vs=0.1` and `g=50`. Are your conclusions from Question 2 different?**
+
+```{R, eval=TRUE}
+CHISQ(N=10000,M=1000,Fst=.1,vs=.1,g=50,nPC=10)
+CHISQ(N=10000,M=1000,Fst=.1,vs=.1,g=50,nPC=50)
+```  
+
+
+<!-- ## Part 2. GWAX -->
